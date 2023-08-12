@@ -1,0 +1,246 @@
+---
+title: NervesとPhoenixでPonchoしたい
+tags:
+  - RaspberryPi
+  - Elixir
+  - Phoenix
+  - Nerves
+private: false
+updated_at: '2021-12-24T09:20:05+09:00'
+id: 99cb5dae38e4abcac326
+organization_url_name: null
+slide: false
+---
+
+[Nerves]のファームウエアに[Poncho projects]と呼ばれる手法を用いて[Phoenix]のUIを搭載したいと思います。
+
+## [Poncho projects]とは
+
+Ponchoプロジェクトのファイル構成は以下のようになります。
+
+```
+hello_poncho
+├── README.md
+├── hello_poncho_firmware
+└── hello_poncho_ui
+```
+
+Elixir界隈では[Poncho projects]に似たようなもので[Umbrella projects]がありますが、Nervesでは[Poncho projects]が一般的には好まれるようです。理由は、Nervesではファームウエアが特別な存在だからと理解してます。
+[Umbrella projects]ではすべての下位プロジェクトを同等に扱われます。
+しかしながら、ファームウエアは他のElixirプロジェクトと異なり、ビルドツールであるため、ファームウエアをメインとして特別視した方が分かりやすいということだと思います。
+
+ディレクトリー名は短くしてもよいのですが、個人的には後々の保全性を考えてあえて冗長なディレクトリー名を使うのが好みです。
+
+```
+MacOS BigSur 11.6
+
+elixir          1.12.3-otp-24
+erlang          24.1
+
+nerves          1.7.11
+phoenix         1.6.2
+```
+
+## やりかた (A): [hello_phoenix] exampleをクローン
+
+一番手軽なやり方は、[Nerves]公式の[hello_phoenix] exampleをクローンすることです。[Nerves]コアチームとコミュニティーにより定期的にアップデートされています。
+万一なにか問題がみつかった場合は、[プルリクエストで貢献する良い機会](https://github.com/nerves-project/nerves_examples/pull/220)となると思います。
+
+[nerves_examples]をクローンして、[hello_phoenix README]の指示に従います。
+
+```bash
+git clone git@github.com:nerves-project/nerves_examples.git
+cd nerves_examples/hello_phoenix
+```
+
+## やりかた (B): From scratch
+
+いちから[hello_phoenix]同様のものを作るのはそんなにむずかしいことではありません。
+
+### Nervesプロジェクトを作る
+
+```sh
+# プロジェクト名を決める
+MY_PROJECT_NAME=hello_poncho
+
+# プロジェクトのディレクトリーを作成して、その中に移動
+mkdir $MY_PROJECT_NAME && cd $MY_PROJECT_NAME
+
+# Nervesファームウエアのプロジェクトを新規作成
+mix archive.install hex nerves_bootstrap
+mix nerves.new "$MY_PROJECT_NAME"_firmware
+
+# Phoenix UIのプロジェクトを新規作成
+mix archive.install hex phx_new
+mix phx.new "$MY_PROJECT_NAME"_ui --no-ecto --no-mailer
+```
+
+### UIプロジェクトの設定
+
+ひとつ大事なことは、Nervesでは開発環境でファームウエアをビルド・デプロイすることも多いと思いますので、（Phoenix 1.6から導入された）[esbuild]の設定に工夫が必要です。
+ホストマシン（開発マシン）以外では[esbuild]のランタイムが不要です。
+
+```elixir:hello_poncho/hello_poncho_ui/mix.exs
+  defp deps do
+    [
+      {:phoenix, "~> 1.6.0"},
+      # ...
+      {:esbuild, "~> 0.2", runtime: Mix.env() == :dev && Mix.target() == :host},
+      # ...
+    ]
+  end
+```
+
+参考までに、ターゲットマシン（ラズパイ等）で[esbuild]のランタイムが走るとこんな感じにファームウエアがクラッシュします。
+
+![](https://user-images.githubusercontent.com/7563926/136958188-3e636ed5-f2da-4012-a43f-37776acaf79d.png)
+
+### UIプロジェクトをファームウエアプロジェクトの依存関係リストに追加
+
+```elixir:hello_poncho/hello_poncho_firmware/mix.exs
+  defp deps do
+    [
+      {:nerves, "~> 1.7", runtime: false},
+      # ...
+      {:hello_poncho_ui, path: "../hello_poncho_ui", targets: @all_targets, env: Mix.env()},
+      # ...
+    ]
+  end
+```
+
+### ファームウエアプロジェクトにてウエブサーバー関連の設定
+
+一つ注意点は、UIプロジェクトに設定を記述してもそれはファームウエアのビルド時には読み込まれないことです。
+ですので、UIの設定もファームウエア側に記述する必要があります。UIプロジェクトから`import`する手もありますが、個人的には必要な設定はすべてファームウエア側に記述する手法が気に入ってます。
+
+```elixir:hello_poncho/hello_poncho_firmware/config/target.exs
+# as of phoenix 1.6.2
+config :hello_poncho_ui, MyAppUiWeb.Endpoint,
+  url: [host: "nerves.local"],
+  http: [port: 80],
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  secret_key_base: "HEY05EB1dFVSu6KykKHuS4rQPQzSHv4F7mGVB/gnDLrIu75wE/ytBXy2TaL3A6RA",
+  live_view: [signing_salt: "AAAABjEyERMkxgDh"],
+  check_origin: false,
+  render_errors: [view: MyAppUiWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Ui.PubSub,
+  # Start the server since we're running in a release instead of through `mix`
+  server: true,
+  # Nerves root filesystem is read-only, so disable the code reloader
+  code_reloader: false
+
+# Use Jason for JSON parsing in Phoenix
+config :phoenix, :json_library, Jason
+```
+
+### WiFiの設定 (任意)
+
+USBガジェットモードを利用して、USB経由で通信する場合は不要です。
+
+```elixir:hello_poncho/hello_poncho_firmware/config/target.exs
+config :vintage_net,
+  regulatory_domain: "US",
+  config: [
+    {"usb0", %{type: VintageNetDirect}},
+    {"eth0",
+     %{
+       type: VintageNetEthernet,
+       ipv4: %{method: :dhcp}
+     }},
+    {"wlan0",
+     %{
+       type: VintageNetWiFi,
+       vintage_net_wifi: %{
+         networks: [
+           %{
+             key_mgmt: :wpa_psk,
+             # 環境変数経由で渡すか、直書きするかご自由に
+             ssid: System.get_env("NERVES_WIFI_SSID"),
+             psk: System.get_env("NERVES_WIFI_PSK")
+           }
+         ]
+       },
+       ipv4: %{method: :dhcp}
+     }}
+  ]
+```
+
+### UIの開発
+
+UIの開発に取り組むときは、`hello_poncho/hello_poncho_ui`ディレクトリーに移動して、[Phoenix]のサーバーを起動します。
+
+```bash
+cd hello_poncho/hello_poncho_ui
+
+iex -S mix phx.server
+```
+
+### ファームウエアのビルド
+
+まずは`hello_poncho/hello_poncho_ui`ディレクトリーにてUIのアセットをビルドします。
+
+```bash
+cd hello_poncho/hello_poncho_ui
+
+export MIX_TARGET=host
+export MIX_ENV=dev
+
+mix deps.get
+
+# アセットをビルド
+mix assets.deploy
+```
+
+そして `hello_poncho/hello_poncho_firmware`ディレクトリーにてファームウエアをビルドします。
+
+```bash
+cd hello_poncho/hello_poncho_firmware
+
+export MIX_TARGET=rpi0
+export MIX_ENV=dev
+
+mix deps.get
+
+# ファームウエアをビルド
+mix firmware
+
+# ファームウエアをMicroSDカードに焼き上げる
+mix firmware.burn
+```
+
+焼き上がったMicroSDカードをターゲットマシンに挿入し、電源オン。
+
+以下のURLで[Phoenix]アプリにアクセスできるはずです。
+http://nerves.local
+
+![](https://user-images.githubusercontent.com/7563926/136714201-a43c7b44-f2f6-427a-bce2-c52a69c89c48.gif)
+
+
+以降、ファームウエアはネットワーク経由でもアップデート可能です。
+
+```bash
+mix firmware
+
+mix upload nerves.local
+```
+
+:tada::tada::tada:
+
+## 資料
+
+- [Poncho Projects | embedded-elixir.com](https://embedded-elixir.com/post/2017-05-19-poncho-projects/)
+- [Nerves Phoenix Web interfaces](https://hexdocs.pm/nerves/user-interfaces.html#phoenix-web-interfaces)
+- [nerves_examples/hello_phoenix](https://github.com/nerves-project/nerves_examples/tree/main/hello_phoenix)
+
+<!-- Links -->
+
+[Nerves]: https://www.nerves-project.org/
+[Phoenix]: http://www.phoenixframework.org/
+[livedashboard]: https://github.com/phoenixframework/phoenix_live_dashboard
+[hello_phoenix]: https://github.com/nerves-project/nerves_examples/tree/main/hello_phoenix
+[hello_phoenix README]: https://github.com/nerves-project/nerves_examples/tree/main/hello_phoenix
+[Poncho projects]: http://embedded-elixir.com/post/2017-05-19-poncho-projects/
+[Umbrella projects]: https://elixir-lang.org/getting-started/mix-otp/dependencies-and-umbrella-projects.html
+[`Application.get_env/3`]: https://hexdocs.pm/elixir/1.12/Application.html#get_env/3
+[esbuild]: https://hexdocs.pm/esbuild/Esbuild.html
+[nerves_examples]: https://github.com/nerves-project/nerves_examples

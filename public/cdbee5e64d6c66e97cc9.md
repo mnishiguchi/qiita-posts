@@ -1,0 +1,220 @@
+---
+title: Elixir Nervesでオレオレシリアル番号をMicroSDに焼く
+tags:
+  - RaspberryPi
+  - Elixir
+  - Nerves
+private: false
+updated_at: '2021-10-04T22:26:39+09:00'
+id: cdbee5e64d6c66e97cc9
+organization_url_name: null
+slide: false
+---
+[Nerves]デバイスに SSH 接続する場合、初期設定では２つの方法があります
+
+- `ssh nerves.local`
+  - [Nerves]デバイスがネットワーク上に 1 台だけの場合、これが便利
+  - 簡単に[`nerves.local` の名前を `orenonerves.local` にする](https://qiita.com/nishiuchikazuma/items/e1f9bb17794ce31efadf)ことも可能
+- `ssh nerves-<4 digit serial#>.local`
+  - [Nerves]デバイスがネットワーク上に複数ある場合、シリアル番号の下 4 桁で識別できてヨシ
+
+```
+$ ssh nerves.local
+
+$ ssh nerves-1cef.local
+```
+
+https://qiita.com/torifukukaiou/items/8ddcdd58b515ee114dbc
+
+https://qiita.com/nishiuchikazuma/items/e1f9bb17794ce31efadf
+
+手持ちのボードの数が増えてくるとそれらを識別する必要が出てきます
+「シリアル番号の下 4 桁」が手っ取り早く便利なのですが、暗記するのが難しいという問題があります
+
+シリアル番号を自分で指定できれば、より便利になると思いますし、直感的に各デバイスにアクセスできる気がします
+
+## やり方
+
+安定の[Nerves Livebook]のファームウェアを利用して自分の好きなシリアル番号を[MicroSD]に焼き付ける方針にしました
+そうすることにより、自分で [`provisioning.conf`]を設定することが不要になります
+
+当初、既存の Nerves プロジェクトに [`provisioning.conf`] ファイルを追加し、[Nerves Livebook]をみようみまねで設定しようとしましたが、うまくいきませんでした
+
+かなり前のバージョン[Nerves v1.2.0](https://hexdocs.pm/nerves/changelog.html#v1-2-0)から [`provisioning.conf`] ファイルを設定できるようになったようなので、[Nerves Livebook] でなくてもできるはずなのですが。。。
+
+### 準備
+
+@torifukukaiou (also known as Awesome さん)の記事が参考になると思います
+
+https://qiita.com/torifukukaiou/items/2f7c9f460fde510356e8
+
+### [Nerves Livebook]ファームウェアをダウンロードする
+
+- [ここ](https://github.com/fhunleth/nerves_livebook/releases)からお手持ちの[ターゲット]に合致する`.fw`ファイルを選択
+- [解説 by @torifukukaiou](https://qiita.com/torifukukaiou/items/2f7c9f460fde510356e8#%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E3%82%A6%E3%82%A7%E3%82%A2%E3%82%92%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B)
+
+### 環境変数を設定
+
+- [設定可能な環境変数のリスト](https://github.com/livebook-dev/nerves_livebook#firmware-provisioning-options)
+- `NERVES_SERIAL_NUMBER`に自分の好きな文字列を指定すると、その文字列が「シリアル番号下 4 桁」の代わりに使用されます
+
+```elixir
+export NERVES_SERIAL_NUMBER='mn40'
+```
+
+USB ガジェットモードまたは Ethernet ケーブルを利用して接続する場合にはなくてもよいのですが、この段階（MicroSD を焼く前）WiFi の設定も [MicroSD]に渡して置くと後に Wifi の設定が不要になり便利です
+
+```elixir
+export NERVES_WIFI_SSID='my-wifi-id'
+export NERVES_WIFI_PASSPHRASE='my-wifi-password'
+```
+
+### [Nerves Livebook]ファームウェアを [MicroSD]カードに焼く
+
+- 前項で準備した環境変数とともにダウンロードした[Nerves Livebook]ファームウェアを [MicroSD]カードに焼きます
+
+```
+$ cd place/the/fw/file/is/located
+$ fwup nerves_livebook_rpi4.fw
+Use 15.98 GB memory card found at /dev/rdisk3? [y/N] y
+100% [====================================] 51.94 MB in / 59.50 MB out
+Success!
+Elapsed time: 10.123 s
+```
+
+[解説 by @torifukukaiou](https://qiita.com/torifukukaiou/items/2f7c9f460fde510356e8#%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E3%82%A6%E3%82%A7%E3%82%A2%E3%82%92%E7%84%BC%E3%81%8F)
+
+### [MicroSD]カードを[ターゲット]に挿入し電源 ON
+
+焼き上がった[MicroSD]カードを[ターゲット]（Raspberry Pi）に挿入し電源 ON
+
+通信のテストをおこないます
+
+`ping nerves.local`（初期設定）と`ping nerves-mn40.local`（カスタム）のどちらでも接続されると思います
+
+```
+$ ping nerves.local
+PING nerves.local (10.0.0.179): 56 data bytes
+64 bytes from 10.0.0.179: icmp_seq=0 ttl=64 time=13.355 ms
+64 bytes from 10.0.0.179: icmp_seq=1 ttl=64 time=9.767 ms
+64 bytes from 10.0.0.179: icmp_seq=2 ttl=64 time=9.744 ms
+...
+```
+
+```
+$ ping nerves-mn40.local
+PING nerves-mn40.local (10.0.0.179): 56 data bytes
+64 bytes from 10.0.0.179: icmp_seq=0 ttl=64 time=3.113 ms
+64 bytes from 10.0.0.179: icmp_seq=1 ttl=64 time=9.616 ms
+64 bytes from 10.0.0.179: icmp_seq=2 ttl=64 time=2.579 ms
+...
+```
+
+### ssh 接続
+
+```
+$ ssh root@nerves-mn40.local
+```
+
+![](https://user-images.githubusercontent.com/7563926/135725520-646e4ca1-98a3-4739-b017-dcfcc5221ce9.png)
+
+[解説 by @torifukukaiou](https://qiita.com/torifukukaiou/items/2f7c9f460fde510356e8#ssh%E6%8E%A5%E7%B6%9A%E4%BB%BB%E6%84%8F)
+
+### [MicroSD]カードに焼かれた情報
+
+[`Nerves.Runtime.serial_number/0`](https://hexdocs.pm/nerves_runtime/Nerves.Runtime.html#serial_number/0)と[`Nerves.Runtime.KV.get_all/0`](https://hexdocs.pm/nerves_runtime/Nerves.Runtime.KV.html#get_all/0)等を用いて、書き込まれた設定を確認できます
+
+後に別のファームウエアをアップロードしても[MicroSD]カードに焼かれた情報は保持されるようです
+
+```sh
+iex> Nerves.Runtime.serial_number
+"mn40"
+
+iex> Nerves.Runtime.KV.get_all
+%{
+  ...
+  "nerves_serial_number" => "mn40",
+  "wifi_force" => "",
+  "wifi_passphrase" => "xxxx",
+  "wifi_ssid" => "xxxx"
+}
+
+iex> :inet.gethostname
+{:ok, 'nerves-mn40'}
+
+iex> MdnsLite.Info.dump_records
+<interface_ipv4>.in-addr.arpa: type PTR, class IN, ttl 120, nerves-mn40.local
+<interface_ipv6>.ip6.arpa: type PTR, class IN, ttl 120, nerves-mn40.local
+_epmd._tcp.local: type PTR, class IN, ttl 120, nerves-mn40._epmd._tcp.local
+_services._dns-sd._udp.local: type PTR, class IN, ttl 120, _epmd._tcp.local
+_services._dns-sd._udp.local: type PTR, class IN, ttl 120, _sftp-ssh._tcp.local
+_services._dns-sd._udp.local: type PTR, class IN, ttl 120, _ssh._tcp.local
+_sftp-ssh._tcp.local: type PTR, class IN, ttl 120, nerves-mn40._sftp-ssh._tcp.local
+_ssh._tcp.local: type PTR, class IN, ttl 120, nerves-mn40._ssh._tcp.local
+nerves-mn40._epmd._tcp.local: type SRV, class IN, ttl 120, priority 0, weight 0, port 4369, nerves-mn40.local.
+nerves-mn40._epmd._tcp.local: type TXT, class IN, ttl 120
+nerves-mn40._sftp-ssh._tcp.local: type SRV, class IN, ttl 120, priority 0, weight 0, port 22, nerves-mn40.local.
+nerves-mn40._sftp-ssh._tcp.local: type TXT, class IN, ttl 120
+nerves-mn40._ssh._tcp.local: type SRV, class IN, ttl 120, priority 0, weight 0, port 22, nerves-mn40.local.
+nerves-mn40._ssh._tcp.local: type TXT, class IN, ttl 120
+nerves-mn40.local: type A, class IN, ttl 120, addr <interface_ipv4>
+nerves-mn40.local: type AAAA, class IN, ttl 120, addr <interface_ipv6>
+nerves.local: type A, class IN, ttl 120, addr <interface_ipv4>
+nerves.local: type AAAA, class IN, ttl 120, addr <interface_ipv6>
+
+:ok
+```
+
+### 別のファームウェアのアップロード
+
+後に別のファームウェアをアップロードしたい場合でも[MicroSD]カードを抜き差し不要です
+シリアル番号が[MicroSD]カードに焼き付けるられているので、それさえ覚えていれば通信でファームウェアのアップロードできるのです
+
+```sh
+# ファームウェアをアップロードするためのスクリプトを生成（PJごとに１回）
+$ mix firmware.gen.script
+```
+
+```sh
+# ファームウェアをビルド
+$ mix firmware
+```
+
+```sh
+# ファームウェアをアップロード
+$ sudo ./upload.sh nerves-mn40.local
+```
+
+## さいごに
+
+手元にはラズパイが5台程ありますが、それぞれに名前をつけられて、管理しやすくなりました
+
+```sh
+# rpi0
+mn00
+mn01
+mn02
+...
+
+# rpi4
+mn40
+...
+```
+
+以前は各デバイスに固定IPを割り当てていました時期もありました
+
+https://qiita.com/torifukukaiou/items/45cfc7bdf73f3f232299
+
+Elixir のリモートもくもく会「autoracex」での成果です
+
+https://autoracex.connpass.com/
+
+ありがとうございます
+
+<!-- Links -->
+
+[nerves]: https://hexdocs.pm/nerves/getting-started.html
+[`provisioning.conf`]: https://github.com/livebook-dev/nerves_livebook/blob/d7c514b9a443183a64c3c21c7a5e77bd761efa7f/config/provisioning.conf
+[nerves livebook]: https://github.com/livebook-dev/nerves_livebook
+[ターゲット]: https://hexdocs.pm/nerves/targets.html
+[microsd]: https://www.google.com/search?q=MicroSD%E3%81%A8%E3%81%AF

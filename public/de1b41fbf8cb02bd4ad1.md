@@ -1,0 +1,56 @@
+---
+title: Android - Fragmentメモ
+tags:
+  - Android
+  - Fragment
+private: false
+updated_at: '2015-09-08T05:47:08+09:00'
+id: de1b41fbf8cb02bd4ad1
+organization_url_name: null
+slide: false
+---
+## Fragment
+
+- シンプルなアプリであっても、常にFragmentを使用した方がよい場合が多い。
+- 後からActivityをFragmentに変更するのはややこしい。
+
+### Support library vs built-in implementation
+
+- あえてSupport libraryを使用すると後にアップデートが簡単。
+
+### Support libraryを使用する利点
+- 例えばfragment APIに新機能が追加された場合、support libraryのバージョンアップによりアプリのアップデートが可能。
+- Support libraryの他の機能も利用可能。
+
+### Support libraryを使用する欠点
+- Support libraryを追加しなければならないこと。しかしながら、１MB以下なので気にする程ではない。
+
+### Support libraryのFragment関連のクラス
+- Fragment (android.support.v4.app.Fragment)
+- FragmentActivity (android.support.v4.app.FragmentActivity)
+
+## Android Studioで依存性を追加
+- Support libraryを使用するためには、プロジェクトの依存性リストに登録されている必要がある。 
+
+1. `app/build.gradle`を開き、現在の依存性を確認する。
+    注意:　`build.gradle`ファイルが２つある: プロジェクト全体用とアプリモジュール用。
+2. File -> Project structure
+![Screenshot 2015-09-07 11.19.48.png](https://qiita-image-store.s3.amazonaws.com/0/82804/fbef2831-8bd4-6063-6f93-a8a177f77d97.png)
+
+3. 左側にあるApp moduleを選択
+4. Dependenciesタブを選択
+![Screenshot 2015-09-07 11.20.52.png](https://qiita-image-store.s3.amazonaws.com/0/82804/5ce888b0-3adb-4278-f924-f0c597e27c10.png)
+
+5. +ボタンを押し、Library dependencyを選択
+![Screenshot 2015-09-07 11.21.35.png](https://qiita-image-store.s3.amazonaws.com/0/82804/d94dd5f8-bf5e-e508-9db3-1de2d12cef89.png)
+
+6. 依存性として追加したいものを選択し、OKをクリック
+![Screenshot 2015-09-07 11.22.41.png](https://qiita-image-store.s3.amazonaws.com/0/82804/fe150e5f-fc96-bb23-60b5-97ce33d3c6d0.png)
+
+# Github
+
+- https://github.com/mnishiguchi/CriminalIntent2
+
+# 参考資料
+
+- https://www.bignerdranch.com/we-write/android-programming/

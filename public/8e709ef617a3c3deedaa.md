@@ -1,0 +1,349 @@
+---
+title: Elixir/Phoenixアプリ用Github Actionsの基本的な設定方法
+tags:
+  - Elixir
+  - Phoenix
+  - CICD
+  - GitHubActions
+private: false
+updated_at: '2021-12-01T07:25:24+09:00'
+id: 8e709ef617a3c3deedaa
+organization_url_name: null
+slide: false
+---
+
+最近[Phoenix](https://www.phoenixframework.org/)と[LiveView](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html)の勉強をしながら自分のポートフォリオPhoenixアプリ[mnishiguchi.com](https://www.mnishiguchi.com/environment)に磨きをかけているのですが、ある程度テストが書けたので[CI/CD](https://ja.wikipedia.org/wiki/CI/CD)（継続的インテグレーションと継続的デプロイ）に取り組もうと思います。プラットフォームとしては色々ありますが、[Github Actions](https://docs.github.com/en/actions)を使うことにしました。想像していたより簡単に設定できたので、まだ試したことない方がいましたらオススメします。
+
+忘れないうちにメモっておこうと思います。自分もなんとなくやっているので詳細は説明しませんが、問題ないと思います。
+
+https://join.slack.com/t/elixirjp/shared_invite/zt-ae8m5bad-WW69GH1w4iuafm1tKNgd~w
+
+https://autoracex.connpass.com/
+
+[English edition](https://dev.to/mnishiguchi/basic-github-actions-setup-for-phoenix-apps-m3g)
+
+**注意点**
+
+以下のサンプルコードは2021年4月時点のものです。サードパーティーのアクション名やバージョンがたまに変わるので、それらを確認することをおすすめします。
+
+## A: 必要最低限の設定
+
+![1](https://user-images.githubusercontent.com/7563926/116171851-98670580-a6d7-11eb-9f7f-de96a83dff73.png)
+
+最もシンプルな設定の例が[erlef/setup-beam](https://github.com/erlef/setup-beam#phoenix-example)アクションのリポジトリにありました。
+
+**手順**
+
+- `.github/workflows`フォルダを作成
+- `.github/workflows/ci.yml`YAMLファイルを作成（ファイル名は任意）
+- YAMLファイルに下記の設定を記述 （OTP/Elixirバージョンは任意）
+
+```yaml
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:latest
+        ports: ['5432:5432']
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v2
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: '23.3.1'
+          elixir-version: '1.11.3'
+      - run: mix deps.get
+      - run: mix test
+```
+
+小さめのPhoenixアプリではこれで十分だと思います。一つ問題点を挙げるとすれば、CIが走る毎に依存関係がインストールされることです。そこに時間がかかり、小さいアプリでも完了に3分くらいかかります。
+
+## B: キャッシュ追加
+
+![2](https://user-images.githubusercontent.com/7563926/116171846-9604ab80-a6d7-11eb-8706-8cc9ccbb9731.png)
+
+公式の[actions/cache](https://github.com/actions/cache)がありました。[各言語の基本的な設定方法](https://github.com/actions/cache/blob/main/examples.md#elixir---mix)も説明されています。後々の事を考えて、依存性のインストールを別のジョブとして切り離しました。そうすることにより、そのキャッシュされた依存性を使用して他のJobを走らせることができます。
+
+```yaml
+on: push
+
+jobs:
+  dependencies:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        elixir: ['1.11.3']
+        otp: ['23.3.1']
+    steps:
+      - name: Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.9.0
+        with:
+          access_token: ${{ github.token }}
+      - name: Checkout Github repo
+        uses: actions/checkout@v2
+      - name: Sets up an Erlang/OTP environment
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: ${{ matrix.elixir }}
+          otp-version: ${{ matrix.otp }}
+      - name: Retrieve cached dependencies
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+      - name: Install dependencies
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: |
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get
+          mix deps.compile
+
+  mix-test:
+    needs: dependencies
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        elixir: ['1.11.3']
+        otp: ['23.3.1']
+    services:
+      db:
+        image: postgres:latest
+        ports: ['5432:5432']
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - name: Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.9.0
+        with:
+          access_token: ${{ github.token }}
+      - name: Checkout Github repo
+        uses: actions/checkout@v2
+      - name: Sets up an Erlang/OTP environment
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: ${{ matrix.elixir }}
+          otp-version: ${{ matrix.otp }}
+      - name: Retrieve cached dependencies
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+      - run: mix test --trace --slowest 10
+```
+
+`dependencies`ジョブでは、キャッシュがヒットした場合`if: steps.mix-cache.outputs.cache-hit != 'true'`により、依存性のインストールが[スキップ](https://github.com/actions/cache#skipping-steps-based-on-cache-hit)されます。これによりCIにかかる時間がかなり削減できます。
+
+[マトリックス](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix)を使うと複数のElixirバージョンに対してテストすることができ便利そうです。
+
+`mix test`に`--trace`オプションと`--slowest 10`オプションを追加することにより付加的情報が得られます。
+
+## C: [静的コード解析追加](https://ja.wikipedia.org/wiki/%E9%9D%99%E7%9A%84%E3%82%B3%E3%83%BC%E3%83%89%E8%A7%A3%E6%9E%90)
+
+![3](https://user-images.githubusercontent.com/7563926/116171840-93a25180-a6d7-11eb-9dfc-9bc528fa990a.png)
+
+せっかくキャシュできるようになったので、いちからやると10分以上かかる[静的コード解析](https://ja.wikipedia.org/wiki/%E9%9D%99%E7%9A%84%E3%82%B3%E3%83%BC%E3%83%89%E8%A7%A3%E6%9E%90)も追加しました。Pierre-Louis Gottfroisさんの記事[Github actions for Elixir & Phoenix app with cache](https://medium.com/@gottfrois/github-actions-for-elixir-phoenix-app-with-cache-6ca33f628459)が参考になりました。成果物をキャッシュすることで1分程度で完了するようになりました。
+
+**手順**
+
+- credo と dialyxir を ` mix.exs`に追加し、`mix deps.get`。
+- YAMLファイルのワークフロー設定を以下のように変更。
+
+```diff_elixir
+ defmodule Mnishiguchi.MixProject do
+   use Mix.Project
+
+   ...
+
+   defp deps do
+     [
+       {:phoenix, "~> 1.5.7"},
+       ...
++      {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
++      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false}
+     ]
+   end
+
+   ...
+```
+
+```yaml
+on: push
+
+jobs:
+  dependencies:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        elixir: ['1.11.3']
+        otp: ['23.3.1']
+    steps:
+      - name: Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.9.0
+        with:
+          access_token: ${{ github.token }}
+      - name: Checkout Github repo
+        uses: actions/checkout@v2
+      - name: Sets up an Erlang/OTP environment
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: ${{ matrix.elixir }}
+          otp-version: ${{ matrix.otp }}
+      - name: Retrieve cached dependencies
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: |
+            deps
+            _build
+            priv/plts
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+      - name: Install dependencies
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p priv/plts
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get
+          mix deps.compile
+          mix dialyzer --plt
+
+  static-code-analysis:
+    needs: dependencies
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        elixir: ['1.11.3']
+        otp: ['23.3.1']
+    steps:
+      - name: Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.9.0
+        with:
+          access_token: ${{ github.token }}
+      - name: Checkout Github repo
+        uses: actions/checkout@v2
+      - name: Sets up an Erlang/OTP environment
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: ${{ matrix.elixir }}
+          otp-version: ${{ matrix.otp }}
+      - name: Retrieve cached dependencies
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: |
+            deps
+            _build
+            priv/plts
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+      - run: mix format --check-formatted
+      - run: mix credo
+      - run: mix dialyzer --no-check --ignore-exit-status
+
+  mix-test:
+    runs-on: ubuntu-latest
+    needs: dependencies
+    strategy:
+      matrix:
+        elixir: ['1.11.3']
+        otp: ['23.3.1']
+    services:
+      db:
+        image: postgres:latest
+        ports: ['5432:5432']
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - name: Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.9.0
+        with:
+          access_token: ${{ github.token }}
+      - name: Checkout Github repo
+        uses: actions/checkout@v2
+      - name: Sets up an Erlang/OTP environment
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: ${{ matrix.elixir }}
+          otp-version: ${{ matrix.otp }}
+      - name: Retrieve cached dependencies
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: |
+            deps
+            _build
+            priv/plts
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+      - run: mix test --trace --slowest 10
+```
+
+## D: Gigalixirに自動でデプロイ
+
+![4](https://user-images.githubusercontent.com/7563926/116171834-91d88e00-a6d7-11eb-905e-8c62f157726f.png)
+
+今まではCI（継続的インテグレーション）の部分に取り組んできましたが、これはCD（継続的デプロイ）になります。@mokichi さんの[Elixir/PhoenixアプリをGitHub ActionsでGigalixirに継続的デプロイする](https://qiita.com/mokichi/items/efe4e87763bfdf589d28)で詳しく説明されています。サードパーティーのアクションを全く使用しなくても、数行で設定できます。
+
+基本的なコンセプトはGigalixirの[公式ドキュメント](https://gigalixir.readthedocs.io/en/latest/deploy.html#how-to-set-up-continuous-integration-ci-cd)で説明されています。
+
+３つの秘密の変数(`GIGALIXIR_EMAIL`, `GIGALIXIR_API_KEY` and `GIGALIXIR_APP_NAME`)を取り組んでいるプロジェクトのGithubリポジトリに登録する必要があります。それについては、[Githubの公式ドキュメント](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository)があります。
+
+一つ注意点は`GIGALIXIR_EMAIL`の値はURIエンコーディングされていないといけないことです。
+
+- 良い例 `foo%40gigalixir.com`
+- 悪い例 `foo@gigalixir.com`
+
+```yaml
+name: CI/CD
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  dependencies:
+    ...
+
+  static-code-analysis:
+    ...
+
+  mix-test:
+    ...
+
+  deploy:
+    needs:
+      - static-code-analysis
+      - mix-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Github repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Deploy to Gigalixir
+        run: |
+          git remote add gigalixir https://${{ secrets.GIGALIXIR_EMAIL }}:${{ secrets.GIGALIXIR_API_KEY }}@git.gigalixir.com/${{ secrets.GIGALIXIR_APP_NAME }}.git
+          git push -f gigalixir HEAD:refs/heads/master
+
+```
+
+他にもデータベースのマイグレーションの自動化等課題がありますが、それらについてはまた追って取り組みます。
+
+以上！
+
+https://join.slack.com/t/elixirjp/shared_invite/zt-ae8m5bad-WW69GH1w4iuafm1tKNgd~w
+
+https://autoracex.connpass.com/

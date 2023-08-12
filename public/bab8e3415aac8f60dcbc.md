@@ -1,0 +1,55 @@
+---
+title: '草莽Erlang ── 20. lists:filtermap'
+tags:
+  - Erlang
+  - Elixir
+  - AdventCalendar2023
+  - 闘魂
+  - アドハラ
+private: false
+updated_at: '2023-01-19T21:37:16+09:00'
+id: bab8e3415aac8f60dcbc
+organization_url_name: fukuokaex
+slide: false
+---
+口で言うより行うことがErlang習得への近道と信じています。
+
+https://qiita.com/mnishiguchi/items/9237780e849d80a85e11
+
+## lists:filtermap
+
+```
+filtermap(fun((term) -> boolean | {true, term}), [term]) -> [term]
+filtermap(要素を取り出す条件, リスト) -> 新しいリスト
+```
+
+[lists:filter](https://www.erlang.org/doc/man/lists.html#filter-2)の処理と[lists:map](https://www.erlang.org/doc/man/lists.html#map-2)の処理を一度に実行します。第一引数に渡す関数は`{true, 新しい値}`もしくは`false`を返します。
+
+https://www.erlang.org/doc/man/lists.html#filtermap-2
+
+```erlang
+% リストから偶数のみを取り出して1000加算する関数
+IsEvenThenAdd1000 = fun(X) -> 
+  case X rem 2 of 
+    0 -> {true, X + 1000}; 
+    1 -> false 
+  end 
+end.
+```
+
+```erlang
+> lists:filtermap(IsEvenThenAdd1000, [1, 2, 3, 4]).
+[1002,1004]
+```
+
+[listsモジュール](https://www.erlang.org/doc/man/lists.html)には他にもリスト処理のための関数がたくさんあります。
+
+## Elixirにも挑戦したい
+
+闘魂ElixirシリーズとElixir Schoolがオススメです。
+
+https://qiita.com/torifukukaiou/items/3b65e5c04fa8c55f526e
+
+https://elixirschool.com/ja
+
+https://qiita.com/piacerex/items/09876caa1e17169ec5e1

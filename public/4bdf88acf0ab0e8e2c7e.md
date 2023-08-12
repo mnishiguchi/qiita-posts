@@ -1,0 +1,198 @@
+---
+title: '[Elixir/Nerves] パルス幅変調 (PWM) Lチカ'
+tags:
+  - RaspberryPi
+  - Elixir
+  - IoT
+  - PWM
+  - Nerves
+private: false
+updated_at: '2020-12-27T01:08:32+09:00'
+id: 4bdf88acf0ab0e8e2c7e
+organization_url_name: null
+slide: false
+---
+日本語 | [English](https://dev.to/mnishiguchi/elixir-nerves-pulse-width-modulation-pwm-for-led-mj2)
+
+本記事は[「#NervesJP Advent Calendar 2020」](https://qiita.com/advent-calendar/2020/nervesjp)の11日目です。
+
+前日は、 @zacky1972 さんの「[Apple M1チップ搭載MacでNervesを動かす方法(2020.12.8暫定版)](https://qiita.com/zacky1972/items/753d2ef5d6bac48af14a)」でした。
+
+本日は、基礎中の基礎、[パルス幅変調 (PWM)](https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%AB%E3%82%B9%E5%B9%85%E5%A4%89%E8%AA%BF) について僕の学んだ内容を自分なりにまとめます。強力なコンテンツが続いたので箸休めになれば幸いです。
+
+## はじめに
+
+さて、皆さんNerves歴は違えど、ほとんどの方はまず[LED](https://ja.wikipedia.org/wiki/%E7%99%BA%E5%85%89%E3%83%80%E3%82%A4%E3%82%AA%E3%83%BC%E3%83%89)を点灯されるところから始められたと思います。僕もそうでした。[Nerves JP](https://nerves-jp.connpass.com/)で@pojiroさんの[Lチカハンズオン回](https://nerves-jp.connpass.com/event/192258/)（ライブ）にてザクッとイメージをつかんで、Lチカをはじめました。そして、どのようにON/OFFするか、そこに自分なりの実装をして[Elixir](https://elixir-lang.org/)プログラミングを楽しみながら、[Nerves](https://www.nerves-project.org/)と[Raspberry Pi](https://ja.wikipedia.org/wiki/Raspberry_Pi)について学びました。
+
+その後は、Nervesでできることは山程あるので、皆さんそれぞれ興味のある分野に分岐していくことになると思います。[2日目](https://qiita.com/kentaro/items/e8df79aa93b9fe9a567e)の@kentaro さんはLチカをWeb API経由でできるよう拡張されていました。僕の場合、なぜかLEDの明るさ調整について興味をもち、パルス幅変調 (PWM) でLチカをしたくなりました。調べてみると、簡単そうで簡単でなく、結構奥が深いことに気づきました。[Nerves JP](https://nerves-jp.connpass.com/)の@kikuyutaさんが[はじめてNerves(5) SPIを使ったA/D変換結果をGPIOのPWMでLチカ](https://qiita.com/kikuyuta/items/a5a0dd72ef926299be7e)を紹介してくれたのでそれを手がかりに調査と実験を行いました。
+
+![](https://user-images.githubusercontent.com/7563926/101246893-076d9e80-36e4-11eb-82f6-47b6bb9ebe21.png)
+
+## パルス幅変調 (PWM)とは
+
+色んな記事やYoutubeビデオをみましたが、最終的に[wikipedia英語版](https://en.wikipedia.org/wiki/Pulse-width_modulation)の以下の図が最も簡潔に本質を説明できていると感じました。
+
+[![](https://upload.wikimedia.org/wikipedia/commons/b/b8/Duty_Cycle_Examples.png)](https://en.wikipedia.org/wiki/Pulse-width_modulation)
+
+[![](https://upload.wikimedia.org/wikipedia/commons/0/02/PWM_duty_cycle_with_label.gif)](https://en.wikipedia.org/wiki/Duty_cycle)
+
+要は波形の周期のスイッチON/OFF比率を変化させるということなんですね。興味深いことに、Lチカの文脈ではPWMで2つのことができます。
+
+### LED点滅のタイミングを変化させる
+
+[周波数](https://ja.wikipedia.org/wiki/%E5%91%A8%E6%B3%A2%E6%95%B0)が低い（1〜2Hz）場合、自分の目でLEDの点滅が確認できます。
+ですので、[デューティ比](https://ja.wikipedia.org/wiki/%E3%83%87%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E6%AF%94)を変化させると、その比率の通りスイッチON/OFFされているのが見えます。
+
+### LEDの明るさを変化させる
+
+周波数を100Hz程まで上げていくと周期あたりの時間が短くなり、ある時点でLEDの点滅が人間の目では追えなくなります。1Hzで１秒周期だったのが、3Hzで約300ms、100Hzでは約10msになります。そのような周波数でデューティ比を変化させると、LEDの明るさが変化しているように見えます。波形グラフの面積を明るさとして考えることができるということです。この[変調方式](https://ja.wikipedia.org/wiki/%E5%A4%89%E8%AA%BF%E6%96%B9%E5%BC%8F)はデジタル信号をアナログに変換させるのに色んなところで使用されているとのことです。サーボモーターの制御もこれなんですね。
+
+@kikuyutaさんの[この記事にある画像](https://qiita.com/kikuyuta/items/a5a0dd72ef926299be7e#pwm-%E3%81%AE%E5%91%A8%E6%9C%9F%E3%82%92%E5%A4%89%E3%81%88%E3%81%A6%E3%81%BF%E3%82%8B)をみるとわかりやすいと思います。
+
+## ソフトPWMとハードPWM
+
+大きく分けてソフトPWMとハードPWMの2種類のPWMがあるということです。
+
+### ソフトPWM
+
+ソフトPWMはソフトウエアのプログラミングによりON/OFFのタイミングを計算し、都度ハードに司令を送り、ON/OFFすることと理解してます。
+
+注意点は高速なON/OFF切り替えには向いていないことです。
+
+> ... If you're trying to drive a servo or dim an LED, look into PWM. Many platforms have PWM hardware and you won't tax your CPU at all. If your platform is missing a PWM, several chips are available that take I2C commands to drive a PWM output. ... - [elixir-circuits/circuits_gpio README](https://github.com/elixir-circuits/circuits_gpio#i-tried-turning-on-and-off-a-gpio-as-fast-as-i-could-why-was-it-slow)
+
+> ... Since the Pi has so few hardware PWM pins, most people (myself included) had either used an I2C->PWM module or used pigpio's DMA controller-based PWM support. pigpio is included in the default Nerves systems for Raspberry Pi specifically for PWM support. If you go the I2C->PWM module route, there are quite a few options. Pololu, Adafruit, and Sparkfun all have modules for them and sometimes have servo connectors if that’s why you’re interested in PWM. ... - [Frank Hunleth in Elixir Forum](https://elixirforum.com/t/rpi4-hardware-pwm-dtoverlay-need-kernel-module/33264/2?u=mnishiguchi)
+
+最初はなぜソフトで高速PWMができないのか理解できませんでしたが、よく考えてみたら当然かもしれません。
+100Hzで10ms周期になりますが、そこにいたるまでの小さい周波数でもミリ秒の精度で計算したら、正確な数字は出ません。
+Elixirの[sleep/1](https://hexdocs.pm/elixir/Process.html#sleep/1)の引数がミリ秒の整数なんですよね。
+
+更にKHzのオーダーになると周期の単位がマイクロ秒となり、遅くても[蚊が1回はばたく時間](https://ja.wikipedia.org/wiki/%E6%99%82%E9%96%93%E3%81%AE%E6%AF%94%E8%BC%83)より早く、5kHzで200µs周期になります。
+
+### ハードPWM
+
+それに対してハードPWMの場合、ソフトウエアからは周波数とデューティ比を渡すのみで、あとはハードが効率よく波形を生成をしてくれるものと理解しています。
+ハードPWMは、機器の仕様に依存しているので、製造メーカーや機種によりPWM対応が異なるとのことです。
+
+[Raspberry Pi's GPIO usage documentation](https://www.raspberrypi.org/documentation/usage/gpio/)によると、Raspberry Piでは下記のGPIOピンでハードPWMを出力できるということです。
+
+- GPIO12
+- GPIO13
+- GPIO18
+- GPIO19
+
+また、対象機器がPWMに対応していなくても、[Adafruit 16-Channel 12-bit PWM/Servo Driver - I2C interface](https://www.adafruit.com/product/815)のようなPWM制御ボードを[I2C](https://ja.wikipedia.org/wiki/I2C)通信で接続することにより、対象機器の仕様に関係なくハードPWMができます。
+
+## 関連Elixirライブラリ
+
+### GPIO (汎用入出力)
+
+初心者がPWMをする場合、[GPIO](https://ja.wikipedia.org/wiki/GPIO)からPWM信号を出力することになると思います。
+
+下記のElixirライブラリでGPIOの操作ができます。
+
+- [circuits_gpio](https://hexdocs.pm/circuits_gpio/Circuits.GPIO.html#content)
+  - Linuxで動くので機器に依存しない。
+  - 高速な処理、またはハードリアルタイム性が求められる場合には適していない。
+- [pigpiox](https://hexdocs.pm/pigpiox/Pigpiox.Pwm.html#content)
+  - Raspberry Pi専用。
+  - [pigpio daemon](http://abyz.me.uk/rpi/pigpio/pigpiod.html)を使用して波形信号を出力可能。
+
+
+### シリアルバス(SPI, I2C等)
+
+PWM制御ボードを接続するのにシリアル通信のためのライブラリーが必要です。使うプロトコルにより[elixir-circuits/circuits_spi](https://github.com/elixir-circuits/circuits_spi)や[elixir-circuits/circuits_i2c](https://github.com/elixir-circuits/circuits_i2c)を使用します。
+うまく抽象化してくれているので、プロトコルの基本を軽く勉強して製品のデータシートを読めば、比較的簡単に周辺機器とのシリアル通信できる印象です。
+
+## 実験
+
+「ソフトPWMはやめときな」という人もいましたが、面白そうだったので、言うことを聞かず[GenServer](https://hexdocs.pm/elixir/GenServer.html)を使ったPWMを実装してみました。当初、ハードPWMについてよくわからなかったという事情もあります。[mnishiguchi/nerves_hello_pwm](https://github.com/mnishiguchi/nerves_hello_pwm)という形でGithubにあげました。特にここではコードの説明はしません。
+
+```
+git clone https://github.com/mnishiguchi/nerves_hello_pwm
+```
+
+### 手作りPWMスケジューラ
+
+```elixir
+# モジュール名を省略するためエイリアスを定義。
+alias NervesHelloPwm.PwmScheduler
+
+# 使用するGPIOピン（ソフトなのでどのGPIOピンでもOK）
+gpio_pin = 12
+
+# LEDへの参照を取得。
+{:ok, led_ref} = Circuits.GPIO.open(gpio_pin, :output)
+
+# ON/OFF関数、周波数（Hz）、デューティー比（％）を指定してPWMスタート。
+PwmScheduler.start_link(%{
+  id: gpio_pin,
+  frequency: 1,
+  duty_cycle: 50,
+  on_fn: fn -> Circuits.GPIO.write(led_ref, 1)  end,
+  off_fn: fn -> Circuits.GPIO.write(led_ref, 0) end
+})
+
+# デューティー比を80％に変更。 on/off比4:1。
+PwmScheduler.change_period(gpio_pin, 1, 80)
+
+# 周波数を2Hzに変更。1Hzと比較して、速度倍増。
+PwmScheduler.change_period(gpio_pin, 2, 80)
+
+# PWM停止。
+PwmScheduler.stop(gpio_pin)
+** (EXIT from #PID<0.1202.0>) shell process exited with reason: shutdown
+```
+
+プロセスをモジュール名とID（この場合GPIOピン番号）との複合IDで[Registry](https://hexdocs.pm/elixir/Registry.html)に登録しているので、複数のLEDを同時に点滅させることもできます。また、LEDで遊ぶだけなら周波数は100Hz程あれば十分と思い、それを上限にしました。
+
+デューティー比を少し変化させても、何も変わらない場合があります。よく考えたら、on/off時間の計算時にが値がミリ秒に四捨五入されてしまうからです。
+
+### [tokafish/pigpioxのPwm.hardware_pwm関数](https://hexdocs.pm/pigpiox/Pigpiox.Pwm.html#content)を利用したハードPWM
+
+やっぱりこっち（ハードPWM）のほうが、きれいにスムーズに明るさが変化します。
+
+```elixir
+gpio = 12
+frequency = 800 # 1.25ms / period
+Pigpiox.Pwm.hardware_pwm(gpio, frequency, 1_000_000) # 100%
+Pigpiox.Pwm.hardware_pwm(gpio, frequency, 500_000)   # 50%
+Pigpiox.Pwm.hardware_pwm(gpio, frequency, 100_000)   # 10%
+Pigpiox.Pwm.hardware_pwm(gpio, frequency, 10_000)    # 1%
+```
+
+ただしtokafish/pigpioxはRaspberry Piでしか使えないので、最も堅い選択肢はPWMボードとのI2C通信だと考えるようになりました。やりたいことができれば何でもいいのですが、I2C・SPI通信だと機器に依存せず省配線で接続できるので知っておいて損もなさそうです。
+
+以前、ひょっとしたら[nerves-project/nerves_leds](https://github.com/nerves-project/nerves_leds)を使用して、任意LEDをLinuxにLチカさせることができないか検討しましたが、Frank Hunlethさんから[できないことはないが、ややこしいのでやめといたようがええよ](https://elixirforum.com/t/can-i-add-an-led-to-sys-class-leds-and-control-it-using-nerves-leds/35425/2?u=mnishiguchi)みたいに言われました。
+
+### PWMボードにシリアル通信してLチカ
+
+次のステップとしてI2Cの勉強をしました。[Adafruit 16-Channel PWM/Servo HAT for Raspberry Pi](https://learn.adafruit.com/adafruit-16-channel-pwm-servo-hat-for-raspberry-pi)を使ってのLチカをやってみました。少ない配線で複数の周辺機器を接続できるシリアル通信はスマートでかっこいいですし、明るさもスムーズに変化させることができます。
+
+[データシート](https://cdn-shop.adafruit.com/datasheets/PCA9685.pdf)の内容が理解できるまでに時間がかかりましたが、慣れれば信頼性も柔軟性も高い選択肢であると実感しました。
+
+詳しい内容はまた別の記事にしようと思います。
+
+![hello_servo](https://user-images.githubusercontent.com/7563926/103154972-9dd43380-4769-11eb-9764-1884492eef82.gif)
+
+
+## さいごに
+
+理解するまでに時間がかかりましたが、PWMは非常に奥が深く色々勉強になりました。新しいことが学べてよかったです。
+そして何より世界中のElixir/Nervesコミュニティが活発であり、皆さん積極的に助け合い、情報共有されていることがAWESOMEです。
+@pojiro さんが[4日目](https://qiita.com/pojiro/items/99a60dc8a4427b79ddc7)で熱く語られていたように、自分もできる範囲でElixirライブラリー等に貢献できればと考えています。（早速、先日[mox](https://github.com/dashbitco/mox/pull/104)に貢献しました。）
+
+2017年頃に一度少しElixirを勉強を初めていながら文法だけ覚えた程度で特になにもしていませんでしたが、@piacerexさんの記事をみてもう一度（今度は本気で）Elixirをやってみようと思うようになりました。またそれがきっかけで、（長年米国在住ながら）日本のElixir/Nervesコミュニティにたどり着けました。ありがとうございます。
+
+[Nerves JP](https://nerves-jp.connpass.com/)の皆さんのおかげで、効率よくNervesを学べています。ありがとうございます。
+
+みなさんから日々インスピレーションを頂いてます。ありがとうございます。
+
+---
+
+明日は@torifukukaiouさんの「kentaro/mix_tasks_upload_hotswap」を試してみる！です。@kentaroさんの[mix_tasks_upload_hotswap](https://github.com/kentaro/mix_tasks_upload_hotswap)については良い噂を聞いているので楽しみです。
+
+Happy coding!
+
+[![](https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.ap-northeast-1.amazonaws.com%2F0%2F240349%2F5ef22bb9-f357-778c-1bff-b018cce54948.png?ixlib=rb-1.2.2&auto=format&gif-q=60&q=75&w=1400&fit=max&s=c746dae99633be5b9eadf524d7a7b191)](https://nerves-jp.connpass.com/)
+

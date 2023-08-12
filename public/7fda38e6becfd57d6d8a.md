@@ -1,0 +1,318 @@
+---
+title: Elixir Circuits.I2CをMoxする
+tags:
+  - mox
+  - Elixir
+  - I2C
+  - Nerves
+private: false
+updated_at: '2022-05-25T22:17:20+09:00'
+id: 7fda38e6becfd57d6d8a
+organization_url_name: null
+slide: false
+---
+https://qiita.com/advent-calendar/2021/nervesjp
+
+[Mox.verify_on_exit!/1]: https://hexdocs.pm/mox/Mox.html#verify_on_exit!/1
+[Mox.stub_with/2]: https://hexdocs.pm/mox/Mox.html#stub_with/2
+[mox]: https://hexdocs.pm/mox/Mox.html
+[José Valim]: https://twitter.com/josevalim
+[mocks-and-explicit-contracts]: https://dashbit.co/blog/mocks-and-explicit-contracts
+[Elixir]: https://elixir-lang.org/docs.html
+[circuits_i2c]: https://github.com/elixir-circuits/circuits_i2c
+[aht20]: https://github.com/elixir-sensors/aht20
+[dialyxir]: https://github.com/jeremyjh/dialyxir
+[behaviour]: https://elixirschool.com/en/lessons/advanced/behaviours/
+[I2C]: https://ja.wikipedia.org/wiki/I2C
+[typespecs-and-behaviours]: https://elixir-lang.org/getting-started/typespecs-and-behaviours.html
+[Circuits.I2C.functions]: https://hexdocs.pm/circuits_i2c/Circuits.I2C.html#functions
+[arity]: https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%AA%E3%83%86%E3%82%A3
+[GenServer]: https://hexdocs.pm/elixir/1.12/GenServer.html
+
+## はじめに
+
+[Elixir]のテストでモックを用意するときに利用する[Elixir]パッケージとして、[mox]が人気です。[Elixir]作者の[José Valim]さんが作ったからということもありますが、ただモックを用意するだけではなく[Elixirアプリの構成をより良くするためのアイデア][mocks-and-explicit-contracts]にまで言及されているので、教科書のようなものと思っています。
+
+一言でいうと「その場しのぎのモックはするべきではない」ということです。モックが必要となる場合はまず契約([behaviour])をしっかり定義し、それをベースにモックを作ります。結果としてコードの見通しもよくなると考えられます。そういった考え方でのモックを作る際に便利なのが[mox]です。
+
+しかしながら、[mox]の設定方法は（慣れるまでは）あまり直感的ではなく、おそらく初めての方はとっつきにくそうな印象を持つと思います。自分なりに試行錯誤して導き出した簡単でわかりやすい[mox]の使い方があるので、今日はそれをご紹介させていだだこうと思います。いろいろなやり方があるうちの一例です。
+
+例として、[circuits_i2c]を用いて温度センサーと通信する[Elixir]コードのモックを考えてみます。
+
+[Elixir]のリモートもくもく会[autoracex](https://autoracex.connpass.com/)でおなじみのオーサムさん（@torifukukaiou）が以前こうおっしゃってました。
+
+> 原典をあたるが一番だとおもいます。
+> 原典にすべて書いてある。
+
+まずは[José Valimさんの記事][mocks-and-explicit-contracts]と[ドキュメント][mox]を一通り読んで頂いて、その上で戸惑った際の一助になれば幸いです。
+
+## 依存関係
+
+- [mox]をインストール。
+- 契約をしっかり定義するためには、それ以前に[型][typespecs-and-behaviours]がちゃんと定義されている必要があります。ですので理想としては[dialyxir]で型チェックした方が良いと個人的には考えてます。
+
+```
+elixir          1.13.0-otp-24
+erlang          24.1.7
+```
+
+```diff_elixir:mix.exs
+    ...
+    defp deps do
+      [
+        ...
++       {:dialyxir, "~> 1.1", only: [:dev, :test], runtime: false},
++       {:mox, "~> 1.0", only: :test},
+        ...
+      ]
+    end
+    ...
+```
+
+```
+$ cd path/to/my_app
+$ mix deps.get
+```
+
+![](https://user-images.githubusercontent.com/7563926/144530740-930d4e57-9ab0-4e0e-bd91-1632bae530dc.png)
+
+## [Circuits.I2C][circuits_i2c]
+
+- [I2C]通信するのに便利な[Elixir]パッケージ。
+- 例えば、Elixirアプリから[I2C]に対応するセンサーと通信するのに使える。
+- センサーが相手のアプリで、どのようにしてセンサーの無いテスト環境でアプリをイゴかせるようにするかが課題。
+
+[Circuits.I2Cに定義されている関数][Circuits.I2C.functions]を確認してみます。これらの関数でセンサーを用いて通信します。
+
+```elixir
+Circuits.I2C.open(bus_name)
+Circuits.I2C.read(i2c_bus, address, bytes_to_read, opts \\ [])
+Circuits.I2C.write(i2c_bus, address, data, opts \\ [])
+Circuits.I2C.write_read(i2c_bus, address, write_data, bytes_to_read, opts \\ [])
+```
+
+以降で`Circuits.I2C`をモックに入れ替えできように工夫して実装していきます。
+
+## [behaviour]を定義する
+
+- まずは「データ転送する層」の契約を定義します。どう定義するかは任意です。
+- 例として、個人的に気に入っているパターンを挙げます。
+
+```elixir:lib/my_app/transport.ex
+defmodule MyApp.Transport do
+  defstruct [:ref, :bus_address]
+
+  ## このモジュールで使用される型
+
+  @type t ::
+          %__MODULE__{ref: reference(), bus_address: 0..127}
+
+  @type option ::
+          {:bus_name, String.t()} | {:bus_address, 0..127}
+
+  ## このbehaviourの要求する関数の型
+
+  @callback open([option()]) ::
+              {:ok, t()} | {:error, any()}
+
+  @callback read(t(), pos_integer()) ::
+              {:ok, binary()} | {:error, any()}
+
+  @callback write(t(), iodata()) ::
+              :ok | {:error, any()}
+
+  @callback write_read(t(), iodata(), pos_integer()) ::
+              {:ok, binary()} | {:error, any()}
+end
+```
+
+## [behaviour]を実装する（本番用）
+
+- 実際のセンサーに接続することを想定した実装。
+- 記述量が比較的少ない場合、僕は便宜上[behaviour]の定義と同じファイルにまとめることが多いです。
+
+```elixir:lib/my_app/transport.ex
+defmodule MyApp.Transport.I2C do
+  @behaviour MyApp.Transport
+
+  @impl MyApp.Transport
+  def open(opts) do
+    bus_name = Access.fetch!(opts, :bus_name)
+    bus_address = Access.fetch!(opts, :bus_address)
+
+    case Circuits.I2C.open(bus_name) do
+      {:ok, ref} ->
+        {:ok, %MyApp.Transport{ref: ref, bus_address: bus_address}}
+
+      {:error, reason} ->
+        {:error, reason}
+    end
+  end
+
+  @impl MyApp.Transport
+  def read(transport, bytes_to_read) do
+    Circuits.I2C.read(transport.ref, transport.bus_address, bytes_to_read)
+  end
+
+  @impl MyApp.Transport
+  def write(transport, data) do
+    Circuits.I2C.write(transport.ref, transport.bus_address, data)
+  end
+
+  @impl MyApp.Transport
+  def write_read(transport, data, bytes_to_read) do
+    Circuits.I2C.write_read(transport.ref, transport.bus_address, data, bytes_to_read)
+  end
+end
+```
+
+## [behaviour]を実装する（スタブ）
+
+- センサーがない環境での実行を想定した実装。
+- モックの基本的な振る舞いを定義。
+- モック自体は空のモジュールで、スタブがモックに振る舞いを与えるイメージ。
+- 引数は[arity]さえあっていればOK。
+- [behaviour]の型に合う正常系の値を返すようにする。
+- 記述量が比較的少ない場合、僕は便宜上[behaviour]と同じファイルにまとめることが多いです。
+- どうしても`test`配下に置きたい場合は、[`test/support`を用意するやり方](https://hexdocs.pm/mox/Mox.html#module-compile-time-requirements)が[mox]のドキュメントに紹介されてます。
+
+```elixir:lib/my_app/transport.ex
+defmodule MyApp.Transport.Stub do
+  @behaviour MyApp.Transport
+
+  @impl MyApp.Transport
+  def open(_opts) do
+    {:ok, %MyApp.Transport{ref: make_ref(), bus_address: 0x00}}
+  end
+
+  @impl MyApp.Transport
+  def read(_transport, _bytes_to_read) do
+    {:ok, "stub"}
+  end
+
+  @impl MyApp.Transport
+  def write(_transport, _data) do
+    :ok
+  end
+
+  @impl MyApp.Transport
+  def write_read(_transport, _data, _bytes_to_read) do
+    {:ok, "stub"}
+  end
+end
+```
+
+## モックのモジュールを準備する
+
+- テスト用にモックのモジュールを準備する。
+
+```diff_elixir:test/test_helper.exs
++ Mox.defmock(MyApp.MockTransport, for: MyApp.Transport)
+
+  ExUnit.start()
+```
+
+## `MyApp.Transport`を用いてアプリを書いてみる
+
+例えば温度をセンサーのから読み込む[GenServer]を書くとこんな感じになります。
+
+```elixir:lib/my_app/comm.ex
+defmodule MyApp do
+  use GenServer
+
+  @type option() :: {:name, GenServer.name()} | {:bus_name, String.t()}
+
+  @spec start_link([option()]) :: GenServer.on_start()
+  def start_link(init_arg \\ []) do
+    GenServer.start_link(__MODULE__, init_arg, name: init_arg[:name])
+  end
+
+  @spec measure(GenServer.server()) :: {:ok, MyApp.Measurement.t()} | {:error, any()}
+  def measure(server), do: GenServer.call(server, :measure)
+
+  @impl GenServer
+  def init(config) do
+    bus_name = config[:bus_name] || "i2c-1"
+
+    # ここでモジュールを直書きしないこと！
+    case transport_mod().open(bus_name: bus_name, bus_address: 0x38) do
+      {:ok, transport} ->
+        {:ok, %{transport: transport}, {:continue, :init_sensor}}
+
+      error ->
+        raise("Error opening i2c: #{inspect(error)}")
+    end
+  end
+
+  ...
+
+  # 動的にモジュールを入れ替えする関数。
+  # これをモジュール属性(@transport_mod)として定義してしまうとコンパイル時に固定されてしまう
+  # ので注意が必要です。関数にしておくとが実行時に評価されるので直感的で無難と思います。
+  defp transport_mod() do
+    Application.get_env(:my_app, :transport_mod, MyApp.Transport.I2C)
+  end
+end
+```
+
+## モックを用いてテストを書いてみる
+
+- `import Mox`で[mox]の関数を使えるようになります。
+- `setup`はおまじないです。
+
+```elixir:test/my_app_test.exs
+defmodule MyAppTest do
+  use ExUnit.Case
+
+  import Mox
+
+  setup :set_mox_from_context
+
+  setup :verify_on_exit!
+
+  setup do
+    # モックにスタブをセットする。これでセンサーがなくてもコードがイゴくようになります。
+    Mox.stub_with(MyApp.MockTransport, MyApp.Transport.Stub)
+    :ok
+  end
+
+  ...
+```
+
+- 各テストで最低限テストしたい部分でexpectを用いて具体的にどの関数がどんな引数をとって、何度呼ばれることが「期待されるか」を指定。
+- 引数は無視してもパターンマッチしてもヨシ。
+- 本物のセンサーではないので、完璧なテストは求めないほうが良いと思います。実物のセンサーではないので。
+
+```elixir:test/my_app_test.exs
+# Mox.expect
+test "measure" do
+  MyApp.MockTransport
+  |> Mox.expect(:read, 1, fn %MyApp.Transport{}, _data ->
+    {:ok, <<28, 113, 191, 6, 86, 169, 149>>}
+  end)
+
+  assert {:ok, pid} = MyApp.start_link()
+  assert {:ok, measurement} = MyApp.measure(pid)
+
+  assert %MyApp.Measurement{
+            humidity_rh: 44.43206787109375,
+            temperature_c: 29.23145294189453,
+            timestamp_ms: _
+          } = measurement
+end
+
+test "measure when read failed" do
+  MyApp.MockTransport
+  |> Mox.expect(:read, 1, fn %MyApp.Transport{}, _data ->
+    {:error, "Very bad"}
+  end)
+
+  assert {:ok, pid} = MyApp.start_link()
+  assert {:error, "Very bad"} = MyApp.measure(pid)
+end
+```
+
+今回ご紹介したパターンは[AHT20のElixirパッケージ](https://github.com/elixir-sensors/aht20)でバリバリ活躍しています。
+
+以上！
+:tada::tada::tada:
