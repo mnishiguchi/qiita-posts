@@ -12,6 +12,11 @@
 #   bin/normalize-filenames.exs --dry-run
 #   bin/normalize-filenames.exs -n
 #
+# ## Notes
+#
+# - Ideally we want to use creation date for naming files but currently only
+# the updated_at timestamp is available.
+#
 
 Mix.install([:yaml_elixir, :timex])
 
