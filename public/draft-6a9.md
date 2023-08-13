@@ -1,0 +1,82 @@
+---
+title: Elixirでディレクトリ内のファイルを一覧を取得する。
+tags:
+  - Elixir
+  - file
+  - wildcard
+  - 元氣
+
+private: false
+updated_at: ''
+id: null
+organization_url_name: fukuokaex
+slide: false
+---
+
+Elixirでディレクトリ内のファイルを列挙する方法について調べました。
+
+## 結論
+
+[File.ls!/1]と[Path.wildcard/1]がお手軽で便利でした。
+
+[Elixir]: https://elixir-lang.org/
+[File.ls!/1]: https://hexdocs.pm/elixir/File.html#ls!/1
+[Path.wildcard/1]: https://hexdocs.pm/elixir/Path.html#wildcard/1
+
+## 実験の準備
+
+ターミナルを開き実験用のディレクトリとファイルを作成します。
+
+```bash
+# 実験用のディレクトリを準備
+mkdir -p tmp/hoge
+
+# 実験用のディレクトリに入る
+cd tmp/hoge
+
+# 2タイプのファイルを複数作成。
+touch genki-{1..3}.json
+touch toukon-{a..c}.exs
+
+ls
+genki-1.json genki-2.json genki-3.json toukon-a.exs toukon-b.exs toukon-c.exs
+```
+
+## IExで実験
+
+```elixir
+# IExを開く
+iex
+
+# File.ls!/1 で全てのファイルを列挙する。
+iex> File.ls!(".")
+["genki-2.json", "genki-3.json", "toukon-c.exs", "toukon-b.exs", "genki-1.json",
+ "toukon-a.exs"]
+
+# 引数無しの場合でも同じく現行ディレクトリで検索がなされる。
+iex> File.ls!()
+["genki-2.json", "genki-3.json", "toukon-c.exs", "toukon-b.exs", "genki-1.json",
+ "toukon-a.exs"]
+
+# Path.wildcard/1 でexsファイルだけ列挙する。
+iex> Path.wildcard("./*.exs")
+["toukon-a.exs", "toukon-b.exs", "toukon-c.exs"]
+
+# Path.wildcard/1 で元氣ファイルだけ列挙する。
+iex> Path.wildcard("./genki-*.json")
+["genki-1.json", "genki-2.json", "genki-3.json"]
+
+# jsonファイルを削除。
+iex> Path.wildcard("./*.json") |> Enum.each(&File.rm!/1)
+:ok
+
+iex> File.ls!()
+["c.exs", "b.exs", "a.exs"]
+
+# exsファイルを削除。
+iex> Path.wildcard("./*.exs") |> Enum.each(&File.rm!/1)
+:ok
+
+iex> File.ls!()
+[]
+```
