@@ -2,13 +2,12 @@
 title: Elixirでディレクトリ内のファイルを一覧を取得する。
 tags:
   - Elixir
-  - file
+  - File
   - wildcard
   - 元氣
-
 private: false
-updated_at: ''
-id: null
+updated_at: '2023-08-14T04:04:47+09:00'
+id: 968755b2ef712a42888d
 organization_url_name: fukuokaex
 slide: false
 ---
