@@ -18,7 +18,7 @@
 # the updated_at timestamp is available.
 #
 
-Mix.install([:yaml_elixir, :timex])
+Mix.install([:yaml_front_matter, :timex])
 
 {parsed_opts, _} =
   System.argv()
@@ -29,35 +29,48 @@ Mix.install([:yaml_elixir, :timex])
 
 public_path = Path.join(File.cwd!(), "public")
 
-for current_filename <- Path.join(public_path, "*.md") |> Path.wildcard() do
-  front_matter_yaml =
-    current_filename
-    |> File.read!()
-    |> String.split("\n---\n")
-    |> Enum.fetch!(0)
+should_rename_fun = fn current_filename ->
+  filename_contains_timestamp = current_filename =~ ~r/\d{8}-/
+  filename_contains_draft = current_filename =~ ~r/draft-/
 
-  parsed_front_matter = YamlElixir.read_from_string!(front_matter_yaml)
-  id = Map.fetch!(parsed_front_matter, "id")
-  title = Map.fetch!(parsed_front_matter, "title")
-  updated_at = Map.fetch!(parsed_front_matter, "updated_at")
+  not filename_contains_timestamp and not filename_contains_draft
+end
+
+draft_id_fun = fn title ->
+  title_hash =
+    title
+    |> :erlang.md5()
+    |> Base.encode16(case: :lower)
+    |> binary_part(0, 3)
+
+  "_draft-#{title_hash}"
+end
+
+new_filename_fun = fn
+  "", "_draft_" <> <<_::binary>> = draft_id, extname ->
+    Path.join(public_path, "#{draft_id}#{extname}")
+
+  updated_at, id, extname ->
+    ymd =
+      updated_at
+      |> Timex.parse!("{ISO:Extended}")
+      |> Timex.format!("%Y%m%d", :strftime)
+
+    Path.join(public_path, "#{ymd}-#{id}#{extname}")
+end
+
+for current_filename <- Path.join(public_path, "*.md") |> Path.wildcard() do
+  {parsed_front_matter, _body} = YamlFrontMatter.parse_file!(current_filename)
+  updated_at = parsed_front_matter["updated_at"] || ""
+  title = parsed_front_matter["title"] || ""
+  id = parsed_front_matter["id"] || draft_id_fun.(title)
   extname = Path.extname(current_filename)
 
   new_filename =
-    if id == "" or updated_at == "" do
-      title_hash =
-        title
-        |> :erlang.md5()
-        |> Base.encode16(case: :lower)
-        |> binary_part(0, 3)
-
-      Path.join(public_path, "draft-#{title_hash}#{extname}")
+    if should_rename_fun.(current_filename) do
+      new_filename_fun.(updated_at, id, extname)
     else
-      ymd =
-        updated_at
-        |> Timex.parse!("{ISO:Extended}")
-        |> Timex.format!("%Y%m%d", :strftime)
-
-      Path.join(public_path, "#{ymd}-#{id}#{extname}")
+      current_filename
     end
 
   if current_filename != new_filename do
