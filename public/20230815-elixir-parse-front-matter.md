@@ -118,7 +118,7 @@ https://elixir-lang.info/
 """
 ```
 
-## front matterを抽出する実験1
+## 実験1
 
 プログ記事を何も加工せずにそのまま渡してみます。
 
@@ -132,7 +132,7 @@ front matterの部分が無視されてそれ以外の本文だけ抽出され�
 "Elixirでディレクトリ内のファイルを列挙する方法について調べました。\nこれからElixirを始める方にはこのサイトがおすすめです。\nhttps://elixir-lang.info/"
 ```
 
-## front matterを抽出する実験2
+## 実験2
 
 [String.split/3]を使うと文字列を分割することができます。front matterの終端を示す`"\n---\n"`で区切ってみます。そして、front matterの文字列だけをYamlElixir.read_from_string!/1に渡します。
 
@@ -158,7 +158,7 @@ front_matter |> YamlElixir.read_from_string!()
 }
 ```
 
-## front matterを抽出する実験3
+## 実験3
 
 これは実験2とほぼ同じですが、正規表現を用いて前処理を実施する試みです。[Regex.named_captures/3]が便利です。
 
@@ -189,7 +189,7 @@ captures["yaml"] |> YamlElixir.read_from_string!()
 }
 ```
 
-## front matterを抽出する実験4
+## 実験4
 
 実験3を終えてから、改めて[hex.pm](https://hex.pm/)で検索していたら、[yaml_elixir]をベースにしてfront matter解析機能を実装した[yaml_front_matter]という別のパッケージが見つかりました。試してみます。
 
