@@ -16,8 +16,6 @@ slide: false
 
 Nerves ファームウェア プロジェクトを新しいバージョンの Nerves System にアップグレードするときに実行する手順についてのメモ。
 
-（現時点では）あくまで個人のメモです。[Nervesチーム][Nerves] の見解ではありません。
-
 [English](https://embedded-elixir.com/post/2023-07-11-nerves-upgrade-guide)
 
 ## Nervesとは
@@ -194,6 +192,3 @@ ls ~/.nerves
 
 rm -fr ~/.nerves
 ```
-
-
-

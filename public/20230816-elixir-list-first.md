@@ -7,7 +7,7 @@ tags:
   - LinkedList
   - 最初
 private: false
-updated_at: '2023-08-17T09:08:44+09:00'
+updated_at: '2023-08-17T20:49:52+09:00'
 id: baabb4ec0636db9f27a6
 organization_url_name: fukuokaex
 slide: false
@@ -30,7 +30,7 @@ https://www.youtube.com/@piacerex
 
 [List]は値の集合です。複数の異なるタイプを含むことができます。一意でない値を含むこともできます。
 
-ひとつ注意点は、[Elixir]のListは[連結リスト]として実装されていることです。今回の実験では特に問題がないですが、他の主要プログラミング言語の配列とは異なるので思い込みは禁物です。
+ひとつ注意点は、[Elixir]の[List]は[連結リスト]として実装されていることです。今回の実験では特に問題がないですが、他の主要プログラミング言語の配列とは異なるので思い込みは禁物です。
 
 https://elixirschool.com/ja/lessons/basics/collections
 
@@ -115,17 +115,39 @@ https://hexdocs.pm/elixir/List.html#first/2
 
 [List.first/2]: https://hexdocs.pm/elixir/List.html#first/2
 
+## Enum.at/2
+
+@torifukukaiou さんからお便りをいただき、これを見落としていたのに気がつきました。ありがとうございます。
+
+[Enum.at/2]は[List.first/2]と同様に空リストの最初の要素を`nil`とします。
+
+```elixir:実験3
+test_fun.(fn list ->
+  Enum.at(list, 0)
+end)
+```
+
+```elixir:結果3
+[nil,
+ nil,
+ 1,
+ 1,
+ 1]
+```
+
+[Enum.at/2]: https://hexdocs.pm/elixir/Enum.html#at/2
+
 ## Enum.fetch/2
 
 [Enum.fetch/2]は空リストの最初の要素を探すことを異常とみなしますが、プログラマーが例外処理しやすいように`{:ok, any} | :error`を出力してくれます。
 
-```elixir:実験3
+```elixir:実験4
 test_fun.(fn list ->
   Enum.fetch(list, 0)
 end)
 ```
 
-```elixir:結果3
+```elixir:結果4
 [:error,
  {:ok, nil},
  {:ok, 1},
@@ -141,13 +163,13 @@ https://hexdocs.pm/elixir/Enum.html#fetch/2
 
 [Enum.fetch!/2]は空リストの最初の要素を探すことを異常とみなし、エラーを起こします。[hd/1]の時と結果が同じです。エラーメッセージは[hd/1]の方が具体的でわかりやすような気がしますが、こっちのエラーの方がスッキリ簡潔です。ここは好みが別れるところかもしれません。
 
-```elixir:実験4
+```elixir:実験5
 test_fun.(fn list ->
   Enum.fetch!(list, 0)
 end)
 ```
 
-```elixir:結果4
+```elixir:結果5
 ["%Enum.OutOfBoundsError{message: \"out of bounds error\"}",
  nil
  1,
@@ -163,14 +185,14 @@ https://hexdocs.pm/elixir/Enum.html#fetch!/2
 
 このパターンは最初の要素と残り全部の2つに分割されます。[List]が空の時はエラーになります。要素が一個の時は大丈夫のようです。
 
-```elixir:実験5
+```elixir:実験6
 test_fun.(fn list ->
   [first | _rest] = list
   first
 end)
 ```
 
-```elixir:結果5
+```elixir:結果6
 ["%MatchError{term: []}",
  nil,
  1,
@@ -184,14 +206,14 @@ https://elixirschool.com/ja/lessons/basics/pattern_matching
 
 このパターンの場合は、要素数がピッタリ一致する場合のみヨシとされます。
 
-```elixir:実験6
+```elixir:実験7
 test_fun.(fn list ->
   [first, _, _] = list
   first
 end)
 ```
 
-```elixir:結果6
+```elixir:結果7
 ["%MatchError{term: []}",
  "%MatchError{term: [nil]}",
  "%MatchError{term: [1]}",
