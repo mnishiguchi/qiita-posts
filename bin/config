@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+
+open "$HOME/.config/qiita-cli"
