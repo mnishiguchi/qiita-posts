@@ -1,5 +1,5 @@
 ---
-title: Apartment Finder のクエリ文字列を解読
+title: ElixirでApartmentFinderのクエリ文字列を解読
 tags:
   - Elixir
   - apartment

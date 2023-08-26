@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# Runs elixir script. If elixir is locally installed, that is used. Else
+# elixir docker image gets downloaded and the script is executed in a container.
+#
+# ## Examples
+#    ./elixir awesome-elixir-script.exs
+#
+if command -v elixir &>/dev/null; then
+  echo "elixir excutable found"
+  elixir "$@"
+else
+  echo "using docker"
+
+  docker run \
+    --rm \
+    --mount type=bind,src="$(pwd)",dst=/app \
+    --workdir /app \
+    elixir:1.15.4-otp-25-slim \
+    elixir "$@"
+fi
+
+echo "done"
