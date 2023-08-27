@@ -3,6 +3,10 @@
 # Normalize blog post filenames based on updated_at and id so that they can be
 # sorted by updated_at date.
 #
+# Files with the following filenames will be ignored
+# - prefixed with "_draft"
+# - prefixed with timestamp
+#
 # ## Usage
 #
 #   # rename files
@@ -16,9 +20,10 @@
 #
 # - Ideally we want to use creation date for naming files but currently only
 # the updated_at timestamp is available.
+# - All the files must be .md files that at least contain empty front matter.
 #
 
-Mix.install([:yaml_front_matter, :timex])
+Mix.install([{:yaml_front_matter, "~> 1.0"}, {:timex, "~> 3.7"}])
 
 {parsed_opts, _} =
   System.argv()
@@ -30,10 +35,11 @@ Mix.install([:yaml_front_matter, :timex])
 public_path = Path.join(File.cwd!(), "public")
 
 should_rename_fun = fn current_filename ->
-  filename_contains_timestamp = current_filename =~ ~r/\d{8}-/
-  filename_contains_draft = current_filename =~ ~r/draft-/
+  current_basename = Path.basename(current_filename)
+  filename_prefixed_with_timestamp = current_basename =~ ~r/\A\d{8}/
+  filename_prefixed_with_draft = current_basename =~ ~r/\A_draft/
 
-  not filename_contains_timestamp and not filename_contains_draft
+  not filename_prefixed_with_timestamp and not filename_prefixed_with_draft
 end
 
 draft_id_fun = fn title ->
@@ -47,7 +53,7 @@ draft_id_fun = fn title ->
 end
 
 new_filename_fun = fn
-  "", "_draft_" <> <<_::binary>> = draft_id, extname ->
+  "", "_draft" <> <<_::binary>> = draft_id, extname ->
     Path.join(public_path, "#{draft_id}#{extname}")
 
   updated_at, id, extname ->
@@ -62,7 +68,7 @@ end
 for current_filename <- Path.join(public_path, "*.md") |> Path.wildcard() do
   {parsed_front_matter, _body} = YamlFrontMatter.parse_file!(current_filename)
   updated_at = parsed_front_matter["updated_at"] || ""
-  title = parsed_front_matter["title"] || ""
+  title = parsed_front_matter["title"] || "to be determined"
   id = parsed_front_matter["id"] || draft_id_fun.(title)
   extname = Path.extname(current_filename)
 
