@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# Generates a new draft file.
+#
+# ## Examples
+#
+#   $ bin/draft hello
+#   hello
+#   created: _draft-hello.md
+#
+#   $ bin/draft
+#   Please provide word for temporary filename.
+#
+set -e
+
+if [ -n "$1" ]; then
+  npx qiita new "_draft-$1"
+else
+  printf "%s\n" "Please provide word for temporary filename."
+fi
