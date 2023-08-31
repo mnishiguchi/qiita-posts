@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# This is a portable version of the "normalize-filenames" Elixir script. This
+# can be run without Elixir installed locally. Docker is required.
+#
+# See https://qiita.com/torifukukaiou/items/aaca74a5033d0ddbc363
+#
+
+docker run \
+       --rm \
+       --name normalize-filenames \
+       --mount type=bind,src="$(pwd)",dst=/app \
+       --workdir /app \
+       elixir:1.15.4-otp-25-slim \
+       elixir bin/normalize-filenames.exs "$@"
