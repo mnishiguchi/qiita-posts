@@ -1,35 +1,36 @@
 ---
-title: Elixir IExでphoenix_pubsubを使いメッセージを出版・購読
+title: Elixir IExでphoenix_pubsubを使いメッセージの出版・購読を楽しむ
 tags:
   - Erlang
   - Elixir
   - Phoenix
-  - 40代駆け出しエンジニア
-  - AdventCalendar2022
+  - PubSub
+  - 分散システム
 private: false
-updated_at: '2022-12-08T11:54:33+09:00'
+updated_at: '2023-08-24T09:33:01+09:00'
 id: 73fc5c088d0f933bcf05
 organization_url_name: fukuokaex
 slide: false
 ---
-
 [Phoenix]アプリで[phoenix_pubsub]を用いて[メッセージを出版・購読するパターン][出版-購読型モデル]がよく見られます。
 
 https://github.com/phoenixframework/phoenix_pubsub
 
-では、[Phoenix]アプリ以外で同様のメッセージのやり取りをするにはどうしたら良いのでしょうか？　
+実は、[phoenix_pubsub]は[Phoenix]アプリ以外でも利用することができ、どんな[Elixir]プロジェクトからでも同様のメッセージのやり取りをすることができます。
 
-何と[phoenix_pubsub]は単体でどんな[Elixir]プロジェクトからでも利用できるのです。みなさん知ってました？
+これから[Elixir]を始める方にはこのサイトがおすすめです。
 
-https://qiita.com/torifukukaiou/items/17d55cf896c24b13350e
+https://elixir-lang.info/
 
-一例として、[IEx]でやってみます。
+[Elixir]とコミュニティの雰囲気をゆるく味わいたい方は「先端ピアちゃん」さんの動画が超オススメです。
 
-## 一つの[IEx]上で[phoenix_pubsub]
+https://www.youtube.com/@piacerex
 
-[IEx]を起動します。
+## 実験：一つのIEx上でphoenix_pubsub
 
-```sh:CMD
+対話Elixirシェル[IEx]で試してみます。　ターミナルを開き、[IEx]を起動します。
+
+```sh:ターミナル
 iex
 ```
 
@@ -40,13 +41,13 @@ iex> Mix.install([{:phoenix_pubsub, "~> 2.0"}])
 ```
 
 `Phoenix.PubSub.Supervisor`を起動します。
-通常は取説に書いてあるようにプロジェクトの`Supervisor`の子プロセスとして起動するところですが、ここでは手動で立ち上げています。
+通常はElixirプロジェクトの`Supervisor`の子プロセスとして`Phoenix.PubSub.Supervisor`を起動することが多いと思いますが、ここでは手動で立ち上げます。
 
 ```elixir:IEx
-iex> Phoenix.PubSub.Supervisor.start_link(name: Toukon.PubSub)
+iex> Phoenix.PubSub.Supervisor.start_link(name: :my_pubsub)
 ```
 
-余談ですが`Phoenix.PubSub.Supervisor`のソースコードは[IEx]のコマンドで開くことができます。
+余談ですが`Phoenix.PubSub.Supervisor`のソースコードは[IEx.Helpers.open/1](https://hexdocs.pm/iex/IEx.Helpers.html#open/1)コマンドで開くことができます。
 
 ```elixir:IEx
 iex> open Phoenix.PubSub.Supervisor
@@ -60,46 +61,46 @@ https://qiita.com/mnishiguchi/items/e62280edae8b2009384a
 iex> topic = "闘魂Elixir"
 ```
 
-購読します。
+話題を購読します。
 
 ```elixir:IEx
-iex> Phoenix.PubSub.subscribe(Toukon.PubSub, topic)
+iex> Phoenix.PubSub.subscribe(:my_pubsub, topic)
 ```
 
-出版します。
+話題に対してメッセージを出版します。
 
 ```elixir:IEx
-iex> Phoenix.PubSub.broadcast(Toukon.PubSub, topic, "完走賞を目指してみましょう！")
+iex> Phoenix.PubSub.broadcast(:my_pubsub, topic, "元氣があればなんでもできる！")
 ```
 
 郵便受けを確認します。
 
 ```elixir:IEx
 iex> flush
-"完走賞を目指してみましょう！"
+"元氣があればなんでもできる！"
 :ok
 ```
 
 ノードは任意の話題を購読するとその話題に対して出版されたメッセージを受け取ることができます。
 
-:tada:
+:tada::tada::tada:
 
-ただ自分で自分で出版したメッセージを自分で購読しても面白くないので、ノードを2つ（`hoge`ノードと`piyo`ノード）立ち上げて同じことをやってみます。
+ただ自分で自分で出版したメッセージを自分で購読しても面白くないので、ノードを2つ（`hoge`ノードと`piyo`ノード）立ち上げて同じことをやってみます。ノードは別々のPCでもOKです。
 
 `hoge`ノードがある話題を購読し、`piyo`ノードが同じ話題に対してメッセージを出版したら、それがの`hoge`ノード郵便受けに届くはずです。
 
-## 二つのノードで[phoenix_pubsub]
+## 実験：二つのノードでphoenix_pubsub 1
 
 `hoge`ノードを立ち上げます。
 
 ```sh:CMD
-iex --sname hoge@localhost --cookie mycookie
+iex --sname hoge@localhost --cookie awesome_cookie
 ```
 
 別のシェルで`piyo`ノードを立ち上げます。
 
 ```sh:CMD
-iex --sname piyo@localhost --cookie mycookie
+iex --sname piyo@localhost --cookie awesome_cookie
 ```
 
 両方のノードで[phoenix_pubsub]をインストールして（同じ名前の）`Phoenix.PubSub.Supervisor`を起動します。
@@ -107,13 +108,13 @@ iex --sname piyo@localhost --cookie mycookie
 ```elixir:hoge
 iex(hoge@localhost)> Mix.install([{:phoenix_pubsub, "~> 2.0"}])
 
-iex(hoge@localhost)> Phoenix.PubSub.Supervisor.start_link(name: Toukon.PubSub)
+iex(hoge@localhost)> Phoenix.PubSub.Supervisor.start_link(name: :my_pubsub)
 ```
 
 ```elixir:piyo
 iex(piyo@localhost)> Mix.install([{:phoenix_pubsub, "~> 2.0"}])
 
-iex(piyo@localhost)> Phoenix.PubSub.Supervisor.start_link(name: Toukon.PubSub)
+iex(piyo@localhost)> Phoenix.PubSub.Supervisor.start_link(name: :my_pubsub)
 ```
 
 `hoge`ノードから`piyo`ノードに接続します。
@@ -129,35 +130,71 @@ iex(hoge@localhost)> Node.list
 `hoge`ノードで`"闘魂Elixir"`という話題を購読します。
 
 ```elixir:hoge
-iex(hoge@localhost)> Phoenix.PubSub.subscribe(Toukon.PubSub, "闘魂Elixir")
+iex(hoge@localhost)> Phoenix.PubSub.subscribe(:my_pubsub, "闘魂Elixir")
 :ok
 ```
 
 `piyo`ノードで`"闘魂Elixir"`という話題に対してメッセージを出版します。
 
 ```elixir:piyo
-iex(piyo@localhost)> Phoenix.PubSub.broadcast(Toukon.PubSub, "闘魂Elixir", "完走賞を目指してみましょう！")
+iex(piyo@localhost)> Phoenix.PubSub.broadcast(:my_pubsub, "闘魂Elixir", "元氣があればなんでもできる！")
 ```
 
 `hoge`ノードの郵便受けを確認。
 
 ```elixir:hoge
 iex(hoge@localhost)> flush
-"完走賞を目指してみましょう！"
+"元氣があればなんでもできる！"
 :ok
 ```
 
 `piyo`ノードが出版したメッセージが`hoge`ノードの郵便受けに届きました。
 
-:tada:
+:tada::tada::tada:
 
 [出版-購読型モデル]ではノードからノードに直接メッセージを送るのではなく、ある話題に興味のある購読者が一斉にメッセージを受け取ることができます。
 
-それに対して、直接特定のノードにメッセージを送りたいときは[:rpc.call/4]で[遠隔手続き呼出し]が便利そうです。
+## 実験：二つのノードでphoenix_pubsub 2
+
+同じことをもっと簡単にできればと思い、コードをパッケージ化しました。
+
+https://github.com/mnishiguchi/kantan_cluster
+
+```elixir:hoge
+iex
+
+iex(hoge@localhost)> Mix.install([{:kantan_cluster, "~> 0.5.0"}])
+iex(hoge@localhost)> KantanCluster.start_node(sname: :hoge, cookie: :awesome_cookie)
+iex(hoge@localhost)> KantanCluster.subscribe("闘魂Elixir")
+```
+
+```elixir:piyo
+iex
+
+iex(piyo@localhost) Mix.install([{:kantan_cluster, "~> 0.5.0"}])
+iex(piyo@localhost) KantanCluster.start_node(sname: :piyo, cookie: :awesome_cookie)
+iex(piyo@localhost) KantanCluster.broadcast("闘魂Elixir", "元氣があればなんでもできる！")
+```
+
+```elixir:hoge
+iex(hoge@localhost)> flush
+"元氣があればなんでもできる！"
+:ok
+```
+
+簡単に[出版-購読型モデル]を楽しめました！
+
+https://qiita.com/mnishiguchi/items/e854de2626028b9ea830
+
+:tada::tada::tada:
+
+## :erpc.call/4で遠隔手続き呼出し
+
+それに対して、直接特定のノードにメッセージを送りたいときは[:erpc.call/4]を用いた[遠隔手続き呼出し]が便利そうです。
 
 https://qiita.com/mnishiguchi/items/e8018b7f981472d2fbf7
 
-ちなみに[phoenix_pubsub]は[Erlang]の[pg]モジュールを使って実装されています。詳しいことは知りません。
+[phoenix_pubsub]は[Erlang]の[pg]モジュールを使って実装されているようです。詳しいことは知りません。
 
 https://github.com/phoenixframework/phoenix_pubsub/blob/7893228b48752437dff20b269ffdf614e07388dc/lib/phoenix/pubsub/pg2.ex
 
@@ -196,7 +233,7 @@ https://qiita.com/piacerex/items/e5590fa287d3c89eeebf
 [phoenix_pubsub]: https://github.com/phoenixframework/phoenix_pubsub
 [遠隔手続き呼出し]: https://ja.wikipedia.org/wiki/%E9%81%A0%E9%9A%94%E6%89%8B%E7%B6%9A%E3%81%8D%E5%91%BC%E5%87%BA%E3%81%97
 [BEAM (Erlang virtual machine)]: https://en.wikipedia.org/wiki/BEAM_(Erlang_virtual_machine)
-[:rpc.call/4]: https://www.erlang.org/doc/man/rpc.html#call-4
+[:erpc.call/4]: https://www.erlang.org/doc/man/erpc.html#call-4
 [IEx.Helpers.open/1]: https://hexdocs.pm/iex/IEx.Helpers.html#open/1
 [Enum.reduce/3]: https://hexdocs.pm/elixir/Enum.html#reduce/3
 [IEx.Helpers.h/1]: https://hexdocs.pm/iex/IEx.Helpers.html#h/1

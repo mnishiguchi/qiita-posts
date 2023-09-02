@@ -1,18 +1,19 @@
 ---
-title: Elixir libcluster ゴシッププロトコルで複数の分散ノードに自動接続
+title: Elixir libcluster ゴシッププロトコルで複数の分散ノードを自動接続
 tags:
   - Erlang
   - Elixir
-  - Gossip protocol
-  - AdventCalendar2023
+  - 分散システム
+  - libcluster
 private: false
-updated_at:
-id:
+updated_at: '2023-08-22T22:17:00+09:00'
+id: e854de2626028b9ea830
 organization_url_name: fukuokaex
 slide: false
 ---
 
-[Elixir]プログラミングにに慣れてくると必ず試してみたくなるのが[OTP の分散機能][elixir school jp otp distribution]だと思います。巷にあるサンプルコードでは[Node.connnect/1]や[Node.ping/1]等を用いて手動でノードを接続するパターンが多いと思いますが、[libcluster]の[Cluster.Strategy.Gossip]を使うと簡単にノードの自動接続ができます。
+
+[Elixir]プログラミングに慣れてくると必ず試してみたくなるのが[OTP の分散機能][elixir school jp otp distribution]だと思います。巷にあるサンプルコードでは[Node.connnect/1]や[Node.ping/1]等を用いて手動でノードを接続するパターンが多いと思いますが、[libcluster]の[Cluster.Strategy.Gossip]を使うと簡単にノードの自動接続ができます。
 
 これから[Elixir]を始める方にはこのサイトがおすすめです。
 
@@ -52,7 +53,7 @@ https://hexdocs.pm/libcluster/Cluster.Strategy.Gossip.html
 
 https://www.erlang.org/doc/reference_manual/distributed.html#security
 
-https://ja.wikipedia.org/wiki/Erlangマジッククッキー
+https://ja.wikipedia.org/wiki/マジッククッキー
 
 ## 実験
 
@@ -144,9 +145,23 @@ iex --sname piyo --cookie genki -S mix
 Node.list
 ```
 
-:tada:
+:tada::tada::tada:
 
-### 資料
+## 本番環境
+
+ゴシップ戦略はノードで遊ぶ時には便利ですが、本番環境では明示的にノード接続した方が無難かもしれません。
+
+[Cluster.Strategy.Epmd]を使って`:host`オプションで接続するメンバーノード（自分のノードを除く）を指定するとそれらだけに接続することができます。
+
+[Cluster.Strategy.Kubernetes]を使ったやり方はこの記事が参考になるかもしれません。
+
+https://qiita.com/mokichi/items/c3157804faa295ce1574
+
+[Cluster.Strategy.DNSPoll]を使った例もあります。
+
+https://qiita.com/RyoWakabayashi/items/b6888b510b20bb7579e8
+
+## 資料
 
 今回の内容についてはこれらの資料が参考になりました。オススメです。他にもいい情報があればぜひお便りください。
 
@@ -160,6 +175,9 @@ https://www.youtube.com/watch?v=zQEgEnjuQsU
 [libcluster]: https://github.com/bitwalker/libcluster
 [クラスタリング戦略]: https://github.com/bitwalker/libcluster#clustering
 [Cluster.Strategy.Gossip]: https://hexdocs.pm/libcluster/Cluster.Strategy.Gossip.html
+[Cluster.Strategy.Epmd]: https://hexdocs.pm/libcluster/Cluster.Strategy.Epmd.html
+[Cluster.Strategy.Kubernetes]: https://hexdocs.pm/libcluster/Cluster.Strategy.Kubernetes.html
+[Cluster.Strategy.DNSPoll]: https://hexdocs.pm/libcluster/Cluster.Strategy.DNSPoll.html
 [elixir school jp otp supervisor]: https://elixirschool.com/ja/lessons/advanced/otp_supervisors
 [elixir school jp otp distribution]: https://elixirschool.com/ja/lessons/advanced/otp_distribution
 [Node.connnect/1]: https://hexdocs.pm/elixir/Node.html#connect/1
