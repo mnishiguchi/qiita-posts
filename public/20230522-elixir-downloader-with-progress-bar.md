@@ -7,7 +7,7 @@ tags:
   - AdventCalendar2023
   - 闘魂
 private: false
-updated_at: '2023-05-22T11:13:49+09:00'
+updated_at: '2023-09-03T06:12:00+09:00'
 id: bc89a10b4a5e80ff0513
 organization_url_name: fukuokaex
 slide: false
@@ -18,15 +18,13 @@ Elixirで進捗状況を表示しながらダウンロードする方法につ�
 
 ## やりたいこと
 
-[Bumblebee](https://github.com/elixir-nx/bumblebee) を使っているときにファイルをダウンロードするとこういうダウンロード進捗表示がでます。これをやってみたいです。コードは自分で書きます。
+[Bumblebee](https://github.com/elixir-nx/bumblebee) を使っているときにファイルをダウンロードするとこういうダウンロード進捗表示がでます。これをやってみたいです。
 
 ![](https://user-images.githubusercontent.com/7563926/239774301-3552fbb4-c575-4d67-b491-9dd7d3c44812.png)
 
 ## Bumblebeeのコード
 
-プライベートの [Bumblebee.Utils.HTTP](https://github.com/elixir-nx/bumblebee/blob/776e57c6b6d06c0fed47afa26d8144c7c2541149/lib/bumblebee/utils/http.ex#L26) モジュールにダウンロード関連のコードがありました。
-
-Erlang の [httpc](https://www.erlang.org/doc/man/httpc.html) モジュールと [ProgressBar](https://github.com/henrik/progress_bar) パッケージを使って実装されています。
+プライベートの [Bumblebee.Utils.HTTP](https://github.com/elixir-nx/bumblebee/blob/776e57c6b6d06c0fed47afa26d8144c7c2541149/lib/bumblebee/utils/http.ex#L26) モジュールにダウンロード関連のコードがありました。Erlang の [httpc](https://www.erlang.org/doc/man/httpc.html) モジュールと [ProgressBar](https://github.com/henrik/progress_bar) パッケージを使って実装されています。
 
 ちなみに [httpc](https://www.erlang.org/doc/man/httpc.html) の使い方はElixir Forum にまとめられています。
 
@@ -41,6 +39,35 @@ source_url = "https://elixir-lang.org/images/logo/logo.png"
 ```
 
 ![](https://elixir-lang.org/images/logo/logo.png)
+
+## progress_bar
+
+[ProgressBar](https://github.com/henrik/progress_bar) パッケージはプログレスバーのアニメーションを提供します。最大値と現在の値はプログラマーが渡します。
+
+![](https://camo.githubusercontent.com/372f059fb3339018c3597222f7514041259c0dc879e16dbd1079d6059147ef37/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f662e636c2e6c792f6974656d732f324e336e3434305330643253326e3337316a30472f70726f67726573735f6261722e676966)
+
+```elixir:IEx
+Mix.install([{:progress_bar, "~> 3.0"}])
+
+{current, max} = {8, 10}
+ProgressBar.render(current, max)
+```
+
+いろんなオプションを渡して見た目を自由に変更することも可能です。
+
+```elixir:IEx
+[99..44, 44..77, 77..0]
+|> Enum.concat()
+|> Enum.each(fn i ->
+  ProgressBar.render(i, 100,
+    bar: " ",
+    bar_color: [IO.ANSI.yellow_background()],
+    blank_color: [IO.ANSI.red_background()]
+  )
+
+  Process.sleep(22)
+end)
+```
 
 ## Reqをつかって進捗表示なしにダウンロード
 
@@ -205,23 +232,5 @@ https://youtu.be/c0LP23SM7BU
 https://okazakirin-beam.connpass.com/
 
 https://autoracex.connpass.com
-
-もしご興味のある方はお氣輕にご參加ください。
-
-https://qiita.com/piacerex/items/09876caa1e17169ec5e1
-
-https://speakerdeck.com/elijo/elixirkomiyunitei-falsebu-kifang-guo-nei-onrainbian
-
-https://qiita.com/torifukukaiou/items/57a40119c9eefd056cae
-
-https://qiita.com/piacerex/items/e0b6e46b1325bb931122
-
-https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
-
-https://qiita.com/piacerex/items/e5590fa287d3c89eeebf
-
-https://qiita.com/torifukukaiou/items/4481f7884a20ab4b1bea
-
-https://note.com/awesomey/n/n4d8c355bc8f7
 
 ![](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/dc1ddba7-ab4c-5e20-1331-143c842be143.jpeg)
