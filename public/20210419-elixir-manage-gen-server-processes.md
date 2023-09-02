@@ -1,12 +1,12 @@
 ---
-title: '[Elixir] GenServerのプロセスをどう管理するか'
+title: Elixir GenServerのプロセスをどう管理するか
 tags:
   - Erlang
   - Elixir
   - OTP
   - GenServer
 private: false
-updated_at: '2023-08-14T06:34:09+09:00'
+updated_at: '2023-09-03T21:23:58+09:00'
 id: 833a6e14511f084438d1
 organization_url_name: fukuokaex
 slide: false
@@ -16,29 +16,28 @@ slide: false
 前日は@Sadalsuudさんの「[ElixirからOpenGLを使って3D空間に描画をする](https://qiita.com/Sadalsuud/items/b393bfbdd566ea08ff56)」でした。
 
 本日は、ElixirのGenServerのプロセスをどう管理するかについてまとめてみようと思います。
-普段仕事ではもっぱらRubyとRailsですが、朝と夜はElixirとNervesを楽しんでます。
 
 ## はじめに
 
 さて、ElixirのGenServerについて学んだとき、ある程度のところまではスムーズにいったのですが、いくつかモヤモヤすることがありました。
 その一つが「GenServerのプロセスをどう管理するか」でした。色々調べて分かってきたので、メモを整理がてらの投稿です。
 
-アイデアの多くは「[Elixir in Action by Saša Juric](https://www.manning.com/books/elixir-in-action-second-edition)」で学んだものですが、サンプルコードは手作りです。
+アイデアの多くは「[Elixir in Action by Saša Juric](https://www.manning.com/books/elixir-in-action-third-edition)」で学んだものですが、勉強のためサンプルコードは手作りしました。
 
 ## 色んなプロセス管理方法
 
-### 登録なしで、pidを覚えておく。
+### pidを覚えておく
 
-- `GenServer.start_link`の戻り値のpidを何らかの方法で覚えておき、それによりプロセスにアクセス。
-- ひとつのモジュールでいくつでもプロセス生成可能。
-- ただし、プロセスが何らかで停止し、新たに生成された場合、そのpidは使い物にならなくなります。
+- `GenServer.start_link`の戻り値のpidを何らかの方法で覚えておき、それを用いてプロセスにアクセス
+- ひとつのモジュールでいくつでもプロセス生成可能
+- プロセスが何らかで停止し、新たに生成された場合、そのpidは使い物にならなくなる
 
 ```elixir
-defmodule MyApp.HelloServer do
+defmodule MyGenkiServerBasic do
   use GenServer
 
-  def start_link(_arg \\ []) do
-    GenServer.start_link(__MODULE__, nil)
+  def start_link(_opts \\ []) do
+    GenServer.start_link(__MODULE__, [], [])
   end
 
   def hello(pid) do
@@ -47,37 +46,38 @@ defmodule MyApp.HelloServer do
 
   @impl true
   def init(_args) do
-    {:ok, nil}
+    {:ok, "闘魂"}
   end
 
   @impl true
   def handle_call(:hello, _from, state) do
-    {:reply, "hello", state}
+    {:reply, "元氣ですか #{inspect(self())}", state}
   end
 end
 ```
 
 ```elixir
 # プロセス起動し、pidを覚えておく。
-iex> {:ok, pid} = MyApp.HelloServer.start_link()
+iex> {:ok, pid} = MyGenkiServerBasic.start_link()
 {:ok, #PID<0.111.0>}
 
 # 覚えておいたpidでプロセスにアクセス。
-iex> MyApp.HelloServer.hello(pid)
-"Hello"
+iex> MyGenkiServerBasic.hello(pid)
+"元氣ですか"
 ```
 
-### モジュールをローカル名として登録。
+### モジュールのアトムをローカル名として登録
 
-- プロセスが一つしかいらない場合に使えるパターン。
-- ローカル名はどんなアトムでも良いが、モジュールのアトム（`__MODULE__`）がよく使われる。
+- プロセスが一つしかいらない場合に使えるパターン
+- ローカル名はどんなアトムでも良いが、モジュールのアトム（`__MODULE__`）がよく使われる
+- ローカル名は分散クラスタを想定しておらず、一つのVMの中でのみ使える
 
 ```elixir
-defmodule MyApp.HelloServerLocalName do
+defmodule MyGenkiServerLocalName do
   use GenServer
 
-  def start_link(id) do
-    GenServer.start_link(__MODULE__, id, name: __MODULE__)
+  def start_link(_opts \\ []) do
+    GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 
   def hello do
@@ -85,39 +85,45 @@ defmodule MyApp.HelloServerLocalName do
   end
 
   @impl true
-  def init(id) do
-    {:ok, %{id: id}}
+  def init(_args) do
+    {:ok, "闘魂"}
   end
 
   @impl true
   def handle_call(:hello, _from, state) do
-    {:reply, "hello", state}
+    {:reply, "元氣ですか #{inspect(self())}", state}
   end
 end
 ```
 
 ```elixir
-# プロセス起動(ID: 111)
-iex> MyApp.HelloServerLocalName.start_link(111)
+# プロセス起動
+iex> MyGenkiServerLocalName.start_link()
 {:ok, #PID<0.205.0>}
 
-# プロセスがモジュール名で登録されているので、pidがなくてもプロセスにアクセス可能。
-iex> MyApp.HelloServerLocalName.hello()
-"Hello"
+# プロセスがモジュール名で登録されているので、pidがなくてもプロセスにアクセス可能
+iex> MyGenkiServerLocalName.hello()
+"元氣ですか"
 
-# ただし、プロセスはひとつしか生成できない。
-iex> MyApp.HelloServerLocalName.start_link(111)
+# ただし、プロセスはひとつしか生成できない
+iex> MyGenkiServerLocalName.start_link()
 {:error, {:already_started, #PID<0.205.0>}}
 ```
 
 ### 動的に生成されたアトムをローカル名として登録（アンチパターン？）
 
-複数のプロセスを登録したい場合にどうしたら良いのか悩みました。自分で一意のアトムを生成したらローカル名として使えそうな気がします。
-しかしながら、Erlangにはアプリが生成できるアトムの数に上限があるので注意が必要です。
-アトムは一度生成されるとガーべジコレクトされないので、アトムをIDとして無数に生成できるというのはあまり好ましくなさそうです。前もって、いくつくらいプロセスを生成したいのが分かってる場合はこれでもいいかのもしれません。
+複数のプロセスを登録したい場合にどうしたら良いのか悩みました。自分で一意のアトムを生成したらローカル名として使えそうな気がしますが、Erlangにはアプリが生成できるアトムの数に上限があるので注意が必要です。アトムは一度生成されるとガーべジコレクトされないので、アトムをIDとして無数に生成できるというのはあまり好ましくなさそうです。
 
 ```elixir
-defmodule MyApp.HelloServerDynamicName do
+# アトム数の上限
+iex> :erlang.system_info(:atom_limit)
+1048576
+```
+
+前もって、いくつくらいプロセスを生成したいのが分かってる場合はこれでもいいかのもしれません。
+
+```elixir
+defmodule MyGenkiServerDynamicName do
   use GenServer
 
   def process_name(id) do
@@ -125,7 +131,7 @@ defmodule MyApp.HelloServerDynamicName do
   end
 
   def start_link(id) do
-    GenServer.start_link(__MODULE__, id, name: process_name(id))
+    GenServer.start_link(__MODULE__, [], name: process_name(id))
   end
 
   def hello(id) do
@@ -133,43 +139,46 @@ defmodule MyApp.HelloServerDynamicName do
   end
 
   @impl true
-  def init(id) do
-    {:ok, %{id: id}}
+  def init(_args) do
+    {:ok, "闘魂"}
   end
 
   @impl true
   def handle_call(:hello, _from, state) do
-    {:reply, "hello", state}
+    {:reply, "元氣ですか #{inspect(self())}", state}
   end
 end
 ```
 
 ```elixir
-# アトム数の上限
-iex> :erlang.system_info(:atom_limit)
-1048576
-
 # 現時点で存在するアトム数
 iex> :erlang.system_info(:atom_count)
 15802
 
 # プロセスを1000個スタート
-iex> (0..999) |> Enum.each(fn x -> MyApp.HelloServerDynamicName.start_link(x) end)
-:ok
+(0..999) |> Enum.each(fn x -> MyGenkiServerDynamicName.start_link(x) end)
 
-# アトムが大量に生成される。この場合1167個増。
+# アトムが大量に生成される
 iex> :erlang.system_info(:atom_count)
 16969
+
+# プロセスにアクセスできることを確認
+iex> MyGenkiServerDynamicName.hello(1)
+"元氣ですか"
+
+iex> MyGenkiServerDynamicName.hello(2)
+"元氣ですか"
 ```
 
 ### `Registry`と`via_tuple`を使用する
 
-- `Registry`にプロセスを登録することにより、`via_tuple`をプロセス名をして使用できます。関数名を`via_tuple`とするのが慣例のようです。
-- `Registry`では複合キーでプロセスを登録できるので、ID用にアトムを生成する必要はありません。
-- 当然ですが、`Registry`のプロセスを先に起動させておく必要があります。
+- `Registry`に複合キー`via_tuple`でプロセスを登録することにより、`via_tuple`でプロセスにアクセス可能
+- `via_tuple`という関数名が慣例のようだが、別の関数名でもOK
+- `Registry`では複合キーでプロセスを登録できるので、動的にアトムを生成することが不要
+- `Registry`のプロセスを先に起動させておくことが必要
 
 ```elixir
-defmodule MyApp.ProcessRegistry do
+defmodule MyProcessRegistry do
   def via_tuple(key) when is_tuple(key) do
     {:via, Registry, {__MODULE__, key}}
   end
@@ -183,22 +192,22 @@ defmodule MyApp.ProcessRegistry do
   end
 end
 
-defmodule MyApp.HelloServerViaTuple do
+defmodule MyGenkiServerViaTuple do
   use GenServer
 
   def via_tuple(id) do
-    MyApp.ProcessRegistry.via_tuple({__MODULE__, id})
+    MyProcessRegistry.via_tuple({__MODULE__, id})
   end
 
   def whereis(id) do
-    case MyApp.ProcessRegistry.whereis_name({__MODULE__, id}) do
+    case MyProcessRegistry.whereis_name({__MODULE__, id}) do
       :undefined -> nil
       pid -> pid
     end
   end
 
   def start_link(id) do
-    GenServer.start_link(__MODULE__, id, name: via_tuple(id))
+    GenServer.start_link(__MODULE__, [], name: via_tuple(id))
   end
 
   def hello(id) do
@@ -206,13 +215,13 @@ defmodule MyApp.HelloServerViaTuple do
   end
 
   @impl true
-  def init(id) do
-    {:ok, %{id: id}}
+  def init(_args) do
+    {:ok, "闘魂"}
   end
 
   @impl true
   def handle_call(:hello, _from, state) do
-    {:reply, "hello", state}
+    {:reply, "元氣ですか #{inspect(self())}", state}
   end
 end
 ```
@@ -223,24 +232,32 @@ iex> :erlang.system_info(:atom_count)
 15807
 
 # Registryのプロセスを起動
-iex> MyApp.ProcessRegistry.start_link()
+iex> MyProcessRegistry.start_link()
 {:ok, #PID<0.421.0>}
 
 # プロセスを1000個スタート
-iex> (0..999) |> Enum.each(fn x -> MyApp.HelloServerViaTuple.start_link(x) end)
+iex> (0..999) |> Enum.each(fn x -> MyGenkiServerViaTuple.start_link(x) end)
 :ok
 
-# （動的アトム使用時と比較して）アトムの生成が抑えられているのを確認。この場合212個増。
+# （動的アトム使用時と比較して）アトムの生成が抑えられているのを確認
 iex> :erlang.system_info(:atom_count)
 16019
+
+# プロセスにアクセスできることを確認
+iex> MyGenkiServerViaTuple.hello(1)
+"元氣ですか"
+
+iex> MyGenkiServerViaTuple.hello(2)
+"元氣ですか"
 ```
 
 ### グローバル名で登録
 
-- クラスター全体にロックがかかるので、複数ノード間で安全にプロセスを共有できる。
+- 複数ノード間で安全にプロセスを共有できる
+- クラスター全体にロックがかかるらしい
 
 ```elixir
-defmodule MyApp.HelloServerGlobalName do
+defmodule MyGenkiServerGlobalName do
   use GenServer
 
   def whereis(id) do
@@ -260,7 +277,7 @@ defmodule MyApp.HelloServerGlobalName do
   def start_link(id) do
     case whereis(id) do
       nil ->
-        {:ok, pid} = GenServer.start_link(__MODULE__, id)
+        {:ok, pid} = GenServer.start_link(__MODULE__, [], [])
         register_process(pid, id)
       pid ->
         {:ok, pid}
@@ -272,13 +289,13 @@ defmodule MyApp.HelloServerGlobalName do
   end
 
   @impl true
-  def init(id) do
-    {:ok, %{id: id}}
+  def init(_args) do
+    {:ok, "闘魂"}
   end
 
   @impl true
   def handle_call(:hello, _from, state) do
-    {:reply, "hello", state}
+    {:reply, "元氣ですか #{inspect(self())}", state}
   end
 end
 ```
@@ -299,14 +316,13 @@ iex(node2@localhost)> Node.connect(:node1@localhost)
 true
 ```
 
-それぞれのIEXにサンプルコードをコピペし、プロセスが共有されていることを確認。
+それぞれのIEXにサンプルコードをコピペし、プロセスが複数のノード（VM）で共有されていることを確認。
 
 <img width="1286" alt="Screen Shot 2020-12-10 at 8 55 20 AM" src="https://user-images.githubusercontent.com/7563926/101781881-5d688a80-3ac6-11eb-86c2-ef130045e85f.png">
 
 ## さいごに
 
 きれいにまとまったと自負しています。迷ったらここに来たらいいと思うと気が楽になります。
-ひょっとしたら、間違いがあるかもしれないし、他のパターンがあるかもしれないので、その都度更新していこうと思います。
 
 「[Elixir その2 Advent Calendar 2020](https://qiita.com/advent-calendar/2020/elixir2)」に勉強していて個人的に大事と思った内容を共有しているのでよかったらそちらも御覧ください。本日は「[Elixirの"Hello"と'Hello'](https://qiita.com/mnishiguchi/items/ca56167faee1ceb16c00)」です。
 

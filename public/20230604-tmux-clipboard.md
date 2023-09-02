@@ -1,5 +1,5 @@
 ---
-title: tmux の コピペ と クリップボード
+title: tmuxのコピペとクリップボード
 tags:
   - Vim
   - Linux
@@ -7,7 +7,7 @@ tags:
   - Linuxコマンド
   - neovim
 private: false
-updated_at: '2023-06-04T03:32:33+09:00'
+updated_at: '2023-09-03T05:31:17+09:00'
 id: b8526fecd69aa87d2f7e
 organization_url_name: fukuokaex
 slide: false
@@ -16,7 +16,7 @@ slide: false
 
 古い macbook に [Linux Mint] 21 をインストールして復活させました。普段は仕事で macOS を使っているので、[Linux Mint] に行ったりきたりしやすいように工夫を試みています。その一環として可能な限り [OS][オペレーティングシステム] を問わずに共通の設定で [neovim] と [tmux] を使えるように取り組んでいます。今回は、「[tmux] の コピペ と [クリップボード]」について調べてわかったことをメモします。
 
-世の中にはいろんな [OS][オペレーティングシステム] が存在しますが、ここでは macOS と [Linux Mint] しか登場しません。[Linux Mint] の中身は [Ubuntu] らしいので、[Linux Mint] は 多分 [Ubuntu] と読み替えてもいいと思います。しらんけど。
+世の中にはいろんな [OS][オペレーティングシステム] が存在しますが、ここでは macOS と [Linux Mint] しか登場しません。[Linux Mint] の中身は [Ubuntu] らしいので、[Linux Mint] は 多分 [Ubuntu] と読み替えてもいいと思います。
 
 ![linux_mint_on_mac](https://user-images.githubusercontent.com/7563926/226134164-83465202-bd6b-4e44-a327-1a4ee27ea543.jpg)
 

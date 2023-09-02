@@ -1,15 +1,28 @@
 ---
 title: Elixir 全プロセスIDのリストを取得
 tags:
+  - Erlang
   - Elixir
-  - 40代駆け出しエンジニア
-  - AdventCalendar2022
+  - iex
+  - 分散システム
+  - Livebook
 private: false
-updated_at: '2023-05-24T22:47:16+09:00'
+updated_at: '2023-09-03T05:51:35+09:00'
 id: 990be2c72cb526681d0b
 organization_url_name: fukuokaex
 slide: false
 ---
+
+[elixir]で開発しているときに[プロセスID][Processes]を見失ってしまうことはないでしょうか。そういうときはとりあえず全プロセスIDのリストの取得すると何か手がかりが見つかるかもしれません。
+
+https://qiita.com/torifukukaiou/items/17d55cf896c24b13350e
+
+この記事を読んで知りました。
+
+https://samuelmullen.com/articles/elixir-processes-observability/
+
+<!-- begin hyperlink list -->
+
 [elixir]: https://elixir-lang.org/
 [erlang]: https://www.erlang.org/
 [phoenix]: https://www.phoenixframework.org/
@@ -29,35 +42,29 @@ slide: false
 [Process.list/0]: https://hexdocs.pm/elixir/Process.html#list/0
 [Process.info/2]: https://hexdocs.pm/elixir/Process.html#info/2
 [Processes]: https://elixir-lang.org/getting-started/processes.html
-
-[elixir]で開発しているときに[プロセスID][Processes]を見失ってしまうことはないでしょうか。そういうときはとりあえず全プロセスIDのリストの取得すると何か手がかりが見つかるかもしれません。
-
-https://qiita.com/torifukukaiou/items/17d55cf896c24b13350e
-
-この記事を読んで知りました。
-
-https://samuelmullen.com/articles/elixir-processes-observability/
+<!-- end hyperlink list -->
 
 ## 論よりRUN (IEx)
 
 早速[IEx]を開きます。
 
-```
+```bash:terminal
 iex
 ```
 
 [IEx]が印字できるリスト長の制限を無効化。デフォルトでは50個まで。
 
-```elixir
+```elixir:IEx
 IEx.configure inspect: [limit: :infinity]
 ```
 
 現在の環境で存在している全てのプロセスIDを取得する。
 [Process.list/0]と[Process.info/2]を組み合わせて有用な情報を取得。
 
-```elixir
-for pid <- Process.list do
-  {pid, Process.info(pid, :registered_name) |> elem(1)}
+```elixir:IEx
+for pid <- Process.list() do
+  {_, registered_name} = Process.info(pid, :registered_name)
+  {pid, registered_name}
 end
 ```
 
@@ -67,21 +74,15 @@ end
 
 Livebook で RUN する場合は、Kino のデータテーブルを使うと結果が見やすくなります。
 
-```elixir
-Mix.install(
-  [
-    {:kino, "~> 0.9.3"},
-  ]
-)
+```elixir:Livebook
+Mix.install([{:kino, "~> 0.10.0"}])
 
-for pid <- Process.list do
-  [{:pid, pid}, Process.info(pid, :registered_name)]
-end
+Process.list()
+|> Enum.map(fn pid -> [{:pid, pid}, Process.info(pid, :registered_name)] end)
 |> Kino.DataTable.new()
 ```
 
 ![CleanShot 2023-05-24 at 09.42.44.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/b75f7509-943b-8b32-c963-c4e1c1bb5cd1.png)
-
 
 ## ご参考までに
 

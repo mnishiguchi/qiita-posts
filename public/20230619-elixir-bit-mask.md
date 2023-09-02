@@ -7,12 +7,14 @@ tags:
   - Bitwise
   - AdventCalendar2023
 private: false
-updated_at: '2023-06-19T04:46:46+09:00'
+updated_at: '2023-09-03T05:31:17+09:00'
 id: 1e0a1dd8de64dbb95d62
 organization_url_name: fukuokaex
 slide: false
 ---
-C言語の勉強をしていたら、ビット演算が出てきました。Elixirでもビットマスクをやりたくなってきました。やります。
+C言語の勉強をしていたら、ビット演算が出てきました。[Elixir]でもやってみようと思います。
+
+[Elixir]: https://elixirschool.com/ja/why
 
 ## ビットマスク
 
@@ -86,10 +88,10 @@ Elixirではこうやります。
 整数の二進法表記を確認したい場合は、`Integer.to_string/2`もしくは`inspect/2`が便利です。どのフラグが立っているのか視覚的に確認できて有用です。
 
 ```elixir
-8 |> Integer.to_string(2) 
+8 |> Integer.to_string(2)
 # "1000"
 
-8 |> inspect(base: :binary) 
+8 |> inspect(base: :binary)
 # "0b1000"
 ```
 
@@ -112,7 +114,7 @@ AND 0011 (decimal 3)
 Elixirではこうやります
 
 ```elixir
-0b0001 = 0b0101 |> band(0b0011) 
+0b0001 = 0b0101 |> band(0b0011)
 ```
 
 ```elixir
@@ -134,7 +136,7 @@ OR 0011 (decimal 3)
 Elixirではこうやります
 
 ```elixir
-0b0111 = 0b0101 |> bor(0b0011) 
+0b0111 = 0b0101 |> bor(0b0011)
 ```
 
 ```elixir
@@ -156,7 +158,7 @@ XOR 0011 (decimal 3)
 Elixirではこうやります
 
 ```elixir
-0b0110 = 0b0101 |> bxor(0b0011) 
+0b0110 = 0b0101 |> bxor(0b0011)
 ```
 
 ## Elixirでビットマスク

@@ -6,7 +6,7 @@ tags:
   - neovim
   - LanguageServerProtocol
 private: false
-updated_at: '2023-06-19T04:57:37+09:00'
+updated_at: '2023-09-03T05:31:17+09:00'
 id: 03863db76e1ed1431c50
 organization_url_name: fukuokaex
 slide: false
@@ -80,7 +80,7 @@ https://github.com/LuaLS/lua-language-server/wiki/Diagnostics#undefined-global
 
 ![CleanShot 2023-06-17 at 18.43.49.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/cacfe83a-fcd4-69e2-2e51-303bf9fd097e.png)
 
-## .luarc.json 
+## .luarc.json
 
 Lua言語サーバーの動作をカスタマイズする方法が複数あるそうです。その一つが `.luarc.json` ファイルです。
 
