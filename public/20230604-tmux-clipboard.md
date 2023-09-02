@@ -7,7 +7,7 @@ tags:
   - Linuxコマンド
   - neovim
 private: false
-updated_at: '2023-06-04T03:32:33+09:00'
+updated_at: '2023-09-03T05:31:17+09:00'
 id: b8526fecd69aa87d2f7e
 organization_url_name: fukuokaex
 slide: false

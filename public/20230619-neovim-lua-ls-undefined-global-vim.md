@@ -6,7 +6,7 @@ tags:
   - neovim
   - LanguageServerProtocol
 private: false
-updated_at: '2023-06-19T04:57:37+09:00'
+updated_at: '2023-09-03T05:31:17+09:00'
 id: 03863db76e1ed1431c50
 organization_url_name: fukuokaex
 slide: false

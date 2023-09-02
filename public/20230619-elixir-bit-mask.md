@@ -7,7 +7,7 @@ tags:
   - Bitwise
   - AdventCalendar2023
 private: false
-updated_at: '2023-06-19T04:46:46+09:00'
+updated_at: '2023-09-03T05:31:17+09:00'
 id: 1e0a1dd8de64dbb95d62
 organization_url_name: fukuokaex
 slide: false
