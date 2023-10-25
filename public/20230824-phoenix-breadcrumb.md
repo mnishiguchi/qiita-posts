@@ -11,6 +11,7 @@ updated_at: '2023-08-25T20:15:40+09:00'
 id: 48faa6c0fe960b2a0464
 organization_url_name: fukuokaex
 slide: false
+ignorePublish: false
 ---
 
 ウエブアプリの[パンくずリスト]が好きなので、[Elixir] [Phoenix]アプリでも使えるようにコンポーネントを作ってみました。

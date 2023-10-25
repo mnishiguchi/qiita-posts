@@ -9,6 +9,7 @@ updated_at: '2023-08-17T11:12:41+09:00'
 id: 0a9a11db704356e8ef35
 organization_url_name: fukuokaex
 slide: false
+ignorePublish: false
 ---
 [Elixir] プロジェクトを [Hex] パッケージとしてリリースする際には、ドキュメントを書かきますが、パッケージのうたい文句を書く部分が複数あり同じ内容を何箇所かに複写することもあると思います。
 

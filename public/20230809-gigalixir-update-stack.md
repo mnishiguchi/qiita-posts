@@ -11,6 +11,7 @@ updated_at: '2023-08-17T11:12:41+09:00'
 id: 3b7dc3d377eeb010a70c
 organization_url_name: fukuokaex
 slide: false
+ignorePublish: false
 ---
 
 かなり前に[Gigalixir]にデプロイした[Phoenix]アプリが長い間ほったらかしになっていたので、久しぶりにメンテナンスをしました。
