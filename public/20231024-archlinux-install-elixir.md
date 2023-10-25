@@ -1,13 +1,13 @@
 ---
 title: Arch Linux に Elixir をインストール
 tags:
-  - archLinux
   - Erlang
+  - Linux
+  - archLinux
   - Elixir
   - asdf
-  - Linux
 private: false
-updated_at: '2023-10-25T11:00:49+09:00'
+updated_at: '2023-10-25T11:11:54+09:00'
 id: 122249b6c27391f03d82
 organization_url_name: fukuokaex
 slide: false
