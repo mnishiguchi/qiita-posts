@@ -11,6 +11,7 @@ updated_at: '2023-08-22T11:01:00+09:00'
 id: baabb4ec0636db9f27a6
 organization_url_name: fukuokaex
 slide: false
+ignorePublish: false
 ---
 
 [Elixir]でListの最初の要素を取得する方法についていくつか考えてみました。一見初歩中の初歩のように見えますが、実は複数のやり方があり、その使い分けがエンジニアとしての腕の見せどころにもなりえます。

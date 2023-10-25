@@ -10,6 +10,7 @@ updated_at: '2023-08-22T22:17:00+09:00'
 id: e854de2626028b9ea830
 organization_url_name: fukuokaex
 slide: false
+ignorePublish: false
 ---
 
 

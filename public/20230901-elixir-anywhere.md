@@ -11,6 +11,7 @@ updated_at: '2023-09-02T08:41:59+09:00'
 id: 79dfd4ea3d00b959c142
 organization_url_name: fukuokaex
 slide: false
+ignorePublish: false
 ---
 
 [Elixir]プログラマーは [Elixir]が好きなあまり、ついついなんでもかんでも[Elixir]でプログラムを記述しがちです。その点における一つ課題は、[Elixir]プログラミングをしない人のPCに必ずしも[Elixir]の実行環境があるわけではなく[Elixir]プログラムを実行できない場合があるということです。

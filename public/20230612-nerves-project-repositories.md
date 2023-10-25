@@ -10,6 +10,7 @@ updated_at: '2023-06-12T03:42:56+09:00'
 id: e5815670297796aba784
 organization_url_name: fukuokaex
 slide: false
+ignorePublish: false
 ---
 [Nervesチーム][Nerves] がどのように開発を進めているのか、どのように [Hex] パッケージをリリースしているのかを知るために、リポジトリをざーっと観察してみました。あくまで個人のメモです。[Nervesチーム][Nerves] の見解ではありません。
 

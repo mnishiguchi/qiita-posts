@@ -10,6 +10,7 @@ updated_at: '2023-08-27T20:49:05+09:00'
 id: 53c68d1a2006d97c8a72
 organization_url_name: fukuokaex
 slide: false
+ignorePublish: false
 ---
 
 [Nerves]でファームウエアをビルドする時は、通常は[取扱説明書](https://hexdocs.pm/nerves/getting-started.html#creating-a-new-nerves-app)の通りの手順で[Nervesコアチームが公式サポートするNervesシステム](https://github.com/nerves-project/nerves#hardware)を利用することが多いと思います。それらはパッケージ化されており、自分のNervesプロジェクトの依存性リストに追加するだけで自動的に必要なバイナリをダウンロードしてくれます。

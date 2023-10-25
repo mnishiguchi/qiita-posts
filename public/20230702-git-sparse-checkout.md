@@ -11,6 +11,7 @@ updated_at: '2023-07-02T07:43:56+09:00'
 id: 750ac1cd62abff7c38f5
 organization_url_name: fukuokaex
 slide: false
+ignorePublish: false
 ---
 [git sparse-checkout] という技を[とある「誰得」Qiita 記事](https://qiita.com/torifukukaiou/items/cebf4729fb4368a68d8a)からまなびました。ありがとうございます。早速使ってみようと思います。
 

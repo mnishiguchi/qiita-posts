@@ -11,6 +11,7 @@ updated_at: '2023-08-24T09:33:01+09:00'
 id: 73fc5c088d0f933bcf05
 organization_url_name: fukuokaex
 slide: false
+ignorePublish: false
 ---
 [Phoenix]アプリで[phoenix_pubsub]を用いて[メッセージを出版・購読するパターン][出版-購読型モデル]がよく見られます。
 
