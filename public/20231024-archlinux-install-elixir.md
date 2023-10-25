@@ -7,7 +7,7 @@ tags:
   - Elixir
   - asdf
 private: false
-updated_at: '2023-10-25T11:11:54+09:00'
+updated_at: '2023-10-25T12:21:07+09:00'
 id: 122249b6c27391f03d82
 organization_url_name: fukuokaex
 slide: false
@@ -58,9 +58,16 @@ asdf update
 
 https://qiita.com/torifukukaiou/items/9009191de6873664bb58
 
+
+あと、ターミナルの起動時に asdf のスクリプトが実行されるようにしたいのですが、これはお使いのシェルにより異なりますので、[ドキュメント](https://asdf-vm.com/guide/getting-started.html#_3-install-asdf)をご参照ください。以下は bash の一例です。
+
+```bash:~/.bashrc
+. "$HOME/.asdf/asdf.sh"
+```
+
 ## Erlang のインストール
 
-[Elixir] は [Erlang VM] 上で動作するので [Elixir] をインストールする前に Erlang をインストールされている必要があります。
+[Elixir] は [Erlang VM] 上で動作するので [Elixir] をインストールする前に Erlang がインストールされている必要があります。
 
 まず必要なパッケージをインストールします。
 
@@ -119,7 +126,7 @@ iex
 
 適当に Elixir を楽しみます。
 
-```bash:IEx
+```elixir:IEx
 Mix.install([{:progress_bar, "~> 3.0"}])
 
 my_life = fn ->
