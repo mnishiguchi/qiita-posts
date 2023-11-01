@@ -1,15 +1,15 @@
 ---
 title: Elixir Phoenix 1.7.9 で heroicons の アイコンを使う
 tags:
-  - heroicons
+  - 初心者
   - Elixir
   - Phoenix
   - tailwindcss
-  - 初心者
+  - heroicons
 private: true
-updated_at:
-id:
-organization_url_name:
+updated_at: '2023-11-02T08:35:01+09:00'
+id: 870906623a5e1c5d793c
+organization_url_name: null
 slide: false
 ignorePublish: false
 ---
