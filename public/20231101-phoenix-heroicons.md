@@ -106,6 +106,10 @@ https://www.phoenixdiff.org/compare/1.7.1...1.7.2
 
 https://github.com/phoenixframework/phoenix/blob/main/CHANGELOG.md#172-2023-03-20
 
+### 1.7.3 以降
+
+その後は大きな変更はないようです。
+
 ## Phoenix で heroicons を更新する方法
 
 [heroicons] は第三者パッケージでありいつどのような変更が起きるか分かりません。
@@ -121,10 +125,6 @@ export HERO_VSN="2.0.16" ; \
       tar -xvz --strip-components=1 heroicons-${HERO_VSN}/optimized
 ```
 
-### 1.7.3 以降
-
-その後は大きな変更はないようです。
-
 ## Elixir Forum での議論
 
 Phoenix 1.7.1 で [heroicons_elixir] パッケージが取り除かれた際には、賛否両論がありました。
@@ -139,7 +139,7 @@ https://elixirforum.com/t/phoenix-1-7-1-thank-you-for-making-heroicons-css-enabl
 - 非公式の heroicons パッケージを作ってメンテナンスするに値するメリットはあるのか
 - 以前他のフレームワークでWEB開発していた時にアイコンの管理で痛い目にあった
 
-## 最後に
+## さいごに
 
 [heroicons] を [Phoenix] アプリで利用するにあたって色んな選択肢があることがわかりました。
 
