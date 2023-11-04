@@ -7,7 +7,7 @@ tags:
   - tailwindcss
   - heroicons
 private: true
-updated_at: '2023-11-05T06:42:49+09:00'
+updated_at: '2023-11-05T06:49:41+09:00'
 id: 870906623a5e1c5d793c
 organization_url_name: null
 slide: false
