@@ -143,11 +143,13 @@ https://qiita.com/ko1nksm/items/60b67cb24aa4ae634dd5
 
 #### Dockerfile の中でホストマシンの OS を検知する方法
 
-まずは、ホストマシンの OS を検知する方法ですが、これは簡単です。
+まずは、ホストマシンの OS を検知する方法ですが、これは簡単です。`uname` コマンドがあります。
 
-```sh:macOS
+```sh:ホストマシンのターミナル
 uname
 ```
+
+macOS だと `Darwin`、Linux だと `Linux` という文字列が買えると思います。
 
 あとは [@koyo-miyamura さんの記事]で紹介されている方法を応用します。
 
