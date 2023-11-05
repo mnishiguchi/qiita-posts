@@ -238,12 +238,11 @@ https://qiita.com/mnishiguchi/items/11bd7a1e1784fc86dacc
 
 [inotify-tools] がないとこういうエラーがでます。このエラーを見たら思い出してください。
 
-```
-[error] `inotify-tools` is needed to run `file_system` for your system, check https://github.com/rvoicilas/inotify-tools/wiki for more information about how to install it. If it's already installed but not be found, appoint executable file with `config.exs` or `FILESYSTEM_FSINOTIFY_EXECUTABLE_FILE` env.
-```
+> [error] `inotify-tools` is needed to run `file_system` for your system, check https://github.com/rvoicilas/inotify-tools/wiki for more information about how to install it. If it's already installed but not be found, appoint executable file with `config.exs` or `FILESYSTEM_FSINOTIFY_EXECUTABLE_FILE` env.
 
 [Tailwind CSS]: https://tailwindcss.com/
 [DaisyUI]: https://daisyui.com/
+[inotify-tools]: https://github.com/inotify-tools/inotify-tools
 
 ## さいごに
 
