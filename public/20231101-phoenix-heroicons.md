@@ -72,6 +72,12 @@ https://hex.pm/packages?search=heroicon&sort=recent_downloads
 
 [heroicons] は Phoenix のバージョン 1.7.0 から導入されたようですが、パッチバージョンが上がるにつれて仕様が随分変わりました。
 
+もしお使いの [Phoenix] のバージョンが古い場合は最新版への差分を確認すると何か手掛かりが得られるかもしれません。
+
+https://www.phoenixdiff.org/compare/1.6.15...1.7.9
+
+https://qiita.com/torifukukaiou/items/9b31826be9788f1ce796
+
 ### 1.7.0
 
 この時点では、[heroicons_elixir] が依存パッケージとして `mix.exs` に追加されています。
