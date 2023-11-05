@@ -63,7 +63,7 @@ npm --version
 通常 Node パッケージは `assets/` ディレクトリ配下に置かれることが多いようです。（最上位の階層ではなく）`assets/` ディレクトリの中で `npm install` を実行します。
 
 ```sh:daisyuiをインストールする例（cd）
-(cd assets && npm install --save-dev --prefix assets tailwindcss daisyui)
+(cd assets && npm install --save-dev tailwindcss daisyui)
 ```
 
 `npm install` の `--prefix` オプションが便利です。
