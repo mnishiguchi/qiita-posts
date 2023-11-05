@@ -214,10 +214,12 @@ RUN mix local.hex --force && \
 余談ですが、`nodejs` と `npm` は [DaisyUI] 等の [Tailwind CSS] のプラグイン を使いたい場合などに必要となります。初期設定の [Phoenix] での時点ではそれらは不要です。
 
 ```sh:daisyuiのインストール
-npm install --save-dev --prefix tailwindcss daisyui
+npm install --save-dev --prefix assets tailwindcss daisyui
 ```
 
 https://github.com/phoenixframework/tailwind#tailwind
+
+https://qiita.com/mnishiguchi/items/11bd7a1e1784fc86dacc
 
 [Tailwind CSS]: https://tailwindcss.com/
 [DaisyUI]: https://daisyui.com/
