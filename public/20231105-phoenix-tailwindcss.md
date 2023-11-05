@@ -1,5 +1,5 @@
 ---
-title: Phoenix 1.7 で Tailwind CSS を使う
+title: Elixir Phoenix 1.7 で Tailwind CSS を使う
 tags:
   - 初心者
   - Elixir
