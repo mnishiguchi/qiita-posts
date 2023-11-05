@@ -38,6 +38,7 @@ https://moneyforward-dev.jp/entry/2023/08/31/100000
 [Docker]: https://docs.docker.jp/get-started/overview.html
 [Docker Compose]: https://docs.docker.com/compose
 [@koyo-miyamura さんの記事]: https://qiita.com/koyo-miyamura/items/a609de2e9fadaf198243
+[Linux]: https://ja.wikipedia.org/wiki/Linux
 
 ## 未解決の部分
 
@@ -224,6 +225,6 @@ https://qiita.com/mnishiguchi/items/11bd7a1e1784fc86dacc
 
 ## さいごに
 
-今回の作業を通して、Docker コンテナをさまざまな開発マシンで動かす技を習得するとともに、[Docker]、[Docker Compose]、Linux等についての理解を深めることができました。
+今回の作業を通して、Docker コンテナをさまざまな開発マシンで動かす技を習得するとともに、[Docker]、[Docker Compose]、[Linux] 等についての理解を深めることができました。
 
 https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
