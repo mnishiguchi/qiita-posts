@@ -145,9 +145,16 @@ RUN if [ "$HOST_OSTYPE" = "Linux" ]; then \
 
 [RUN] に渡すスクリプトはワンライナーでなければなりません。でもそれだと人間にはみにくいので、バックスラッシュ（`\`）で適当に見た目を整えます。
 
-シェルスクリプトの変数はダブルクォートしなければいけないそうなので、そうするように心がけています。
+シェルスクリプトの変数はダブルクォートした方がいいそうなので、そうするように心がけています。
+
+> - シェルスクリプトはただの文字列はクォートしなくても良い
+> - 変数を使う場合は単語分割やパス名展開が行われないように必ずダブルクォートする
+> - もし本当に単語分割やパス名展開が必要なら理解してからダブルクォートを外す
+> - そんなことよりさっさと ShellCheck を導入しよう！
 
 https://qiita.com/ko1nksm/items/60b67cb24aa4ae634dd5
+
+本件の場合はダブルクォートしなくてもいいのですが、今後うっかり罠にかからないよう自分のスクリプトでは冗長的にダブルクォートする方針にします。
 
 [RUN]: https://docs.docker.jp/engine/articles/dockerfile_best-practice.html#run
 [ENTRYPOINT]: https://docs.docker.jp/engine/articles/dockerfile_best-practice.html#entrypoint
