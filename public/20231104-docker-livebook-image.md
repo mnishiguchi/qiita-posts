@@ -55,6 +55,8 @@ https://paraxial.io/blog/elixir-savings
 
 https://autoracex.connpass.com/
 
+https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
+
 [Livebook の README]: https://github.com/livebook-dev/livebook#docker
 [Livebook]: https://livebook.dev/
 [Phoenix]: https://www.phoenixframework.org/

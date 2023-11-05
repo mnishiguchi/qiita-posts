@@ -144,3 +144,5 @@ https://elixirforum.com/t/phoenix-1-7-1-thank-you-for-making-heroicons-css-enabl
 [heroicons] を [Phoenix] アプリで利用するにあたって色んな選択肢があることがわかりました。
 
 [Phoenix] チームがフレームワークにアイコンを含めてくれているので、特にこだわりがなければそれを使うのが一番楽そうです。
+
+https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
