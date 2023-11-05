@@ -1,14 +1,14 @@
 ---
 title: Elixir Phoenix 1.7 で ローディングアイコンを使う
 tags:
+  - CSS
   - 初心者
   - Elixir
   - Phoenix
   - tailwindcss
-  - css
 private: true
-updated_at: ''
-id:
+updated_at: '2023-11-06T01:08:54+09:00'
+id: 46b3bf16dc14874f9a50
 organization_url_name: null
 slide: false
 ignorePublish: false
