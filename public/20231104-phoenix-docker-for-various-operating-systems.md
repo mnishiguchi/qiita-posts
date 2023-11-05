@@ -53,7 +53,13 @@ https://moneyforward-dev.jp/entry/2023/08/31/100000
 
 > 今回のDockerfileは一例ですので、alpineを使わないようにしてみるなど、プロジェクトの構成に併せて適宜カスタマイズしてみてください！（alpine使わずに動かす Dockerfile 書いたらぜひ記事にして教えてください！）
 
-オープンソースソフトウエアのコミュニティーではこういうのを見て見ぬ振りするのは好ましくありません。何らかの恩返しを試みます！
+[オープンソースソフトウェア]のコミュニティではこういうのを見て見ぬ振りするのは好ましくありません。何らかの恩返しを試みます！
+
+## オープンソースソフトウェア
+
+> オープンソースソフトウェアの利用者は共同開発者のように扱われる。利用者はソフトウェアのソースコードにアクセスすることができ、ソフトウェアへの機能追加、ソースコードの修正、バグの報告、ドキュメントの提出が可能である。利用者はそれらをソフトウェア開発のメインストリームに反映することができるし、利用者が望むのであれば自身の製品として頒布することもできる。オープンソースソフトウェアで複数の共同開発者を持つことは、ソフトウェアの発展を手助けする。-- [Wikipedia][オープンソースソフトウェア]
+
+[オープンソースソフトウェア]: https://ja.wikipedia.org/wiki/オープンソースソフトウェア
 
 ## 実行環境
 
@@ -90,13 +96,22 @@ Docker Compose version 2.23.0
 
 ## 問題1: Mac 側の GID が衝突してしまう
 
-厳密にいうと解決されています。[@koyo-miyamura さんの記事]ではマルチステージビルドで２種類のビルドターゲットを用意し、ホストマシンのOSに応じて使い分けるという技で解決されていました。ホストマシンを設定する人間が、自分で判断してセットアップ手順を使い分けないといけないという問題は残ります。
+厳密にいうと [@koyo-miyamura さんの記事]でに解決されています。[@koyo-miyamura さんの記事]ではマルチステージビルドで２種類のビルドターゲットを用意し、ホストマシンのOSに応じて使い分けるという技で解決されていました。しかしながら、ホストマシンを設定する人間が、自分で判断してセットアップ手順を使い分けないといけないという問題は残ります。
 
 ここでは、ビルドターゲットを分けずに共通のセットアップ手順で解決する方法に取り組んでみます。
 
+### 調査
+
+同様の問題に取り組んでいる Github Issue を一つ見つけました。
+
+https://github.com/pyro-ppl/pyro/issues/700
+
+https://github.com/pyro-ppl/pyro/pull/719/files
+
+
 ### 解決案
 
-一つ思いついたのが `Dockerfile` の中でホストマシンの OS により条件分岐するということです。
+`Dockerfile` の中でホストマシンの OS により条件分岐するというやり方を検討してみようと思います。
 
 [@koyo-miyamura さんの記事]で、問題の現象が macOS で group の設定を行うときだけに起きることがわかっているので、ホストマシンが macOS の時に group の設定をやらないようにすれば上手くいくはずです。
 
@@ -164,13 +179,13 @@ ARG HOST_OSTYPE
 
 ## 問題2: alpine 以外のイメージで Dockerfile を書く
 
-### 解決案
-
 [Phoenix 公式ドキュメント](https://hexdocs.pm/phoenix/releases.html#containers)で紹介されている Docker イメージでやってみようと思います。
 
-https://hexdocs.pm/phoenix/releases.html#containers
+### 調査
 
 [Debian GNU/Linux] をベースにしたイメージが使用されています。
+
+https://hexdocs.pm/phoenix/releases.html#containers
 
 最新版を Dockerhub で検索します。
 
@@ -178,7 +193,9 @@ https://hub.docker.com/r/hexpm/elixir/tags?name=debian-bookworm-20230612
 
 [Debian GNU/Linux]: https://en.wikipedia.org/wiki/Debian
 
-依存関係のインストールや user/group の設定が異なるようなので適宜調整が必要です。
+### Dockerfile で実行するコードの調整
+
+依存関係のインストールや user/group の設定が OS により異なるので適宜調整が必要です。
 
 ## できたもの
 
@@ -214,11 +231,17 @@ RUN mix local.hex --force && \
     mix archive.install --force hex phx_new
 ```
 
-余談ですが、`nodejs` と `npm` は [DaisyUI] 等の [Tailwind CSS] のプラグイン を使いたい場合などに必要となります。初期設定の [Phoenix] の時点ではそれらは不要です。
+余談ですが、`nodejs` と `npm` は [DaisyUI] 等の [Tailwind CSS] のプラグイン を使いたい場合などに必要となります。初期設定の [Phoenix] アプリではそれらは不要です。
 
 https://github.com/phoenixframework/tailwind#tailwind
 
 https://qiita.com/mnishiguchi/items/11bd7a1e1784fc86dacc
+
+[inotify-tools] がないとこういうエラーがでます。このエラーを見たら思い出してください。
+
+```
+[error] `inotify-tools` is needed to run `file_system` for your system, check https://github.com/rvoicilas/inotify-tools/wiki for more information about how to install it. If it's already installed but not be found, appoint executable file with `config.exs` or `FILESYSTEM_FSINOTIFY_EXECUTABLE_FILE` env.
+```
 
 [Tailwind CSS]: https://tailwindcss.com/
 [DaisyUI]: https://daisyui.com/

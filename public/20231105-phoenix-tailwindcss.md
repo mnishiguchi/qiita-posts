@@ -38,6 +38,10 @@ https://qiita.com/torifukukaiou/items/9b31826be9788f1ce796
 
 https://tailwindcss.com/docs/padding
 
+[Tailwind CSS]　提供の [heroicons] アイコンも `.icon` 関数コンポーネントを通して使えるようになっています。
+
+https://qiita.com/mnishiguchi/items/870906623a5e1c5d793c
+
 ## tailwind（Elixir パッケージ）
 
 Phoenix 1.7 で導入されたのはこの Elixir パッケージです。[README](https://github.com/phoenixframework/tailwind#tailwind) によると、プリコンパイルされたスタンドアロンの Tailwind クライアントがインストールされるとのことです。
