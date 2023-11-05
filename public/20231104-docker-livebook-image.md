@@ -7,7 +7,7 @@ tags:
   - Phoenix
   - Livebook
 private: true
-updated_at: '2023-11-05T11:07:12+09:00'
+updated_at: '2023-11-05T12:45:41+09:00'
 id: 93fca196918f911b3c2d
 organization_url_name: null
 slide: false
