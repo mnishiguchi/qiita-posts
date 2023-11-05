@@ -179,7 +179,7 @@ https://hub.docker.com/r/hexpm/elixir/tags?name=debian-bookworm-20230612
 
 ## できたもの
 
-```Dockerfile:例
+```Dockerfile:Dockerfile
 FROM hexpm/elixir:1.15.7-erlang-26.1.1-debian-bookworm-20230612-slim
 
 ARG HOST_USER_NAME
