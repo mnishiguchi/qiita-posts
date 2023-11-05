@@ -141,7 +141,7 @@ https://docs.docker.com/engine/reference/builder/#run
 RUN if [ "$HOST_OSTYPE" = "Linux" ]; then echo "This is a Linux machine."; fi
 ```
 
-[RUN] に渡すスクリプトはワンライナーでなければなりません。でもそれだと人間にはみにくいので、バックスラッシュ（`\`）で適当に見た目を整えます。
+[RUN] に渡すスクリプトはワンライナーでなければなりません。でもそれだと人間にはみにくいので、バックスラッシュ（`\`）で分割して適当に見た目を整えます。
 
 ```Dockerfile:例
 RUN if [ "$HOST_OSTYPE" = "Linux" ]; then \
