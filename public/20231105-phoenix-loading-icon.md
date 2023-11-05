@@ -6,7 +6,7 @@ tags:
   - Elixir
   - Phoenix
   - tailwindcss
-private: true
+private: false
 updated_at: '2023-11-06T01:08:54+09:00'
 id: 46b3bf16dc14874f9a50
 organization_url_name: null
