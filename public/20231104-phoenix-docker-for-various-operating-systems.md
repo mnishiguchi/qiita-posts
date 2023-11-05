@@ -6,10 +6,10 @@ tags:
   - Docker
   - Phoenix
   - docker-compose
-private: true
+private: false
 updated_at: '2023-11-05T12:45:41+09:00'
 id: e367743bca3520e2a387
-organization_url_name: null
+organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
 ---

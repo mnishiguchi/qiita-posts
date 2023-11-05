@@ -6,10 +6,10 @@ tags:
   - Docker
   - Phoenix
   - Livebook
-private: true
+private: false
 updated_at: '2023-11-05T12:45:41+09:00'
 id: 93fca196918f911b3c2d
-organization_url_name: null
+organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
 ---
