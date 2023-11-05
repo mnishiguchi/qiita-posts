@@ -138,23 +138,26 @@ https://docs.docker.com/engine/reference/builder/#run
 試行錯誤の結果こんな感じで書けることがわかりました。このスタイルで行きます。
 
 ```Dockerfile:例
-RUN if [ "$HOST_OSTYPE" = "Linux" ]; then \
-      echo "This is a Linux machine." \
-    fi
+RUN if [ "$HOST_OSTYPE" = "Linux" ]; then echo "This is a Linux machine."; fi
 ```
 
 [RUN] に渡すスクリプトはワンライナーでなければなりません。でもそれだと人間にはみにくいので、バックスラッシュ（`\`）で適当に見た目を整えます。
 
-シェルスクリプトの変数はダブルクォートした方がいいそうなので、そうするように心がけています。
+```Dockerfile:例
+RUN if [ "$HOST_OSTYPE" = "Linux" ]; then \
+      echo "This is a Linux machine."; \
+    fi
+```
 
-> - シェルスクリプトはただの文字列はクォートしなくても良い
-> - 変数を使う場合は単語分割やパス名展開が行われないように必ずダブルクォートする
-> - もし本当に単語分割やパス名展開が必要なら理解してからダブルクォートを外す
-> - そんなことよりさっさと ShellCheck を導入しよう！
+シェルスクリプトの変数はダブルクォートした方がいいそうなので、そうするように心がけています。
 
 https://qiita.com/ko1nksm/items/60b67cb24aa4ae634dd5
 
-本件の場合はダブルクォートしなくてもいいのですが、今後うっかり罠にかからないよう自分のスクリプトでは冗長的にダブルクォートする方針にします。
+本件の場合はダブルクォートしなくてもいいのですが、今後うっかり罠にかからないよう自分のスクリプトでは文字列や変数を冗長的にダブルクォートする方針にします。そうすることにより、テキストエディターでもシンタックスハイライトが見やすくなるという利点もあります。
+
+```Dockerfile:実はこれでもOKなはず！
+RUN if [ $HOST_OSTYPE = Linux ]; then echo This is a Linux machine.; fi
+```
 
 [RUN]: https://docs.docker.jp/engine/articles/dockerfile_best-practice.html#run
 [ENTRYPOINT]: https://docs.docker.jp/engine/articles/dockerfile_best-practice.html#entrypoint
