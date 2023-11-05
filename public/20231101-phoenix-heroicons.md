@@ -64,7 +64,7 @@ https://qiita.com/mikoshiba_35/items/7600a1c2d3fb8447807c
 
 ですので、それらパッケージのうちのどれかを利用することができそうです。
 
-自分でコンポーネントを書きたくない方は [Phoenix UI](https://phoenix-ui.fly.dev/components/heroicon) に任せるという手もあります。
+一切自分でコンポーネントを書きたくない方は [Phoenix UI](https://phoenix-ui.fly.dev/components/heroicon) に任せるという手もあります。
 
 https://hex.pm/packages?search=heroicon&sort=recent_downloads
 
