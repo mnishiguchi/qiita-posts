@@ -2,23 +2,24 @@
 title: Nerves Systems ビルダーを使ってソースコードからビルドする
 tags:
   - Erlang
+  - RaspberryPi
   - Elixir
   - IoT
   - Nerves
 private: false
-updated_at: '2023-11-05T23:22:17+09:00'
+updated_at: '2023-11-05T23:29:41+09:00'
 id: 206961699345ee8cf528
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
 ---
 
-[Nervesコアチームが公式サポートするNervesシステム](https://github.com/nerves-project/nerves#hardware)をビルドする時は、通常は[取扱説明書](https://hexdocs.pm/nerves/getting-started.html#creating-a-new-nerves-app)の通りの手順でを利用することが多いと思います。自分のNervesプロジェクトの依存性リストにターゲットデバイスに対応するパッケージを追加するだけで自動的に必要なツールやプログラム、設定等をダウンロードしてくれます。
+[Nerves コアチームが公式サポートする Nerves システム](https://github.com/nerves-project/nerves#hardware)をビルドする時は、通常は[取扱説明書](https://hexdocs.pm/nerves/getting-started.html#creating-a-new-nerves-app)の通りの手順でを利用することが多いと思います。自分のNervesプロジェクトの依存性リストにターゲットデバイスに対応するパッケージを追加するだけで自動的に必要なツールやプログラム、設定等をダウンロードしてくれます。
 
-しかしながら、それは既にリリースされているNervesシステムにおける話であって、未リリースのシステムを試したい場合は自分でソースコードからビルドする必要があります。例えば、リリース前の最新の機能を試したい場合、Nervesコアチームの開発・テストの支援をしたい場合、カスタムシステムを構築したい場合などが考えられます。
+しかしながら、それは既にリリースされている Nerves システムにおける話であって、未リリースのシステムを試したい場合は自分でソースコードからビルドする必要があります。例えば、リリース前の最新の機能を試したい場合、Nerves コアチームの開発・テストの支援をしたい場合、カスタムシステムを構築したい場合などが考えられます。
 
 :::note info
-本記事の内容は[Nerves Systems Builder]のREADMEに毛が生えたようなものです。原典も合わせてご参照ください。
+本記事の内容は [Nerves Systems Builder] の README に毛が生えたようなものです。原典も合わせてご参照ください。
 :::
 
 <!-- begin hyperlink list -->
@@ -33,7 +34,6 @@ ignorePublish: false
 [aarch64]: https://ja.wikipedia.org/wiki/AArch64
 [Linux]: https://ja.wikipedia.org/wiki/Linux
 [仮想機械]: https://ja.wikipedia.org/wiki/仮想機械
-[Linuxディストリビューション]: https://ja.wikipedia.org/wiki/Linuxディストリビューション
 [Debian]: https://ja.wikipedia.org/wiki/Debian
 [Erlang]: https://ja.wikipedia.org/wiki/Erlang
 [hex]: https://hex.pm/
@@ -50,26 +50,26 @@ ignorePublish: false
 
 ## Nervesシステムをビルドする方法
 
-やり方はいくつかあります。
-
 - [Mix]
   - 推奨
   - 複数のOSに対応
 - [Nerves Systems Builder]
-  - Nervesコアチームが便宜上つかっているスクリプト
-  - Nervesシステムを構築および保守するためのスクリプトを提供
+  - Nerves コアチームが便宜上つかっているスクリプト
+  - Nerves システムを構築および保守するためのスクリプトを提供
   - [Buildroot]を頻繁に使用する場合、または複数のNervesシステムを保守する場合にビルドが比較的高速
-  - [x86_64]または[aarch64]上の[Linux]でのみで動作　（[仮想機械]のLinuxでも動作するらしい）
+  - [x86_64] または [aarch64] 上の [Linux] でのみで動作　（[仮想機械]のLinuxでも動作するらしい）
+
+ここでは [Nerves Systems Builder] に挑戦します。
 
 ## Linuxマシンを準備
 
-- CPUアーキテクチャ: [x86_64]または[aarch64]
+- CPUアーキテクチャ: [x86_64] または [aarch64]
 - OS: `Linux`
-- 空きディスク容量: `128 GB`以上
+- 空きディスク容量: `128 GB` 以上
 
 ## 必要なライブラリをインストール
 
-[Debian]系の[Linuxディストリビューション]の場合、以下のコマンドで必要なライブラリをインストールします。
+[Debian] 系の [Linux ディストリビューション](https://ja.wikipedia.org/wiki/Linuxディストリビューション)の場合、以下のコマンドで必要なライブラリをインストールします。
 
 ```bash:terminal
 sudo apt update
@@ -95,7 +95,7 @@ for plugin in "${plugins[@]}"; do
 done
 ```
 
-[asdf] をインストールした後のやり方がお使いの[シェル]によって異なるため、詳しくは [asdfの公式ドキュメント][asdf installation]をご参照ください。[bash] の場合は以下の通りです。
+[asdf] をインストールした後のやり方がお使いの[シェル]によって異なるため、詳しくは [asdf 公式ドキュメント][asdf installation]をご参照ください。[bash] の場合は以下の通りです。
 
 ```bash:terminal
 echo '. $HOME/.asdf/asdf.sh' >> ~/.bashrc
@@ -110,8 +110,8 @@ https://qiita.com/mnishiguchi/items/68fb2869110bc823e595
 
 ## hex と rebar をインストール
 
-- [hex] : Erlangエコシステムのパッケージマネージャ
-- [rebar] : Erlangビルドツール
+- [hex] : Erlang エコシステムのパッケージマネージャ
+- [rebar] : Erlang ビルドツール
 
 ```bash:terminal
 mix local.hex
