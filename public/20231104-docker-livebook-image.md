@@ -7,7 +7,7 @@ tags:
   - Phoenix
   - Livebook
 private: false
-updated_at: '2023-11-05T13:00:58+09:00'
+updated_at: '2023-11-06T01:28:34+09:00'
 id: 93fca196918f911b3c2d
 organization_url_name: fukuokaex
 slide: false
