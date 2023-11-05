@@ -96,18 +96,9 @@ Docker Compose version 2.23.0
 
 ## 問題1: Mac 側の GID が衝突してしまう
 
-厳密にいうと [@koyo-miyamura さんの記事]でに解決されています。[@koyo-miyamura さんの記事]ではマルチステージビルドで２種類のビルドターゲットを用意し、ホストマシンのOSに応じて使い分けるという技で解決されていました。しかしながら、ホストマシンを設定する人間が、自分で判断してセットアップ手順を使い分けないといけないという問題は残ります。
+厳密にいうと [@koyo-miyamura さんの記事]で既に解決されています。[@koyo-miyamura さんの記事]ではマルチステージビルドで２種類のビルドターゲットを用意し、ホストマシンのOSに応じて使い分けるという技で解決されていました。しかしながら、ホストマシンを設定する人間が自分で判断してセットアップ手順を使い分けないといけないという問題は残ります。
 
 ここでは、ビルドターゲットを分けずに共通のセットアップ手順で解決する方法に取り組んでみます。
-
-### 調査
-
-同様の問題に取り組んでいる Github Issue を一つ見つけました。
-
-https://github.com/pyro-ppl/pyro/issues/700
-
-https://github.com/pyro-ppl/pyro/pull/719/files
-
 
 ### 解決案
 
@@ -120,6 +111,12 @@ https://github.com/pyro-ppl/pyro/pull/719/files
 - `Dockerfile` の中で条件分岐するスクリプトを書く方法
 - `Dockerfile` の中でホストマシンの OS を検知する方法
 
+同様の問題に取り組んでいる Github Issue を一つ見つけました。
+
+https://github.com/pyro-ppl/pyro/issues/700
+
+https://github.com/pyro-ppl/pyro/pull/719/files
+
 #### Dockerfile の中で条件分岐するスクリプトを書く方法
 
 調査したところ、簡単そうなのは [RUN] や [ENTRYPOINT] で普通にシェルスクリプトを書くというやり方です。
@@ -130,7 +127,7 @@ https://github.com/pyro-ppl/pyro/pull/719/files
 RUN echo piyopiyo
 ```
 
-余談ですが、[RUN] が水面下で `/bin/sh -c` を実行しているとのことです。[Bash] ではありません。どうしても [Bash] を使いたい場合は書き方に工夫が必要となります。
+[RUN] が水面下で `/bin/sh -c` を実行しているとのことです。[Bash] ではありません。どうしても [Bash] を使いたい場合は書き方に工夫が必要となります。
 
 ```Dockerfile:例
 RUN /bin/bash -c 'echo piyopiyo'
@@ -138,7 +135,7 @@ RUN /bin/bash -c 'echo piyopiyo'
 
 https://docs.docker.com/engine/reference/builder/#run
 
-試行錯誤の結果こんな感じで書けることがわかりました。
+試行錯誤の結果こんな感じで書けることがわかりました。このスタイルで行きます。
 
 ```Dockerfile:例
 RUN if [ "$HOST_OSTYPE" = "Linux" ]; then \
@@ -159,7 +156,7 @@ https://qiita.com/ko1nksm/items/60b67cb24aa4ae634dd5
 
 #### Dockerfile の中でホストマシンの OS を検知する方法
 
-まずは、ホストマシンの OS を検知する方法ですが、これは簡単です。`uname` コマンドがあります。
+ホストマシンの OS を検知する方法は簡単です。`uname` コマンドがあります。
 
 ```sh:ホストマシンのターミナル
 uname
@@ -179,23 +176,25 @@ ARG HOST_OSTYPE
 
 ## 問題2: alpine 以外のイメージで Dockerfile を書く
 
-[Phoenix 公式ドキュメント](https://hexdocs.pm/phoenix/releases.html#containers)で紹介されている Docker イメージでやってみようと思います。
+### どのイメージを使うか決定
 
-### 調査
+[Phoenix 公式ドキュメント](https://hexdocs.pm/phoenix/releases.html#containers)で紹介されている Docker イメージでやってみようと思います。
 
 [Debian GNU/Linux] をベースにしたイメージが使用されています。
 
 https://hexdocs.pm/phoenix/releases.html#containers
 
+[Debian GNU/Linux]: https://en.wikipedia.org/wiki/Debian
+
+### 最新版のイメージを探す
+
 最新版を Dockerhub で検索します。
 
 https://hub.docker.com/r/hexpm/elixir/tags?name=debian-bookworm-20230612
 
-[Debian GNU/Linux]: https://en.wikipedia.org/wiki/Debian
-
 ### Dockerfile で実行するコードの調整
 
-依存関係のインストールや user/group の設定が OS により異なるので適宜調整が必要です。
+依存関係のインストールや user/group の設定が OS により異なるので適宜調整が必要です。ネット検索で使えそうなものを探します。
 
 ## できたもの
 
@@ -249,5 +248,9 @@ https://qiita.com/mnishiguchi/items/11bd7a1e1784fc86dacc
 ## さいごに
 
 今回の作業を通して、Docker コンテナをさまざまな開発マシンで動かす技を習得するとともに、[Docker]、[Docker Compose]、[Linux] 等についての理解を深めることができました。
+
+本記事は [autoracex #253](https://autoracex.connpass.com/event/298184/) の成果です。ありがとうございます。
+
+https://autoracex.connpass.com/
 
 https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
