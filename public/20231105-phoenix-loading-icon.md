@@ -163,7 +163,9 @@ defmodule MnishiguchiWeb.CustomComponents do
   def loading_indicator(assigns) do
     ~H"""
     <div :if={@visible}">
-      <!-- my loading icon -->
+
+      <%# ここにローディングアイコンを貼り付ける %>
+
     </div>
     """
   end
