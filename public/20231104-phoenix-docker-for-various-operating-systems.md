@@ -230,15 +230,36 @@ RUN mix local.hex --force && \
     mix archive.install --force hex phx_new
 ```
 
-余談ですが、`nodejs` と `npm` は [DaisyUI] 等の [Tailwind CSS] のプラグイン を使いたい場合などに必要となります。初期設定の [Phoenix] アプリではそれらは不要です。
+[inotify-tools] がないとこういうエラーがでます。このエラーを見たら思い出してください。
+
+> [error] `inotify-tools` is needed to run `file_system` for your system, check https://github.com/rvoicilas/inotify-tools/wiki for more information about how to install it. If it's already installed but not be found, appoint executable file with `config.exs` or `FILESYSTEM_FSINOTIFY_EXECUTABLE_FILE` env.
+
+`nodejs` と `npm` は [DaisyUI] 等の [Tailwind CSS] のプラグイン を使いたい場合などに必要となります。初期設定の [Phoenix] アプリではそれらは不要です。
+
+> [debug] Downloading esbuild from https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.17.11.tgz
+>
+> Rebuilding...
+> Error: Cannot find module 'tailwindcss/plugin'
+> Require stack:
+> - /app/assets/tailwind.config.js
+>     at Function.Module._resolveFilename (node:internal/modules/cjs/loader:933:15)
+>     at Function._resolveFilename (pkg/prelude/bootstrap.js:1955:46)
+>     at Function.resolve (node:internal/modules/cjs/helpers:108:19)
+>     at _resolve (/snapshot/tailwindcss/node_modules/jiti/dist/jiti.js:1:241025)
+>     at jiti (/snapshot/tailwindcss/node_modules/jiti/dist/jiti.js:1:243309)
+>     at /app/assets/tailwind.config.js:4:16
+>     at jiti (/snapshot/tailwindcss/node_modules/jiti/dist/jiti.js:1:245784)
+>     at /snapshot/tailwindcss/lib/lib/load-config.js:37:30
+>     at loadConfig (/snapshot/tailwindcss/lib/lib/load-config.js:39:6)
+>     at Object.loadConfig (/snapshot/tailwindcss/lib/cli/build/plugin.js:135:49) {
+>   code: 'MODULE_NOT_FOUND',
+>   requireStack: [ '/app/assets/tailwind.config.js' ]
+> }
+> ** (Mix) `mix tailwind default` exited with 1
 
 https://github.com/phoenixframework/tailwind#tailwind
 
 https://qiita.com/mnishiguchi/items/11bd7a1e1784fc86dacc
-
-[inotify-tools] がないとこういうエラーがでます。このエラーを見たら思い出してください。
-
-> [error] `inotify-tools` is needed to run `file_system` for your system, check https://github.com/rvoicilas/inotify-tools/wiki for more information about how to install it. If it's already installed but not be found, appoint executable file with `config.exs` or `FILESYSTEM_FSINOTIFY_EXECUTABLE_FILE` env.
 
 [Tailwind CSS]: https://tailwindcss.com/
 [DaisyUI]: https://daisyui.com/
