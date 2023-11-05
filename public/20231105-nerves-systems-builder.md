@@ -234,3 +234,5 @@ export MIX_TARGET=rpi0
 https://hexdocs.pm/nerves/getting-started.html
 
 :tada::tada::tada:
+
+![toukon-qiita-macbook_20230912_091808.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/fd5c55ec-4fe0-8af6-59bc-bab1ef3d182b.jpeg)
