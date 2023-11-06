@@ -3,11 +3,11 @@ title: Elixir Nerves で 無線LAN (Wi-Fi）を設定する
 tags:
   - Network
   - WiFi
-  - Elixir
   - 初心者
+  - Elixir
   - Nerves
 private: false
-updated_at: '2023-11-06T22:18:13+09:00'
+updated_at: '2023-11-06T22:20:41+09:00'
 id: 9d7ed9f674423be26598
 organization_url_name: fukuokaex
 slide: false
