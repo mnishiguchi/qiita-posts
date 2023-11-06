@@ -46,8 +46,6 @@ https://youtu.be/Yu1ITcTfvHY?si=mclgn1iELMvEd3S7
 
 https://hexdocs.pm/vintage_net/cookbook.html#wifi
 
-https://qiita.com/mnishiguchi/items/dddbac0262bcff4dca23
-
 [VintageNet Cookbook]: https://hexdocs.pm/vintage_net/cookbook.html
 
 ## 環境
@@ -171,6 +169,8 @@ VintageNet.deconfigure("wlan0")
 ```
 
 対象デバイスにまだ Wi-Fi の設定がされていない場合は当然 Wi-Fi がまだ使えませんので、Ethernet やシリアルコンソールで接続する必要があります。
+
+https://qiita.com/mnishiguchi/items/dddbac0262bcff4dca23
 
 [VintageNet.configure/3]: https://hexdocs.pm/vintage_net/VintageNet.html#configure/3
 [VintageNetWiFi.quick_configure/2]: https://hexdocs.pm/vintage_net_wifi/VintageNetWiFi.html#quick_configure/2
