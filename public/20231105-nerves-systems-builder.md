@@ -150,7 +150,7 @@ git clone git@github.com:nerves-project/nerves_systems.git
 
 設定サンプルが [`config/starter-config.exs`](https://github.com/nerves-project/nerves_systems/blob/main/config/starter-config.exs) にありますので、それを `config/config.exs` にコピーし、適宜調整するのが手っ取り早いです。
 
-```bash:Nerves Systems Builder用のターミナル
+```bash:Nerves Systems Builder 用のターミナル
 cd path/to/nerves_systems
 
 cp config/starter-config.exs config/config.exs
@@ -164,13 +164,13 @@ open config/config.exs
 
 `mix ns.clone` タスクで設定ファイルに列挙したNervesシステムを `src` ディレクトリにダウンロードします。
 
-```bash:Nerves Systems Builder用のターミナル
+```bash:Nerves Systems Builder 用のターミナル
 mix ns.clone
 ```
 
 `mix ns.clone` はだた `git clone` するだけなので、ご自分で `git clone` されても結果は同じです。
 
-```text:srcディレクトリはこんな感じ
+```text:src ディレクトリはこんな感じ
 src/
     nerves_system_br
     nerves_system_rpi0
@@ -180,7 +180,7 @@ src/
 
 やり直す時は迷わず `src` ディレクトリを消去してしまって大丈夫です。
 
-## Nerves Systems BuilderでNervesシステムをビルド
+## Nerves Systems Builder で Nerves システムをビルド
 
 Nervesシステムをビルドには2つの段階があります。`mix ns.build` は両方のステップを実行します。
 
@@ -191,7 +191,7 @@ Nervesシステムをビルドには2つの段階があります。`mix ns.build
 
 [インクリメンタルビルド]はできる場合とできない場合が考えられます。うまくいかない場合は、出力ディレクトリを削除してビルドを最初からやり直してください。
 
-```bash:Nerves Systems Builder用のターミナル
+```bash:Nerves Systems Builder 用のターミナル
 mix ns.build
 ```
 
@@ -202,7 +202,7 @@ mix ns.build
 - `make menuconfig` を実行した後には `make savedefconfig` を実行してください。`src/nerves_system_piyopiyo` に更新内容が反映されますので、必要に応じてコミットしてください。
 :::
 
-## ビルドしたNervesシステムを使ってファームウエアを作る
+## ビルドした Nerves システムを使ってファームウエアを作る
 
 ### 別のターミナルを開く
 
@@ -210,22 +210,22 @@ mix ns.build
 
 ### 環境変数をセットする
 
-`mix.exs` で参照されている通常のパッケージ化されたNervesシステムではなくカスタムNervesシステムを使用するようにと [nerves] に指示するための特別な環境変数がいくつかあります。
+`mix.exs` で参照されている通常のパッケージ化されたNervesシステムではなくカスタム Nerves システムを使用するようにと [nerves] に指示するための特別な環境変数がいくつかあります。
 
 1. [対象ボード] に対応する `nerves.env.sh` スクリプトを見つけます。
 1. ご自身のNervesファームウエアプロジェクトのターミナルで実行します。
 
-`nerves.env.sh`スクリプトは各[対象ボード]に対応する出力ディレクトリ内にあります。
+`nerves.env.sh` スクリプトは各[対象ボード]に対応する出力ディレクトリ内にあります。
 
 [対象ボード]は Raspberry Pi Zero の場合、スクリプトのパスは `~/path/to/nerves_systems/o/rpi0/nerves-env.sh` となります。
 
-```bash:ご自身のNervesファームウエアプロジェクト用のターミナル
+```bash:ご自身の Nerves ファームウエアプロジェクト用のターミナル
 . ~/path/to/nerves_systems/o/rpi0/nerves-env.sh
 ```
 
 また、通常どおり `MIX_TARGET` を設定することを忘れないでください。Raspberry Pi Zero の場合は以下の通りとなります。
 
-```bash:ご自身のNervesファームウエアプロジェクト用のターミナル
+```bash:ご自身の Nerves ファームウエアプロジェクト用のターミナル
 export MIX_TARGET=rpi0
 ```
 
