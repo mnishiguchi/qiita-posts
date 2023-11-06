@@ -140,10 +140,8 @@ config :vintage_net,
          networks: [
            %{
              key_mgmt: :wpa_psk,
-             # Wi-Fi の ID　ー　直書き、もしくは環境変数で渡す
-             ssid: ssid,
-             # Wi-Fi の パスワード　ー　直書き、もしくは環境変数で渡す
-             psk: psk
+             ssid: ssid, # Wi-Fi の ID　ー　直書き、もしくは環境変数で渡す
+             psk: psk # Wi-Fi の パスワード　ー　直書き、もしくは環境変数で渡す
            }
          ]
        },
@@ -165,7 +163,7 @@ https://qiita.com/torifukukaiou/items/45cfc7bdf73f3f232299
 [VintageNet.configure/3]、もしくは [VintageNetWiFi.quick_configure/2] を使うと、対象デバイスが動作中に Wi-Fi の設定を行うことができます。特に [VintageNetWiFi.quick_configure/2] が便利です。
 
 ```elixir:対象デバイスのIEx
-VintageNetWiFi.quick_configure("VWDQM", "779TCK9BKBRS999D")
+VintageNetWiFi.quick_configure("access_point", "passphrase")
 ```
 
 このときに設定された内容は永続化されますので、デバイスを再起動しても設定された内容は保持されます。
@@ -353,6 +351,15 @@ Timezone: America/New_York
   Zenith: 11:51:41      | Sunset:  17:02:10  | Dusk:    17:30:37
 ```
 
+[Toolshed.ping/1] も使えます。
+
+```elixir:対象デバイスのIEx
+iex(1)> ping "8.8.8.8"
+Response from 8.8.8.8 (8.8.8.8): icmp_seq=0 time=33.517ms
+Response from 8.8.8.8 (8.8.8.8): icmp_seq=1 time=100.672ms
+Response from 8.8.8.8 (8.8.8.8): icmp_seq=2 time=39.159ms
+```
+
 [Toolshed.speedtest/1] も面白いです。
 
 ```elixir:対象デバイスのIEx
@@ -364,10 +371,11 @@ Download speed: 3.62 Mbps
 [Toolshed]: https://hexdocs.pm/toolshed
 [Toolshed.weather/0]: https://hexdocs.pm/toolshed/Toolshed.html#weather/0
 [Toolshed.speedtest/1]: https://hexdocs.pm/toolshed/Toolshed.html#speedtest/1
+[Toolshed.ping/1]: https://hexdocs.pm/toolshed/Toolshed.html#ping/1
 
-## 設定はいずこに
+## ファームウエアのメタデータ
 
-詳しいことは知りませんが [Nerves.Runtime.KV] の関数でファームウエアのメタデータにアクセスできます。
+[Nerves.Runtime.KV] の関数でファームウエアのメタデータにアクセスできます。
 
 ```elixir:対象デバイスのIEx
 Nerves.Runtime.KV.get_all
