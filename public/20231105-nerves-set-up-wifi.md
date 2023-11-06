@@ -195,7 +195,7 @@ Nerves Livebook の中に ネットワーク関連のノートブックが含ま
 
 README の [firmware-provisioning-options](https://github.com/nerves-livebook/nerves_livebook#firmware-provisioning-options) セクションをご参照ください。
 
-```bash:ホストマシン
+```bash:ホストマシンのターミナルで microSD に焼くコマンド
 sudo NERVES_WIFI_SSID='access_point' \
      NERVES_WIFI_PASSPHRASE='passphrase' \
      fwup nerves_livebook_rpi0.fw
