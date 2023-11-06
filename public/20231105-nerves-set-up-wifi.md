@@ -353,6 +353,18 @@ Download speed: 3.62 Mbps
 [Toolshed.weather/0]: https://hexdocs.pm/toolshed/Toolshed.html#weather/0
 [Toolshed.speedtest/1]: https://hexdocs.pm/toolshed/Toolshed.html#speedtest/1
 
+## 設定はいずこに
+
+詳しいことは知りませんが [Nerves.Runtime.KV] の関数でファームウエアのメタデータにアクセスできます。
+
+```elixir:対象デバイスのIEx
+Nerves.Runtime.KV.get_all
+Nerves.Runtime.KV.get("wifi_ssid")
+Nerves.Runtime.KV.get("wifi_passphrase")
+```
+
+[Nerves.Runtime.KV]: https://hexdocs.pm/nerves_runtime/Nerves.Runtime.KV.html
+
 ## さいごに
 
 Nerves で 無線LAN (Wi-Fi) でインターネット接続する方法をまとめました。
