@@ -201,6 +201,8 @@ sudo NERVES_WIFI_SSID='access_point' \
      fwup nerves_livebook_rpi0.fw
 ```
 
+https://qiita.com/torifukukaiou/items/dfe1577004f36b8b77d7
+
 [nerves_livebook]: https://github.com/nerves-livebook/nerves_livebook
 
 ## ネットワーク設定を確認
