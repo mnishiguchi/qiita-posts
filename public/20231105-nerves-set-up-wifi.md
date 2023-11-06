@@ -24,6 +24,8 @@ https://qiita.com/nishiuchikazuma/items/1341b32c4ce997fc362d
 
 https://qiita.com/nishiuchikazuma/items/01f5df5472ec0feceb5f
 
+https://curiosum.com/blog/how-program-iot-device-elixir-using-nerves#connecting-the-device-to-the-wifi
+
 https://youtu.be/Yu1ITcTfvHY?si=mclgn1iELMvEd3S7
 
 [Raspberry Pi]: https://www.raspberrypi.org/
@@ -73,8 +75,6 @@ https://hexdocs.pm/vintage_net/cookbook.html#wifi
      ]
    end
 ```
-
-https://curiosum.com/blog/how-program-iot-device-elixir-using-nerves#connecting-the-device-to-the-wifi
 
 以下のエラーを見たらこのことを思い出してください。
 
