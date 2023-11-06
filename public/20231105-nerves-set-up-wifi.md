@@ -7,7 +7,7 @@ tags:
   - Wi-Fi
   - Nerves
 private: false
-updated_at: '2023-11-06T12:44:07+09:00'
+updated_at: '2023-11-06T12:55:10+09:00'
 id: 9d7ed9f674423be26598
 organization_url_name: fukuokaex
 slide: false
@@ -57,7 +57,13 @@ https://hexdocs.pm/vintage_net/cookbook.html#wifi
 
 [Nerves の公式サンプルプロジェクト](https://github.com/nerves-project/nerves#example-projects)や [Nerves Getting Started ドキュメント](https://hexdocs.pm/nerves/getting-started.html)に沿って新規作成された [Nerves] プロジェクトには、`mix.exs` の依存パッケージリストに [nerves_pack] が含まれていると思います。
 
+https://github.com/nerves-project/nerves_bootstrap/blob/494c050731f9a6bcc698446cfed4d8907401223a/templates/new/mix.exs#L47
+
+https://qiita.com/torifukukaiou/items/1fcf2458dc8fb23404cf
+
 [nerves_pack] は最小限の作業で Nerves プロジェクトを立ち上げて実行するための依存関係とデフォルト設定をまとめたものです。ネットワーク関連のパッケージ（[vintage_net] 等）もそこに含まれています。
+
+https://github.com/nerves-project/nerves_pack/blob/7692aefe00a653dc2242e08a9985fe2e606f66e3/mix.exs#L39
 
 [nerves_pack]: https://github.com/nerves-project/nerves_pack
 [vintage_net]: https://hex.pm/packages/vintage_net
