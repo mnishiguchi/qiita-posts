@@ -68,6 +68,8 @@ https://qiita.com/mnishiguchi/items/dddbac0262bcff4dca23
 
 インターネット接続するには [inets](https://www.erlang.org/doc/man/inets.html) と [ssl](https://www.erlang.org/doc/man/ssl) をあらかじめ `mix.exs` の `:extra_applications` に追加しておく必要があります。
 
+インターネットに接続しない場合は無視してください。
+
 ```diff_elixir:mix.exs
    def application do
      [
