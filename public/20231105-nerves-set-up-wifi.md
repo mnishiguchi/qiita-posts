@@ -170,7 +170,7 @@ VintageNetWiFi.quick_configure("VWDQM", "779TCK9BKBRS999D")
 VintageNet.deconfigure("wlan0")
 ```
 
-対象デバイスにまだ Wi-Fi の設定がされていない場合は当然 Wi-Fi がまだ使えませんので、Ethernet や シリアルコンソールで接続する必要があります。
+対象デバイスにまだ Wi-Fi の設定がされていない場合は当然 Wi-Fi がまだ使えませんので、Ethernet やシリアルコンソールで接続する必要があります。
 
 [VintageNet.configure/3]: https://hexdocs.pm/vintage_net/VintageNet.html#configure/3
 [VintageNetWiFi.quick_configure/2]: https://hexdocs.pm/vintage_net_wifi/VintageNetWiFi.html#quick_configure/2
@@ -266,7 +266,7 @@ Interface wlan0
 
 ### ifconfig
 
-ターミナルで使う UNIX コマンドのような感覚で　[Toolshed.ifconfig/0] を使うこともできます。
+ターミナルで使う UNIX コマンドのような感覚で [Toolshed.ifconfig/0] を使うこともできます。
 
 ```elixir:対象デバイスのIEx
 ifconfig
