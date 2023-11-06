@@ -90,6 +90,7 @@ To fix, edit your mix.exs and add :ssl to the :extra_applications list.
 ```
 
 ```elixir:対象デバイスのIEx
+iex(1)> weather
 ** (RuntimeError) :inets can't be started.
 This probably means that it isn't in the OTP release.
 To fix, edit your mix.exs and add :inets to the :extra_applications list.
@@ -165,6 +166,8 @@ VintageNetWiFi.quick_configure("VWDQM", "779TCK9BKBRS999D")
 VintageNet.deconfigure("wlan0")
 ```
 
+対象デバイスにまだ Wi-Fi の設定がされていない場合は当然 Wi-Fi がまだ使えませんので、Ethernet や シリアルコンソールで接続する必要があります。
+
 [VintageNet.configure/3]: https://hexdocs.pm/vintage_net/VintageNet.html#configure/3
 [VintageNetWiFi.quick_configure/2]: https://hexdocs.pm/vintage_net_wifi/VintageNetWiFi.html#quick_configure/2
 [VintageNet.deconfigure/2]: https://hexdocs.pm/vintage_net/VintageNet.html#deconfigure/2
@@ -181,10 +184,10 @@ https://youtu.be/-b5TPb_MwQE?si=nL43DmK7RNIQjOu5
 
 Nerves Livebook の中に ネットワーク関連のノートブックが含まれており、ブラウザ上で Wi-Fi の設定ができてしまいます。
 
-- [WiFi設定についてのノートブック](https://github.com/nerves-livebook/nerves_livebook/blob/main/priv/samples/networking/configure_wifi.livemd)
-- [VintageNetについてのノートブック](https://github.com/nerves-livebook/nerves_livebook/blob/main/priv/samples/networking/vintage_net.livemd)
+- [WiFi 設定についてのノートブック](https://github.com/nerves-livebook/nerves_livebook/blob/main/priv/samples/networking/configure_wifi.livemd)
+- [VintageNet についてのノートブック](https://github.com/nerves-livebook/nerves_livebook/blob/main/priv/samples/networking/vintage_net.livemd)
 
-また、[Nerves Livebook ファームウェア][nerves_livebook] を MicroSD に焼く時点で Wi-Fi の設定を環境変数として渡す方法もあります。
+また、[Nerves Livebook ファームウェア][nerves_livebook] を microSD に焼く時点で Wi-Fi の設定を環境変数として渡す方法もあります。
 
 README の [firmware-provisioning-options](https://github.com/nerves-livebook/nerves_livebook#firmware-provisioning-options) セクションをご参照ください。
 
@@ -283,6 +286,68 @@ usb0: flags=[:up, :broadcast, :running, :multicast]
 
 [Toolshed]: https://hexdocs.pm/toolshed
 [Toolshed.ifconfig/0]: https://hexdocs.pm/toolshed/Toolshed.html#ifconfig/0
+
+## インターネット接続の確認
+
+[Toolshed.weather/0] を実行してエラーが出なければ OK です。
+
+```elixir:対象デバイスのIEx
+iex(1)> weather
+┌┤  Weather report for: Washington, District of Columbia, United States  ├┐
+│                                                                        │
+│                                                                        │
+│       Sun 05 Nov              Mon 06 Nov              Tue 07 Nov       │
+│                       ╷                       ╷                        │
+│                                                                        │
+│                                                                        │
+│+71          ⡔⠉⠉⠉⠑⡄                                                     │
+│            ⡸     ⠘⡄                                         ⢀⠔⠉⠉⠉⠢⣀    │
+│           ⢠⠃      ⠱⡀                                       ⢠⠃      ⠑⢄  │
+│           ⡜        ⢣                                      ⢠⠃         ⠉⠁│
+│          ⢀⠇        ⠈⣆                                    ⡠⠃            │
+│⢀⢄⡀       ⡸          ⠈⡂              ⡠⠒⠉⠉⠉⠑⠒⠤⣀    ⢀⣀⣀⣀⣀⣀⠤⠔⠁             │
+│⡇ ⠢⡀      ⡇           ⠈⠢⡀           ⡰⠁        ⠉⠉⠉⠉⠁                     │
+│⡇  ⠱⡀    ⡸              ⠈⠢⢄        ⡰⠂                                   │
+│⡇   ⠱⡀  ⢀⠇                 ⠉⠢⢄    ⢠⠃                                    │
+│+44  ⠑⢄⢁⠎                     ⠑⠢⠤⡠⠃                                     │
+│                                                                        │
+│─────┴─────┼─────┴─────╂─────┴─────┼─────┴─────╂─────┴─────┼─────┴─────╂│
+│     6    12    18           6    12    18           6    12    18      │
+│                                                                        │
+│                                                                        │
+│                                                                        │
+│                                                                        │
+│                                                                        │
+│                                                                        │
+│                                                                        │
+│                                                                        │
+│                                                                        │
+│ ⛅️ ⛅️ ⛅️ ☁️  ☀️  ☀️  ☀️  ☀️  ☀️  ☀️  ☀️  ⛅️ ⛅️ ☁️  ☁️  ☀️  ☀️  ⛅️ ⛅️ ⛅️ ⛅️ ☁️  ⛅️ ☀️ │
+│ ↑  →  ↘  ↘  ↘  ↘  ↘  ↓  ↓  ↙  ↙  ←  ↑  ↑  ↑  ↑  ↑  ↗  ↗  ↗  ↗  ↗  ↘  ↘ │
+│ 2  2  3  2  7  9  5  5  5  3  3  3  4  7  6  7  9  8  8  8  9  6  7  9 │
+│                                                                        │
+│🌗                     🌗                      🌘                     🌘│
+│       ━━━━━━━━━━━             ━━━━━━━━━━━             ━━━━━━━━━━━      │
+│                                                                        │
+│                                                                        │
+└────────────────────────────────────────────────────────────────────────┘
+Weather: ⛅️  Partly cloudy, +61°F, 44%, ↓9mph, 1018hPa
+Timezone: America/New_York
+  Now:    21:24:24-0500 | Dawn:    06:12:21  | Sunrise: 06:40:49
+  Zenith: 11:51:41      | Sunset:  17:02:10  | Dusk:    17:30:37
+```
+
+[Toolshed.speedtest/1] も面白いです。
+
+```elixir:対象デバイスのIEx
+iex(1)> speed_test
+2345425 bytes received in 5.18 s
+Download speed: 3.62 Mbps
+```
+
+[Toolshed]: https://hexdocs.pm/toolshed
+[Toolshed.weather/0]: https://hexdocs.pm/toolshed/Toolshed.html#weather/0
+[Toolshed.speedtest/1]: https://hexdocs.pm/toolshed/Toolshed.html#speedtest/1
 
 ## さいごに
 
