@@ -4,7 +4,7 @@ tags:
   - Network
   - WiFi
   - Elixir
-  - Wi-Fi
+  - 初心者
   - Nerves
 private: false
 updated_at: '2023-11-06T22:18:13+09:00'
