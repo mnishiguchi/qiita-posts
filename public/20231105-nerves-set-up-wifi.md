@@ -46,6 +46,8 @@ https://youtu.be/Yu1ITcTfvHY?si=mclgn1iELMvEd3S7
 
 https://hexdocs.pm/vintage_net/cookbook.html#wifi
 
+https://qiita.com/mnishiguchi/items/dddbac0262bcff4dca23
+
 [VintageNet Cookbook]: https://hexdocs.pm/vintage_net/cookbook.html
 
 ## 環境
