@@ -1,5 +1,5 @@
 ---
-title: Elixir Nerevs で 無線LAN (Wi-Fi）を設定する
+title: Elixir Nerves で 無線LAN (Wi-Fi）を設定する
 tags:
   - Network
   - WiFi
