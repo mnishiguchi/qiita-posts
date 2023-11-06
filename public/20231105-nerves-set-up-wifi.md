@@ -20,6 +20,10 @@ ignorePublish: false
 
 https://qiita.com/tags/nerves
 
+https://qiita.com/torifukukaiou/items/21df3c512308832c4a15
+
+https://qiita.com/torifukukaiou/items/173a6d86d7a15649c5b5
+
 https://qiita.com/nishiuchikazuma/items/1341b32c4ce997fc362d
 
 https://qiita.com/nishiuchikazuma/items/01f5df5472ec0feceb5f
