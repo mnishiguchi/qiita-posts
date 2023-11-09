@@ -1,14 +1,14 @@
 ---
 title: asdf-elixir の default-mix-commands で Mix コマンドを自動で実行する
 tags:
-  - asdf
-  - Elixir
   - Erlang
   - 初心者
+  - Elixir
+  - asdf
   - Phoenix
 private: false
-updated_at: ''
-id: null
+updated_at: '2023-11-09T10:40:27+09:00'
+id: 1f0f4a66dc45db8d0b39
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
