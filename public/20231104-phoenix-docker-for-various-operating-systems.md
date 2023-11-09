@@ -1,7 +1,7 @@
 ---
 title: Phoenix Docker コンテナをさまざまな開発マシンで動かす
 tags:
-  - 初心者
+  - Bash
   - Elixir
   - Docker
   - Phoenix
