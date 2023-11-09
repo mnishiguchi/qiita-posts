@@ -22,11 +22,13 @@ https://qiita.com/tags/asdf
 
 https://qiita.com/iisaka51/items/eeb3a7fdc2b4f70b2b4f
 
+https://qiita.com/torifukukaiou/items/9009191de6873664bb58
+
 https://qiita.com/mnishiguchi/items/68fb2869110bc823e595
 
 ## 結論
 
-ホームディレクトリで `.default-mix-commands` という名前のファイルを作り、その中に[Elixir] がインストールされた直後に自動的に実行してほしいMixコマンドを列挙します。頻繁に使用されるアーカイブをインストールする場合に特に便利な機能です。
+ホームディレクトリで `.default-mix-commands` という名前のファイルを作り、その中に [Elixir] がインストールされた直後に自動的に実行してほしい Mix コマンドを列挙します。頻繁に使用されるアーカイブをインストールする場合に特に便利な機能です。
 
 以下は [Phoenix] や [Nerves] を使いたい人向けの設定の一例です。
 
@@ -47,6 +49,7 @@ archive.install hex nerves_bootstrap
 
 若干作業の流れがスムーズになり、より気軽に [Phoenix] アプリや [Nerves] デバイスに取り組めるのではないでしょうか。
 
+[Mix]: https://hexdocs.pm/elixir/1.16/introduction-to-mix.html
 [asdf]: https://asdf-vm.com
 [asdf-elixir]: https://github.com/asdf-vm/asdf-elixir
 [Phoenix]: https://www.phoenixframework.org/
