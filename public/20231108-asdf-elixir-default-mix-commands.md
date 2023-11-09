@@ -49,6 +49,12 @@ archive.install hex nerves_bootstrap
 
 若干作業の流れがスムーズになり、より気軽に [Phoenix] アプリや [Nerves] デバイスに取り組めるのではないでしょうか。
 
+本記事は [闘魂Elixir #55](https://autoracex.connpass.com/event/298180/) の成果です。ありがとうございます。
+
+https://autoracex.connpass.com/
+
+https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
+
 [Mix]: https://hexdocs.pm/elixir/1.16/introduction-to-mix.html
 [asdf]: https://asdf-vm.com
 [asdf-elixir]: https://github.com/asdf-vm/asdf-elixir
