@@ -146,6 +146,8 @@ RUN if [ "$HOST_OSTYPE" = "Linux" ]; then echo "This is a Linux machine."; fi
 ```Dockerfile:例
 RUN if [ "$HOST_OSTYPE" = "Linux" ]; then \
       echo "This is a Linux machine."; \
+    else \
+      echo "This is not a Linux machine."; \
     fi
 ```
 
@@ -229,6 +231,8 @@ RUN apt-get update -y && apt-get install -y \
 # sync user
 RUN if [ "$HOST_OSTYPE" = "Linux" ]; then \
       addgroup --gid "$HOST_GID" "$HOST_GROUP_NAME"; \
+      adduser --uid "$HOST_UID" --gid "$HOST_GID" "$HOST_USER_NAME"; \
+    else \
       adduser --uid "$HOST_UID" --gid "$HOST_GID" "$HOST_USER_NAME"; \
     fi
 
