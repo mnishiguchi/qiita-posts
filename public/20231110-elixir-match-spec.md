@@ -1,14 +1,14 @@
 ---
 title: Elixir Erlang match_spec の文法
 tags:
-  - ets
-  - Elixir
   - Erlang
-  - OTP
+  - Elixir
   - Phoenix
+  - OTP
+  - ets
 private: false
-updated_at: ''
-id: null
+updated_at: '2023-11-11T13:18:58+09:00'
+id: b597f70a186220bf6ec7
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
