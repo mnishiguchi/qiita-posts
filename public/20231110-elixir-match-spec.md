@@ -7,7 +7,7 @@ tags:
   - OTP
   - ets
 private: false
-updated_at: '2023-11-11T13:22:44+09:00'
+updated_at: '2023-11-11T13:44:08+09:00'
 id: b597f70a186220bf6ec7
 organization_url_name: fukuokaex
 slide: false
