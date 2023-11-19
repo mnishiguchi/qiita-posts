@@ -260,7 +260,7 @@ sudo localectl set-x11-keymap \
 
 ## グラフィカルユーザインターフェース（GUI）
 
-僕のマシンにはないのですが、[Linuxディストリビューション] によっては便利なグラフィカルユーザインターフェース（GUI）が付いてくる場合があります。
+僕の（今使っている）マシンにはないのですが、[Linuxディストリビューション] によっては便利なグラフィカルユーザインターフェース（GUI）が付いてくる場合があります。
 例えば、[Linux Mint] ではチェックボックスで簡単にキーボード設定の変更ができます。
 
 ![linux-mint-keyboard-layouts-2023-02-24 23-19-40 (1).png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/1aac1fa6-489e-8768-2d5d-31e2b8b78cc8.png)
