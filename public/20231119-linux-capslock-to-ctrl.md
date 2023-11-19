@@ -2,13 +2,13 @@
 title: Linux US キーボードの CapsLock を Ctrl に変更する方法
 tags:
   - Linux
-  - keyboard
-  - capslock
-  - US配列
+  - Keyboard
   - キーボード設定
+  - CapsLock
+  - US配列
 private: false
-updated_at: ''
-id: null
+updated_at: '2023-11-20T07:09:58+09:00'
+id: ea5b5d13a6b2c1bcfaf5
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
