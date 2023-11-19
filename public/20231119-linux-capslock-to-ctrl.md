@@ -7,7 +7,7 @@ tags:
   - CapsLock
   - US配列
 private: false
-updated_at: '2023-11-20T07:09:58+09:00'
+updated_at: '2023-11-20T07:27:05+09:00'
 id: ea5b5d13a6b2c1bcfaf5
 organization_url_name: fukuokaex
 slide: false
