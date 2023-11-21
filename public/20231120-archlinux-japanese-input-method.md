@@ -2,13 +2,13 @@
 title: ArchLinuxで日本語入力
 tags:
   - Linux
-  - archlinux
-  - キーボード設定
+  - archLinux
   - 日本語入力
+  - キーボード設定
   - fcitx-mozc
 private: false
-updated_at: ''
-id: null
+updated_at: '2023-11-21T10:11:39+09:00'
+id: 2a1a485a72ff6289b32f
 organization_url_name: null
 slide: false
 ignorePublish: false
