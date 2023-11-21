@@ -82,7 +82,7 @@ https://wiki.archlinux.org/title/Localization/Japanese
 
 どのフォントがいいのかわからないので、とりあえず [noto-fonts-cjk] を入れてます。
 
-```shell
+```shell:terminal
 sudo pacman -S noto-fonts-cjk
 ```
 
@@ -108,7 +108,7 @@ https://wiki.archlinux.jp/index.php/%E3%82%A4%E3%83%B3%E3%83%97%E3%83%83%E3%83%8
   - 日本語入力メソッドモジュール
   - Google日本語入力のオープンソース版
 
-```shell
+```shell:terminal
 sudo pacman -S fcitx5-im fcitx5-mozc
 ```
 
