@@ -132,7 +132,7 @@ https://wiki.archlinux.jp/index.php/Xprofile
 setxkbmap -option ctrl:nocaps
 ```
 
-いつでも設定変更ができて便利な反面、このコマンドを打つだけでは設定は永続化されません。
+いつでも設定変更ができて便利ですが、このコマンドを打つだけでは設定は永続化されません。
 
 https://wiki.archlinux.jp/index.php/Xorg/%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E8%A8%AD%E5%AE%9A#setxkbmap_.E3.82.92.E4.BD.BF.E3.81.86
 
