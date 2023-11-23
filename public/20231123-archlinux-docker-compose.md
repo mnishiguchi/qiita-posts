@@ -159,6 +159,22 @@ docker compose up --detach
 docker compose logs --follow
 ```
 
+[Elixir] の対話コンソール（IEx）は以下のコマンドで起動できます。
+
+```shell:terminal
+docker compose exec web iex -S mix
+```
+
+せっかく IEx を開いたのでプロセスの一覧を表示してみましょう。
+
+```elixir:IEx
+IEx.configure inspect: [limit: :infinity]
+
+for pid <- Process.list, do: {pid, Process.info(pid, :registered_name) |> elem(1)}
+```
+
+https://qiita.com/mnishiguchi/items/990be2c72cb526681d0b
+
 アプリの停止は以下のコマンドで行います。
 
 ```shell:terminal
