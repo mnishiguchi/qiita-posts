@@ -6,7 +6,7 @@ tags:
   - Elixir
   - Docker
 private: false
-updated_at: '2023-11-23T10:55:03+09:00'
+updated_at: '2023-11-23T22:57:09+09:00'
 id: e5b61ec702d21165b079
 organization_url_name: fukuokaex
 slide: false
@@ -46,7 +46,7 @@ sudo systemctl enable --now docker.service
 sudo systemctl enable --now containerd.service
 ```
 
-現在の状態はは以下のコマンドで確認できます。
+現在の状態は以下のコマンドで確認できます。
 
 ```shell:terminal
 systemctl status docker.service --no-pager

@@ -2,12 +2,12 @@
 title: Arch Linux に Docker Compose をインストールする
 tags:
   - Linux
-  - archLinux
+  - Phoenix
   - Elixir
   - Docker
   - docker-compose
 private: false
-updated_at: '2023-11-23T22:55:00+09:00'
+updated_at: '2023-11-23T23:59:04+09:00'
 id: 62744d09ce9a8a2d109c
 organization_url_name: fukuokaex
 slide: false
@@ -43,7 +43,7 @@ Docker の公式ドキュメントによると Compose plugin が使えるのは
 
 https://docs.docker.com/compose/install
 
-https://archlinux.org/packages/extra/x86_64/docker-compose
+https://archlinux.org/packages/?name=docker-compose
 
 ```shell:terminal
 sudo pacman -S docker-compose
@@ -66,13 +66,17 @@ https://qiita.com/tags/phoenix
 
 @koyo-miyamura さんの記事のサンプルコードを活用させていただきます。
 
-https://qiita.com/koyo-miyamura/items/a609de2e9fadaf198243
-
 https://github.com/koyo-miyamura/elixir_phoenix_docker
+
+詳細にご興味のある方のために資料を置いておきます。
+
+https://qiita.com/koyo-miyamura/items/a609de2e9fadaf198243
 
 https://moneyforward-dev.jp/entry/2023/08/31/100000
 
 https://zenn.dev/koga1020/articles/d260bc1bde8267
+
+https://qiita.com/mnishiguchi/items/e367743bca3520e2a387
 
 ソースコードをダウンロードします。
 
@@ -144,14 +148,15 @@ docker compose up --detach
 
 以下の URL にアクセスして今すぐ [Phoenix] アプリを開発できます！
 
-http://localhost:4000/
+- [http://localhost:4000/](http://localhost:4000/)
+- [http://localhost:4000/dev/dashboard/](http://localhost:4000/dev/dashboard/)
 
-http://localhost:4000/dev/dashboard/
+![docker-compose-demo 2023-11-23 09-44-06.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/ee30129d-9d51-0156-6a89-96707d38c25b.png)
 
 ログを見てみます。ログを閉じるときは「Ctrl + C」を押します。
 
 ```shell:terminal
-docker compose logs -f
+docker compose logs --follow
 ```
 
 アプリの停止は以下のコマンドで行います。
@@ -169,6 +174,8 @@ https://qiita.com/advent-calendar/2023/elixir
 https://paraxial.io/blog/elixir-savings
 
 ## さいごに
+
+[Arch Linux] に [Docker Compose] をインストールして、 [Phoenix] アプリ開発環境の構築ができました。
 
 本記事は [闘魂Elixir #57](https://autoracex.connpass.com/event/300540/) の成果です。ありがとうございます。
 
