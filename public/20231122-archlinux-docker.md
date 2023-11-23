@@ -2,12 +2,12 @@
 title: Arch Linux に Docker をインストールする
 tags:
   - Linux
-  - archlinux
-  - docker
+  - archLinux
   - Elixir
+  - Docker
 private: false
-updated_at: ''
-id: null
+updated_at: '2023-11-23T09:53:33+09:00'
+id: e5b61ec702d21165b079
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
