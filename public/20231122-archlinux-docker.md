@@ -6,7 +6,7 @@ tags:
   - Elixir
   - Docker
 private: false
-updated_at: '2023-11-23T10:15:34+09:00'
+updated_at: '2023-11-23T10:55:03+09:00'
 id: e5b61ec702d21165b079
 organization_url_name: fukuokaex
 slide: false
