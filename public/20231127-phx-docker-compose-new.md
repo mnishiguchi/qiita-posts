@@ -142,4 +142,5 @@ https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 [phx-docker-compose-new]: https://github.com/mnishiguchi/phx-docker-compose-new
 [Docker Compose]: https://docs.docker.jp/compose/
 [PostgreSQL]: https://www.postgresql.org/
+[Git]: https://git-scm.com/
 <!-- end links -->
