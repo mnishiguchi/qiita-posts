@@ -3,6 +3,7 @@ title: tmux 非アクティブのウインドウペインの背景色を変更
 tags:
   - Linux
   - tmux
+  - unix
 private: false
 updated_at: '2023-11-27T09:47:21+09:00'
 id: 210453c5778769df369a
