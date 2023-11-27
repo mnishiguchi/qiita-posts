@@ -66,6 +66,7 @@ https://qiita.com/tags/phoenix
 
 [Phoenix]アプリの開発環境を[Docker Compose]で構築できる [phx-docker-compose-new] という便利なスクリプトがあるので、それを活用します。
 
+https://qiita.com/mnishiguchi/items/425a7e55f05a7ab6359b
 
 [Phoenix]アプリの開発環境構築の詳細にご興味のある方のために資料を置いておきます。
 
