@@ -72,6 +72,7 @@ set -g window-status-current-style 'bg=colour002,fg=black'
 これに決定！
 
 ```shell:$HOME/.tmux.conf
+set -g status-right ''
 set -g status-style 'bg=colour022,fg=colour064'
 set -g window-status-current-style 'bg=colour022,fg=colour010'
 ```
