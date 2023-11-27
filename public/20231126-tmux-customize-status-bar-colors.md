@@ -5,7 +5,7 @@ tags:
   - tmux
   - UNIX
 private: false
-updated_at: '2023-11-27T12:34:30+09:00'
+updated_at: '2023-11-27T12:47:21+09:00'
 id: 18ff80c0cb8269ff6dd8
 organization_url_name: fukuokaex
 slide: false
