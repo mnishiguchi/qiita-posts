@@ -1,14 +1,14 @@
 ---
 title: phx-docker-compose-new を mix phx.new の代わりに使って気軽に Phoenix の開発環境を構築
 tags:
+  - Erlang
   - Elixir
   - Docker
   - Phoenix
   - docker-compose
-  - erlang
 private: false
-updated_at: ''
-id: null
+updated_at: '2023-11-27T22:45:58+09:00'
+id: 425a7e55f05a7ab6359b
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
