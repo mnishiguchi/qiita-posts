@@ -31,6 +31,14 @@ https://qiita.com/mnishiguchi/items/e367743bca3520e2a387
 
 ## TL;DR
 
+念の為 [Git]、[Docker]、[Docker Compose]がインストールされているか確認します。
+
+```shell:terminal
+git version
+docker --version
+docker compose version
+```
+
 [phx-docker-compose-new] コマンドのソースコードをダウンロードします。
 
 ```shell:terminal
