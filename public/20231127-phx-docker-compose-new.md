@@ -109,7 +109,7 @@ https://moneyforward-dev.jp/entry/2023/08/31/100000
 
 ## さいごに
 
-[Arch Linux] に [Docker Compose] をインストールして、 [Phoenix] アプリ開発環境の構築ができました。
+これでいつでも気軽に [Phoenix] アプリ開発環境の構築ができます。
 
 本記事は [autoracex #259](https://autoracex.connpass.com/event/300537/) の成果です。ありがとうございます。
 
