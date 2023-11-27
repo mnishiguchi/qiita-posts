@@ -64,11 +64,10 @@ https://www.phoenixframework.org/
 https://qiita.com/tags/phoenix
 
 
-@koyo-miyamura さんの記事のサンプルコードを活用させていただきます。
+[Phoenix]アプリの開発環境を[Docker Compose]で構築できる [phx-docker-compose-new] という便利なスクリプトがあるので、それを活用します。
 
-https://github.com/koyo-miyamura/elixir_phoenix_docker
 
-詳細にご興味のある方のために資料を置いておきます。
+[Phoenix]アプリの開発環境構築の詳細にご興味のある方のために資料を置いておきます。
 
 https://qiita.com/koyo-miyamura/items/a609de2e9fadaf198243
 
@@ -78,91 +77,52 @@ https://zenn.dev/koga1020/articles/d260bc1bde8267
 
 https://qiita.com/mnishiguchi/items/e367743bca3520e2a387
 
-ソースコードをダウンロードします。
+[phx-docker-compose-new] コマンドのソースコードをダウンロードします。
 
 ```shell:terminal
-git clone https://github.com/koyo-miyamura/elixir_phoenix_docker.git
-cd ./elixir_phoenix_docker/mixed_debian
+git clone https://github.com/mnishiguchi/phx-docker-compose-new.git ~/.phx-docker-compose-new
 ```
 
-`make` コマンドを実行して環境を準備します。実行すると、`uid` と `gid` をホストマシンとコンテナで同期させるために必要な情報が `.env` に書き込まれます。
+ターミナルで [phx-docker-compose-new] コマンドが使えるように偽名を定義します。
 
 ```shell:terminal
-make
+alias phx-docker-compose-new=~/.phx-docker-compose-new/phx-docker-compose-new.sh
 ```
 
-[mix phx.new] コマンドを用いて [Phoenix] のサンプルアプリを生成します。
+[phx-docker-compose-new] コマンドを用いて [Phoenix] のサンプルアプリを生成します。
 
 [mix phx.new]: https://hexdocs.pm/phoenix/Mix.Tasks.Phx.New.html
 
 ```shell:terminal
-docker compose run --rm --no-deps web mix phx.new sample --no-assets --no-gettext --no-mailer
+phx-docker-compose-new sample_phx_app --no-assets --no-gettext --no-mailer
 ```
 
-[mix phx.new] コマンドに渡せるオプションは以下のコマンドで確認できます。
+生成されたアプリのディレクトリに入り、アプリを起動します。
 
 ```shell:terminal
-docker compose run --rm --no-deps web mix help phx.new
-```
+cd sample_phx_app
 
-`Dockerfile`、`docker-compose.yml`、`.env` を 生成されたサンプルアプリのディレクトリにコピーし、中に入ります。
-
-```shell:terminal
-cp {Dockerfile,docker-compose.yml,.env} ./sample
-cd ./sample
-```
-
-生成されたサンプルアプリの設定ファイルを補正します。
-
-- データベースのホスト名 `db` （`docker-compose.yml` で定義されている `db` サービス）に変更します。
-- 他のマシンと通信できるように IP アドレスを変更します。
-
-```diff_elixir:config/dev.exs
-# Configure your database
- config :sample, Sample.Repo,
-   username: "postgres",
-   password: "postgres",
--  hostname: "localhost",
-+  hostname: "db",
-   ...
-
- config :sample, SampleWeb.Endpoint,
-   # Binding to loopback ipv4 address prevents access from other machines.
-   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
--  http: [ip: {127, 0, 0, 1}, port: 4000],
-+  http: [ip: {0, 0, 0, 0}, port: 4000],
-   check_origin: false,
-```
-
-アプリをセットアップします。
-
-```shell:terminal
-docker compose run --rm web mix setup
-```
-
-アプリを起動します。
-
-```shell:terminal
-docker compose up --detach
+bin/start
 ```
 
 以下の URL にアクセスして今すぐ [Phoenix] アプリを開発できます！
 
 - [http://localhost:4000/](http://localhost:4000/)
 - [http://localhost:4000/dev/dashboard/](http://localhost:4000/dev/dashboard/)
+- [http://localhost:4001/](http://localhost:4001/)
 
 ![docker-compose-demo 2023-11-23 09-44-06.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/ee30129d-9d51-0156-6a89-96707d38c25b.png)
 
 ログを見てみます。ログを閉じるときは「Ctrl + C」を押します。
 
 ```shell:terminal
-docker compose logs --follow
+bin/logs --follow
 ```
 
 [Elixir] の対話コンソール（IEx）は以下のコマンドで起動できます。
 
 ```shell:terminal
-docker compose exec web iex -S mix
+bin/console
 ```
 
 せっかく IEx を開いたのでプロセスの一覧を表示してみましょう。
@@ -178,7 +138,7 @@ https://qiita.com/mnishiguchi/items/990be2c72cb526681d0b
 アプリの停止は以下のコマンドで行います。
 
 ```shell:terminal
-docker compose down
+bin/stop
 ```
 
 :tada::tada::tada:
@@ -212,4 +172,5 @@ https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 [Arch Linux]: https://ja.wikipedia.org/wiki/Arch_Linux
 [Erlang VM]: https://en.wikipedia.org/wiki/BEAM_(Erlang_virtual_machine)
 [Phoenix]: https://www.phoenixframework.org/
+[phx-docker-compose-new]: https://github.com/mnishiguchi/phx-docker-compose-new
 <!-- end links -->
