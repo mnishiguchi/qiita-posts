@@ -42,7 +42,9 @@ https://qiita.com/nojima/items/9bc576c922da3604a72b
 https://man.archlinux.org/man/tmux.1#OPTIONS
 
 
-永続化させたい設定は設定ファイル（`$HOME/.tmux.conf`）に`set -g ...`と書きますが、一時的に試したい場合は、`tmux`コマンドと`set`コマンドを組み合わせて`tmux set -g ...`と打つことも可能です。`-g`は「グローバルオプションとして設定」という意味ですが、深く考えず`set -g ...`でいいと思います。
+永続化させたい設定は設定ファイル（`$HOME/.tmux.conf`）に`set -g ...`と書きます。
+一時的に試したい場合は、`tmux`コマンドと`set`コマンドを組み合わせて、ターミナルで`tmux set -g ...`と打つことも可能です。
+`-g`は「グローバルオプションとして設定」という意味ですが、深く考えず`set -g ...`でいいと思います。
 
 [status-style]コマンドを用いて status line の`fg`(foreground colour)と`bg`(background colour)を変更できます。
 `fg`は文字の色、`bg`は背景の色です。　両方またはどちらか一方を調整することにより、お好みの色の組み合わせにします。
