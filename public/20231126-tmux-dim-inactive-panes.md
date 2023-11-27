@@ -60,6 +60,10 @@ https://man.archlinux.org/man/tmux.1#STYLES
 
 ## さいごに
 
+status line の色の変更にも取り組みました。もしよかったらご覧ください。
+
+https://qiita.com/mnishiguchi/items/18ff80c0cb8269ff6dd8
+
 本記事は [autoracex #259](https://autoracex.connpass.com/event/300537/) の成果です。ありがとうございます。
 
 https://autoracex.connpass.com/
