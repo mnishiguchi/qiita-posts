@@ -114,11 +114,17 @@ https://paraxial.io/blog/elixir-savings
 
 ## Livebook
 
+ちょうど昨日の[Elixir Advent Calendar 2023 Day 1](https://qiita.com/advent-calendar/2023/elixir)で[Livebook]関連の記事がいくつかありました。
+
 https://qiita.com/RyoWakabayashi/items/7f3e2c288259f6a0a955
 
-https://moneyforward-dev.jp/entry/2023/08/31/100000
+https://qiita.com/Yoosuke/items/7a80006631c43b27e4ff
 
 https://qiita.com/mnishiguchi/items/93fca196918f911b3c2d
+
+他にも[Elixir]コミュニティの有志の方々が書かれた為になる記事がたくさんあります。ネットで検索してみてください。
+
+https://moneyforward-dev.jp/entry/2023/08/31/100000
 
 ## さいごに
 
