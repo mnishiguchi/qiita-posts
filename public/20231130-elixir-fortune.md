@@ -6,7 +6,7 @@ tags:
   - Elixir
   - fortune
 private: false
-updated_at: '2023-12-01T12:05:16+09:00'
+updated_at: '2023-12-01T12:11:25+09:00'
 id: b3364f01d18698a2dec8
 organization_url_name: fukuokaex
 slide: false
@@ -137,10 +137,6 @@ Fortune.random!()
 ![elixir-fortune-demo.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/5952b25e-1a90-17cf-f571-284aa440c2b4.png)
 
 これらの引用句は[fortuneパッケージ][elixir-fortune]の開発者がテスト用に使用しているファイルから来ています。
-
-余談ですが、[Mix.install/2]でインストールされたパッケージは、`Path.join(Mix.Utils.mix_cache(), "installs")`に保存されています。次回同じ設定でインストールする場合はここキャッシュを参照します。
-
-https://github.com/elixir-lang/elixir/blob/927b10df80ee1c1c7396e68efe00d06bc3e80420/lib/mix/lib/mix.ex#L945
 
 ## 応用
 
