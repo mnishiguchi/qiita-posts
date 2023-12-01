@@ -7,7 +7,7 @@ tags:
   - Elixir
   - Nerves
 private: false
-updated_at: '2023-11-06T22:20:41+09:00'
+updated_at: '2023-12-12T08:33:59+09:00'
 id: 9d7ed9f674423be26598
 organization_url_name: fukuokaex
 slide: false
@@ -124,7 +124,7 @@ psk = System.get_env("NERVES_WIFI_PASSPHRASE") ||
   raise("environment variable NERVES_WIFI_PASSPHRASE is missing")
 
 config :vintage_net,
-  regulatory_domain: "JP3", # Japan: JP3, US: US, Global: 00, etc
+  regulatory_domain: "JP", # Japan: JP, US: US, Global: 00, etc
   config: [
     {"usb0", %{type: VintageNetDirect}},
     {"eth0",
@@ -150,9 +150,11 @@ config :vintage_net,
   ]
 ```
 
-`regulatory_domain` は使用される地域に応じて設定する必要があるようです。よくわかりません。
+`regulatory_domain` は使用される国に応じて設定する必要があるようです。よくわかりません。
 
-https://www.arubanetworks.com/techdocs/InstantWenger_Mobile/Advanced/Content/Instant%20User%20Guide%20-%20volumes/Country_Codes_List.htm
+https://wireless.wiki.kernel.org/en/developers/regulatory/wireless-regdb
+
+https://git.kernel.org/pub/scm/linux/kernel/git/wens/wireless-regdb.git/tree/db.txt?id=HEAD#n947
 
 もちろん [DHCP] の代わりに、固定 IP アドレスの設定をすることも可能です。
 

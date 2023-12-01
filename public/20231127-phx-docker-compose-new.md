@@ -1,5 +1,5 @@
 ---
-title: phx-docker-compose-new を mix phx.new の代わりに使って気軽に Phoenix の開発環境を構築
+title: 気軽に Phoenix Docker Compose の開発環境を構築できるスクリプト
 tags:
   - Erlang
   - Elixir
@@ -7,7 +7,7 @@ tags:
   - Phoenix
   - docker-compose
 private: false
-updated_at: '2023-11-29T08:29:46+09:00'
+updated_at: '2023-12-04T04:56:23+09:00'
 id: 425a7e55f05a7ab6359b
 organization_url_name: fukuokaex
 slide: false
@@ -72,7 +72,7 @@ bin/start
 
 - [http://localhost:4000/](http://localhost:4000/)
 - [http://localhost:4000/dev/dashboard/](http://localhost:4000/dev/dashboard/)
-- [http://localhost:4001/](http://localhost:4001/)
+- [http://localhost:8080/](http://localhost:8080/)
 
 ![docker-compose-demo 2023-11-23 09-44-06.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/ee30129d-9d51-0156-6a89-96707d38c25b.png)
 
@@ -113,6 +113,16 @@ https://qiita.com/advent-calendar/2023/elixir
 https://paraxial.io/blog/elixir-savings
 
 ## Livebook
+
+ちょうど昨日の[Elixir Advent Calendar 2023 Day 1](https://qiita.com/advent-calendar/2023/elixir)で[Livebook]関連の記事がいくつかありました。
+
+https://qiita.com/RyoWakabayashi/items/7f3e2c288259f6a0a955
+
+https://qiita.com/Yoosuke/items/7a80006631c43b27e4ff
+
+https://qiita.com/mnishiguchi/items/93fca196918f911b3c2d
+
+他にも[Elixir]コミュニティの有志の方々が書かれた為になる記事がたくさんあります。ネットで検索してみてください。
 
 https://moneyforward-dev.jp/entry/2023/08/31/100000
 
