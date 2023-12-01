@@ -7,13 +7,12 @@ tags:
   - Phoenix
   - docker-compose
 private: false
-updated_at: '2023-11-27T23:13:15+09:00'
+updated_at: '2023-11-29T08:29:46+09:00'
 id: 425a7e55f05a7ab6359b
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
 ---
-
 [mix phx.new] の代わりに使える [phx-docker-compose-new] というスクリプトを書いてみました。
 
 [Phoenix]アプリの開発環境を[Docker Compose]で構築すると、アプリのみならず[PostgreSQL]データベースや[Livebook]なども一氣にまとめてセットアップすることができて便利です。
@@ -29,7 +28,9 @@ https://qiita.com/mnishiguchi/items/e367743bca3520e2a387
 
 そこで、初学者でも気軽に[Phoenix]アプリの開発環境を[Docker Compose]で構築できるスクリプトがあればいいんじゃないかと思ったのです。もちろん、ただ思っているだけでは何も変わらないので、すぐに取り組みました。
 
-## TL;DR
+[English version](https://dev.to/mnishiguchi/build-phoenix-docker-compose-development-environment-using-phx-docker-compose-new-instead-of-mix-phxnew-20n2)
+
+## やりかた
 
 念の為 [Git]、[Docker]、[Docker Compose]がインストールされているか確認します。
 
