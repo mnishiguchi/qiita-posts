@@ -114,7 +114,11 @@ https://paraxial.io/blog/elixir-savings
 
 ## Livebook
 
+https://qiita.com/RyoWakabayashi/items/7f3e2c288259f6a0a955
+
 https://moneyforward-dev.jp/entry/2023/08/31/100000
+
+https://qiita.com/mnishiguchi/items/93fca196918f911b3c2d
 
 ## さいごに
 
