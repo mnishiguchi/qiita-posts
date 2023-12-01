@@ -1,5 +1,5 @@
 ---
-title: phx-docker-compose-new を mix phx.new の代わりに使って気軽に Phoenix の開発環境を構築
+title: 気軽に Phoenix Docker Compose の開発環境を構築できるスクリプト
 tags:
   - Erlang
   - Elixir
