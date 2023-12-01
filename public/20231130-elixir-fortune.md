@@ -83,10 +83,10 @@ fortuneファイルの扱いにはいくつかルールがあります。
 
 - 二種類のファイルを用意する。
   - テキストファイル
-    - [拡張子]: なし（例、`my_favorite_quotes`）
+    - [拡張子] なし（例、`my_favorite_quotes`）
     - 引用句を`%`文字のみを含む行で区切る
   - インデックス
-    - [拡張子]: `.dat`（例、`my_favorite_quotes.dat`）
+    - [拡張子] `.dat`（例、`my_favorite_quotes.dat`）
     - テキストファイルを`strfile`コマンドでコンパイルしたもの
 - 二種類のファイルを両方ともfortuneファイル置き場に置く
 
@@ -137,6 +137,10 @@ Fortune.random!()
 ![elixir-fortune-demo.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/5952b25e-1a90-17cf-f571-284aa440c2b4.png)
 
 これらの引用句は[fortuneパッケージ][elixir-fortune]の開発者がテスト用に使用しているファイルから来ています。
+
+余談ですが、[Mix.install/2]でインストールされたパッケージは、`Path.join(Mix.Utils.mix_cache(), "installs")`に保存されています。次回同じ設定でインストールする場合はここキャッシュを参照します。
+
+https://github.com/elixir-lang/elixir/blob/927b10df80ee1c1c7396e68efe00d06bc3e80420/lib/mix/lib/mix.ex#L945
 
 ## 応用
 
