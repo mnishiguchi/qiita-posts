@@ -1,13 +1,13 @@
 ---
 title: Elixir で fortune を楽しむ
 tags:
-  - elixir
+  - Linux
+  - UNIX
+  - Elixir
   - fortune
-  - linux
-  - unix
 private: false
-updated_at: ''
-id: null
+updated_at: '2023-12-01T12:05:16+09:00'
+id: b3364f01d18698a2dec8
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
