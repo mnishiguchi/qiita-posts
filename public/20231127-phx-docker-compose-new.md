@@ -72,7 +72,7 @@ bin/start
 
 - [http://localhost:4000/](http://localhost:4000/)
 - [http://localhost:4000/dev/dashboard/](http://localhost:4000/dev/dashboard/)
-- [http://localhost:4001/](http://localhost:4001/)
+- [http://localhost:8080/](http://localhost:8080/)
 
 ![docker-compose-demo 2023-11-23 09-44-06.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/ee30129d-9d51-0156-6a89-96707d38c25b.png)
 
