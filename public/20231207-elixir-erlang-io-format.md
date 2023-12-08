@@ -24,6 +24,8 @@ https://hexdocs.pm/elixir/IO.html#functions
 
 https://www.erlang.org/doc/man/io.html
 
+https://qiita.com/mnishiguchi/items/060bf92bcc6e62a5afe2
+
 [Elixir]の[IO]モジュールの中で[Erlang]の[io]モジュールが利用されているのです。例えば、[Elixir]の[IO.puts/2]は[Erlang]の[io.put_chars/2]を使って実装されています。
 
 https://github.com/elixir-lang/elixir/blob/927b10df80ee1c1c7396e68efe00d06bc3e80420/lib/elixir/lib/io.ex#L294
