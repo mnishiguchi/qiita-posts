@@ -7,7 +7,7 @@ tags:
   - io
   - 闘魂
 private: false
-updated_at: '2023-12-08T12:49:17+09:00'
+updated_at: '2023-12-08T12:50:07+09:00'
 id: 7ebd418460c8c508acc4
 organization_url_name: fukuokaex
 slide: false
