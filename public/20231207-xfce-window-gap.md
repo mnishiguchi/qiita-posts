@@ -58,6 +58,16 @@ sudo systemctl restart lightdm
 
 [xfce4-terminal]のウィンドウ サイズは、フォント サイズの形状とウィンドウの寸法に依存するとのことです。
 
+## さいごに
+
+本記事は [闘魂Elixir #59](https://autoracex.connpass.com/event/300542/) の成果です。ありがとうございます。
+
+https://autoracex.connpass.com/
+
+https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
+
+![toukon-qiita-macbook_20230912_091808.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/fd5c55ec-4fe0-8af6-59bc-bab1ef3d182b.jpeg)
+
 [Xfce]: https://www.xfce.org/?lang=ja
 [lightdm]: https://ja.wikipedia.org/wiki/LightDM
 [xfce4-terminal]: https://docs.xfce.org/apps/terminal/start
