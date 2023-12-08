@@ -2,13 +2,13 @@
 title: ElixirでErlangのioモジュールを使う
 tags:
   - Erlang
-  - Elixir
-  - IO
   - string
+  - Elixir
+  - io
   - 闘魂
 private: false
-updated_at: ''
-id: null
+updated_at: '2023-12-08T12:44:44+09:00'
+id: 7ebd418460c8c508acc4
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
