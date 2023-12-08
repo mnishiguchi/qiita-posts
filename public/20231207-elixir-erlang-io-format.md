@@ -66,7 +66,7 @@ iex> :io.format("|~-5s|~n", ["123"])
 `s`で多バイトの文字に対応するためにはUnicode translation modifier（`t`）を指定する必要があります。
 
 ```elixir
-# 何もしないと多バイトの文字が文字化けする。
+# 何もしないと多バイトの文字が文字化け
 iex> :io.format("~s~n", ["闘魂"])
 é­
 :ok
