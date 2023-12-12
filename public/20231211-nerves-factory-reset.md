@@ -88,7 +88,19 @@ https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 
 お、もう簡単にできるようになっているのかも！うっかり見落としてました。
 
+[Nerves.Runtime.FwupOps.factory_reset/1](https://hexdocs.pm/nerves_runtime/Nerves.Runtime.FwupOps.html#factory_reset/1)、これで一発です。
+
+```elixir
+Nerves.Runtime.FwupOps.factory_reset
+```
+
+https://hexdocs.pm/nerves_runtime/Nerves.Runtime.FwupOps.html#factory_reset/1
+
 https://github.com/nerves-project/nerves_runtime/commit/1b2645167a3bdf32c4f12e5eda40eaabddc32315
+
+https://hexdocs.pm/nerves_runtime/readme.html#filesystem-initialization
+
+WiFi SSID やパスワードなどのネットワーク設定を含む多くの設定がアプリケーション データ パーティションに保存されていることに注意してください。 出荷時設定にリセットされたデバイスは、その後ネットワークに接続できなくなる可能性があります。
 
 ![toukon-qiita-macbook_20230912_091808.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/fd5c55ec-4fe0-8af6-59bc-bab1ef3d182b.jpeg)
 
