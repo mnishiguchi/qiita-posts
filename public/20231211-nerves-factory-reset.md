@@ -18,7 +18,22 @@ ignorePublish: false
 
 ## Elixir プロジェクトの`priv`ディレクトリに初期化用データを追加
 
-最も簡単な方法は、[Nerves] ファームウエアを構成する[Elixir] プロジェクトのうちどれか一つの`priv`ディレクトリに読み取り専用データを追加することです。 そのデータは[Elixir]コードとともに [Nerves] イメージに含まれるので、実行時に[Application.app_dir/2] を呼び出してそのパスを取得できます。 実はこれは[Nerves] 特有のものではなく [Elixir]/[Erlang] に備わっている機能です。
+最も簡単な方法は、[Nerves] ファームウエアを構成する[Elixir] プロジェクトのうちどれか一つの`priv`ディレクトリに読み取り専用データを追加することです。 そのデータは[Elixir]コードとともに [Nerves] イメージに含まれるので、実行時に[Application.app_dir/2] を呼び出してそのパスを取得できます。
+
+実はこれは[Nerves] 特有のものではなく [Elixir]/[Erlang] に備わっている機能です。
+
+[Erlang]のドキュメントにはこう書かれています。
+
+> priv - Optional. Used for application specific files.
+
+https://www.erlang.org/doc/design_principles/applications.html
+
+そういえば[Phoenix]アプリで写真とかが`priv/static/assets`に格納されてましたね。
+
+> assets - a directory that keeps source code for your front-end assets, typically JavaScript and CSS. These sources are automatically bundled by the esbuild tool. Static files like images and fonts go in priv/static.
+
+https://hexdocs.pm/phoenix/directory_structure.html
+
 
 ## `rootfs_overlay`ディレクトリに初期化用データを追加
 
