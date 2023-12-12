@@ -35,10 +35,11 @@ https://www.erlang.org/doc/design_principles/applications.html
 
 https://hexdocs.pm/phoenix/directory_structure.html
 
-
 ## `rootfs_overlay`ディレクトリに初期化用データを追加
 
 初期化用データを`rootfs_overlay`ディレクトリに含めることにより、[Nerves] ファームウエアのビルド時にファイルシステムの一部にしてしまう技です。なんらかの理由で（`priv`ディレクトリ以外の）特定のパスに初期化用データを置いておきたい場合はこの手法が便利です。
+
+https://hexdocs.pm/nerves/advanced-configuration.html#root-filesystem-overlays
 
 ## `/root`（別名`/data`）内のすべてのファイルとディレクトリを再フォーマット
 
