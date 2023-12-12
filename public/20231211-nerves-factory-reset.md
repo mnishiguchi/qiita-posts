@@ -1,14 +1,14 @@
 ---
 title: Nervesデバイスを工場出荷状態に初期化する方法
 tags:
-  - Elixir
   - Erlang
-  - Nerves
-  - IoT
   - Linux
+  - Elixir
+  - IoT
+  - Nerves
 private: false
-updated_at: ''
-id: null
+updated_at: '2023-12-12T11:36:56+09:00'
+id: f354dc92942724aad1d1
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
