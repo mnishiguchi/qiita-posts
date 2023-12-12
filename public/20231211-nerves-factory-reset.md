@@ -1,0 +1,68 @@
+---
+title: Nervesデバイスを工場出荷状態に初期化する方法
+tags:
+  - Elixir
+  - Erlang
+  - Nerves
+  - IoT
+  - Linux
+private: false
+updated_at: ''
+id: null
+organization_url_name: fukuokaex
+slide: false
+ignorePublish: false
+---
+
+工場出荷状態に初期化するにはどうすればいいのでしょうか？　いくつか方法があります。
+
+## Elixir プロジェクトの`priv`ディレクトリに初期化用データを追加
+
+最も簡単な方法は、[Nerves] ファームウエアを構成する[Elixir] プロジェクトのうちどれか一つの`priv`ディレクトリに読み取り専用データを追加することです。 そのデータは[Elixir]コードとともに [Nerves] イメージに含まれるので、実行時に[Application.app_dir/2] を呼び出してそのパスを取得できます。 実はこれは[Nerves] 特有のものではなく [Elixir]/[Erlang] に備わっている機能です。
+
+## `rootfs_overlay`ディレクトリに初期化用データを追加
+
+初期化用データをを`rootfs_overlay`ディレクトリに含めることにより、[Nerves] ファームウエアのビルド時にファイルシステムの一部にしてしまう技です。なんらかの理由で（`priv`ディレクトリ以外の）特定のパスに初期化用データを置いておきたい場合はこの手法が便利です。
+
+## `/root`（別名`/data`）内のすべてのファイルとディレクトリを再フォーマット
+
+工場出荷状態に初期化するとは、読み書き可能な`/root`（別名`/data`）内のすべてのファイルとディレクトリを削除し、[SD カード]が`mix burn`を実行した時と同じ状態にすることと考えることができます。 その考えでいけば、すべての設定とデータを`/root`に保存するということになります。
+
+すべてのファイルを削除するのではなく、下位レベルの`/data`パーティションをゼロにして再フォーマットするのが確実だと考えられます。
+
+```elixir
+# `/root` がマウントされている場所を確認
+root_mount_point = System.shell("mount | grep 'on /root'") |> elem(0) |> String.split(" ") |> hd()
+
+# `/data`パーティションをゼロにして再フォーマット
+System.cmd("dd", ["if=/dev/zero", "of=#{root_mount_point}", "bs=1M", "count=1"])
+
+# 再起動
+Nerves.Runtime.reboot
+```
+
+:tada::tada::tada:
+
+ただ、この作業はちょっと大変なので、将来の[Nerves]リリースでなんとかこれを簡単にできるようにしたいですね。
+
+https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
+
+![toukon-qiita-macbook_20230912_091808.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/fd5c55ec-4fe0-8af6-59bc-bab1ef3d182b.jpeg)
+
+<!-- begin links -->
+
+[Nerves]: https://github.com/nerves-project/nerves
+[Elixir]: https://elixir-lang.org/
+[Erlang]: https://www.erlang.org/
+[IEx]: https://elixirschool.com/ja/lessons/basics/basics#%E5%AF%BE%E8%A9%B1%E3%83%A2%E3%83%BC%E3%83%89-2
+[IO]: https://hexdocs.pm/elixir/IO.html
+[IO.puts/2]: https://hexdocs.pm/elixir/IO.html#puts/2
+[io]: https://www.erlang.org/doc/man/io.html
+[io.put_chars/2]: https://www.erlang.org/doc/man/io#put_chars-2
+[io:format/2]: https://www.erlang.org/doc/man/io.html#format-2
+[string]: https://www.erlang.org/doc/man/string.html
+[String]: https://hexdocs.pm/elixir/String.html#functions
+[Application.app_dir/2]: https://hexdocs.pm/elixir/Application.html#app_dir/2
+[SDカード]: https://ja.wikipedia.org/wiki/SD%E3%83%A1%E3%83%A2%E3%83%AA%E3%83%BC%E3%82%AB%E3%83%BC%E3%83%89
+
+<!-- end links -->
