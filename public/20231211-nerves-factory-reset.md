@@ -39,6 +39,9 @@ https://hexdocs.pm/phoenix/directory_structure.html
 
 初期化用データを`rootfs_overlay`ディレクトリに含めることにより、[Nerves] ファームウエアのビルド時にファイルシステムの一部にしてしまう技です。なんらかの理由で（`priv`ディレクトリ以外の）特定のパスに初期化用データを置いておきたい場合はこの手法が便利です。
 
+[Nerves] により生成された[Elixir]プロジェクトには、`rootfs_overlay` ディレクトリが含まれており、`config/config.exs`にそれ用の設定項目があります。
+基本的に、`rootfs_overlay` ディレクトリに置いたものはすべてディスク上にオーバーレイされます。 例えば、あるファイルをデバイス上の `/etc/some_data_file.txt` に存在させたい場合は、そのファイルを `rootfs_overlay/etc/some_data_file.txt` のリポジトリに置くことになります。
+
 https://hexdocs.pm/nerves/advanced-configuration.html#root-filesystem-overlays
 
 ## `/root`（別名`/data`）内のすべてのファイルとディレクトリを再フォーマット
