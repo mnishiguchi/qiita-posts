@@ -45,7 +45,20 @@ https://hexdocs.pm/phoenix/directory_structure.html
 
 https://hexdocs.pm/nerves/advanced-configuration.html#root-filesystem-overlays
 
+[v1.9.2](https://github.com/nerves-project/nerves/blob/main/CHANGELOG.md#v192---2023-02-05)から以下のディレクトリのオーバーレイが禁止になりましたので、注意してください。
+- `/root`
+- `/tmp`
+- `/dev`
+- `/sys`
+- `/proc`
+
+https://github.com/nerves-project/nerves/blob/main/CHANGELOG.md#v192---2023-02-05
+
+https://github.com/nerves-project/nerves_system_br/issues/495
+
 ## `/root`（別名`/data`）内のすべてのファイルとディレクトリを再フォーマット
+
+https://qiita.com/torifukukaiou/items/9dd5cfa81109a2e0a5eb
 
 工場出荷状態に初期化するとは、読み書き可能な`/root`（別名`/data`）内のすべてのファイルとディレクトリを削除し、[SDカード]を`mix burn`を実行した時と同じ状態にすることと考えることができます。 その考えでいけば、すべての設定とデータを`/root`に保存するということになります。
 
