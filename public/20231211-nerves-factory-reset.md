@@ -56,7 +56,7 @@ root_mount_point = (
   |> hd()
 )
 
-# `/data`パーティションをゼロにして再フォーマット
+# `/root`パーティションをゼロにして再フォーマット
 System.cmd("dd", ["if=/dev/zero", "of=#{root_mount_point}", "bs=1M", "count=1"])
 
 # 再起動
