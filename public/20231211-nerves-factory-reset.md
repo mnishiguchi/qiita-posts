@@ -47,7 +47,12 @@ https://hexdocs.pm/phoenix/directory_structure.html
 
 ```elixir
 # `/root` がマウントされている場所を確認
-root_mount_point = System.shell("mount | grep 'on /root'") |> elem(0) |> String.split(" ") |> hd()
+root_mount_point = (
+  System.shell("mount | grep 'on /root'")
+  |> elem(0)
+  |> String.split(" ")
+  |> hd()
+)
 
 # `/data`パーティションをゼロにして再フォーマット
 System.cmd("dd", ["if=/dev/zero", "of=#{root_mount_point}", "bs=1M", "count=1"])
