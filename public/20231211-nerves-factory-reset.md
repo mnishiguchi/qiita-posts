@@ -69,14 +69,8 @@ https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 [Nerves]: https://github.com/nerves-project/nerves
 [Elixir]: https://elixir-lang.org/
 [Erlang]: https://www.erlang.org/
+[Phoenix]: https://www.phoenixframework.org/
 [IEx]: https://elixirschool.com/ja/lessons/basics/basics#%E5%AF%BE%E8%A9%B1%E3%83%A2%E3%83%BC%E3%83%89-2
-[IO]: https://hexdocs.pm/elixir/IO.html
-[IO.puts/2]: https://hexdocs.pm/elixir/IO.html#puts/2
-[io]: https://www.erlang.org/doc/man/io.html
-[io.put_chars/2]: https://www.erlang.org/doc/man/io#put_chars-2
-[io:format/2]: https://www.erlang.org/doc/man/io.html#format-2
-[string]: https://www.erlang.org/doc/man/string.html
-[String]: https://hexdocs.pm/elixir/String.html#functions
 [Application.app_dir/2]: https://hexdocs.pm/elixir/Application.html#app_dir/2
 [SDカード]: https://ja.wikipedia.org/wiki/SD%E3%83%A1%E3%83%A2%E3%83%AA%E3%83%BC%E3%82%AB%E3%83%BC%E3%83%89
 
