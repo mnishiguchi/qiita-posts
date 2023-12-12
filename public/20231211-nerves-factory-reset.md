@@ -86,6 +86,10 @@ Nerves.Runtime.reboot
 
 https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 
+お、もう簡単にできるようになっているのかも！うっかり見落としてました。
+
+https://github.com/nerves-project/nerves_runtime/commit/1b2645167a3bdf32c4f12e5eda40eaabddc32315
+
 ![toukon-qiita-macbook_20230912_091808.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/fd5c55ec-4fe0-8af6-59bc-bab1ef3d182b.jpeg)
 
 <!-- begin links -->
