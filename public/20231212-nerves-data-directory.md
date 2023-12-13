@@ -139,8 +139,6 @@ https://github.com/nerves-project/nerves_system_rpi4/blob/main/rootfs_overlay/et
 
 https://github.com/nerves-project/nerves_system_br/issues/495
 
-https://hexdocs.pm/nerves/advanced-configuration.html#root-filesystem-overlays
-
 https://github.com/nerves-project/nerves/blob/main/CHANGELOG.md#v192---2023-02-05
 
 https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
