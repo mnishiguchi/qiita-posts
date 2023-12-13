@@ -7,7 +7,7 @@ tags:
   - IoT
   - Nerves
 private: false
-updated_at: '2023-12-13T10:51:42+09:00'
+updated_at: '2023-12-13T10:58:35+09:00'
 id: 39847da8df3873fec8c9
 organization_url_name: fukuokaex
 slide: false
