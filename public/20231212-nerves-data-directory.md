@@ -7,7 +7,7 @@ tags:
   - IoT
   - Nerves
 private: false
-updated_at: '2023-12-13T10:21:11+09:00'
+updated_at: '2023-12-13T10:51:42+09:00'
 id: 39847da8df3873fec8c9
 organization_url_name: fukuokaex
 slide: false
@@ -61,7 +61,9 @@ https://hexdocs.pm/nerves_runtime/readme.html#filesystem-initialization
 
 ## `/data`の中身
 
-`/data`の中身は`nerves_system_xxx`パッケージの`rootfs_overlay/etc/erlinit.config`で定義されています。`nerves_system_xxx`の`xxx`の部分はお手元のデバイスに対応する[Nerves Target]に読み替えてください。[Nerves]公式サポートの[Nerves Target]以外にもコミュニティによって制作されたカスタムシステムも多数あります。
+`/data`の中身は`nerves_system_xxx`パッケージの`rootfs_overlay/etc/erlinit.config`設定ファイルにより決定されるようです。詳しくは知りません。
+
+`nerves_system_xxx`の`xxx`の部分はお手元のデバイスに対応する[Nerves Target]に読み替えてください。[Nerves]公式サポートの[Nerves Target]以外にもコミュニティによって制作されたカスタムシステムも多数あります。
 
 https://hex.pm/packages?search=nerves_system_&sort=recent_downloads
 
@@ -69,14 +71,16 @@ https://hex.pm/packages?search=nerves_system_&sort=recent_downloads
 
 https://github.com/nerves-project/nerves_system_rpi4/blob/main/rootfs_overlay/etc/erlinit.config
 
-`mix burn`を実行すると MicroSD カード全体を事実上初期の状態にリセットことになるので、`/data`のファイルが消去されます。一方、ネットワークを介した通常のファームウェアの更新は`/data` には影響しません。
+`mix burn`を実行すると [SDカード]全体を事実上初期の状態にリセットことになるので、`/data`のファイルが消去されます。一方、ネットワークを介した通常のファームウェアの更新は`/data` には影響しません。
 
 `/data`の中身を読み書きするシナリオはいくつか考えられます。
 
-- ファームウエアをビルドして、SD カードに焼くときに初期化される
+- ファームウエアをビルドして、[SDカード]に焼くときに初期化される
 - エンジニアが[SFTP]で読み書き
 - Elixir アプリ（ライブラリ）が永続化するデータを読み書き
 - 工場出荷状態に初期化
+
+https://qiita.com/mnishiguchi/items/f354dc92942724aad1d1
 
 ## rootfs_overlay
 
@@ -105,7 +109,7 @@ use Toolshed
 
 https://github.com/nerves-livebook/nerves_livebook/tree/d180dacb6ff76e7f269f92d1a992c27b9775f0c8/rootfs_overlay
 
-このファイルは実行時にファイルシステムの中の｀/etc/iex.exs`ファイルとなり、[IEx] 起動時の挙動を変更しています。
+このファイルがファームウエアのファイルシステムの`/etc/iex.exs`ファイルとなり、[IEx] 起動時の挙動を変更しています。
 
 https://speakerdeck.com/ohr486/iex-maniacs
 
@@ -131,11 +135,9 @@ https://github.com/nerves-project/nerves_system_rpi4/blob/main/rootfs_overlay/et
 - `/sys`
 - `/proc`
 
-https://qiita.com/mnishiguchi/items/f354dc92942724aad1d1
+ですので直接、初期設定の`/root`を上書きすることはできません。システムの初期設定は（手作業でなく）設定ファイルを介して行います。
 
 https://github.com/nerves-project/nerves_system_br/issues/495
-
-https://qiita.com/mnishiguchi/items/f354dc92942724aad1d1
 
 https://hexdocs.pm/nerves/advanced-configuration.html#root-filesystem-overlays
 
@@ -145,7 +147,7 @@ https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 
 ## Nerves JP
 
-[Nerves] にご興味のある方は、ぜひ Nerves JP にお越しください。わいわいガヤガヤ楽しく Nerves してます。
+[Nerves] にご興味のある方は、ぜひ Nerves JP にお越しください。わいわいガヤガヤ楽しく [Nerves] してます。
 
 https://nerves-jp.connpass.com/event/291879/
 
