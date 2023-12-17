@@ -147,7 +147,7 @@ sudo pacman -S --needed \
   jq \
   mercurial \
   ncurses \
-  ksshaskpass \
+  lxqt-openssh-askpass \
   python \
   python-aiohttp \
   python-ijson \
@@ -160,7 +160,6 @@ sudo pacman -S --needed \
   subversion \
   unzip \
   wget
-
 ```
 
 ## Nerves Systems Builder をダウンロード
