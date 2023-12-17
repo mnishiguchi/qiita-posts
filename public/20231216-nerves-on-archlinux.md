@@ -7,7 +7,7 @@ tags:
   - RaspberryPi
   - Elixir
 private: false
-updated_at: '2023-12-17T12:08:07+09:00'
+updated_at: '2023-12-17T12:22:52+09:00'
 id: 87b1d42f87d9931d6df5
 organization_url_name: fukuokaex
 slide: false
