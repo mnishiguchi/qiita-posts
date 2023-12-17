@@ -108,7 +108,7 @@ https://elixir-lang.info/
 
 ## Nerves をファームウエアを開発するのに最低限必要なパッケージをインストール
 
-[Nerves]ドキュメントに紹介されているのは、[Arch Linux]公式の [pacman] パッケージマネージャを使用していません。[Arch User Repository (AUR)][AUR] を利用するための非公式ヘルパーコマンド [yay](https://github.com/Jguer/yay)を使ってます。ひょっとしたらドキュメントを執筆当時は公式の[Arch リポジトリ](https://archlinux.org/packages/)に存在しなかったパッケージがあったのかもしれません。
+[Nerves]ドキュメントに紹介されているインストール方法は、[Arch Linux]公式の [pacman] パッケージマネージャを使用していません。[Arch User Repository (AUR)][AUR] を利用するための非公式ヘルパーコマンド [yay](https://github.com/Jguer/yay)を使ってます。ひょっとしたらドキュメントを執筆当時は公式の[Arch リポジトリ](https://archlinux.org/packages/)に存在しなかったパッケージがあったのかもしれません。
 
 2023 年 12 月現在では [pacman] パッケージマネージャでインストールできるのでそれで行きます。
 
