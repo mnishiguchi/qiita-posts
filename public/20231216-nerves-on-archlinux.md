@@ -132,7 +132,11 @@ https://github.com/nerves-project/nerves_systems
 
 一つ問題は、Nerves コアチームが Debian 系 OS しか使っていないため、他の OS で必要なパッケージの検証はされていません。
 
-[Arch Linux]で使えるパッケージをひとつひとつ探し、以下のパッケージで同じことを[Arch Linux]でもできることがわかりました。
+[Arch Linux]で使えるパッケージをひとつひとつ探していくしかありません。
+
+![nerves-system-pacman-deps-install 2023-09-27 12-57-19.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/71eec432-d590-b5bd-a4fc-f5dde6ba708c.png)
+
+結果、以下のパッケージで同じことを[Arch Linux]でもできることがわかりました。
 
 ```bash:ホストマシンのターミナル
 sudo pacman -S --needed \
