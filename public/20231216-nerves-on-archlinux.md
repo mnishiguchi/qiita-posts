@@ -18,15 +18,15 @@ ignorePublish: false
 
 ## Elixir（えりくさ）言語
 
-[Elixir]は耐障害性、高い並列性能で長年実績のある[Erlang]の上に実装されたプログラミング言語で、世界中のメッセージアプリ、チャットアプリ等でも使用されており、その性能に改めて注目が集まっていると聞きます。[Elixir]を使ってサーバーの費用を $2 Million/年 節約できたという話もあります。
+[Elixir]は耐障害性、高い並列性能で長年実績のある[Erlang]の上に実装されたプログラミング言語で、世界中のメッセージアプリ、チャットアプリ等でも使用されており、その性能に改めて注目が集まっていると聞きます。[Elixir]を使ってサーバーの費用を  $2 Million/年   節約できたという話もあります。
 
 https://paraxial.io/blog/elixir-savings
 
 ## Nerves（なあぶす）フレームワーク
 
-[Nerves（なあぶす）](https://www.nerves-project.org/)というIoTフレームワークを使うと、[Elixir]の強力な性能を[ラズパイ][Raspberry Pi 5]等の手のひらサイズのコンピュータの上で活用し、堅牢なIoTシステムの構築が比較的簡単にできてしまいます。すごいです！
+[Nerves（なあぶす）](https://www.nerves-project.org/)という IoT フレームワークを使うと、[Elixir]の強力な性能を[ラズパイ][Raspberry Pi 5]等の手のひらサイズのコンピュータの上で活用し、堅牢な IoT システムの構築が比較的簡単にできてしまいます。すごいです！
 
-Nervesについて詳しくは@takasehidekiさんの[「Slideshare：ElixirでIoT！？ナウでヤングでcoolなNervesフレームワーク」](https://www2.slideshare.net/takasehideki/elixiriotcoolnerves-236780506)がわかりやすいです。
+Nerves について詳しくは@takasehideki さんの[「Slideshare：Elixir で IoT！？ナウでヤングで cool な Nerves フレームワーク」](https://www2.slideshare.net/takasehideki/elixiriotcoolnerves-236780506)がわかりやすいです。
 
 https://www2.slideshare.net/takasehideki/elixiriotcoolnerves-236780506
 
@@ -38,21 +38,17 @@ https://nerves-jp.connpass.com/
 
 [Nerves]への入り口であり、[コアツール](https://github.com/nerves-project/nerves#nerves-projects)と[ドキュメント](https://hexdocs.pm/nerves/getting-started.html)を[Nerves]ユーザーに提供。
 
-
 https://github.com/nerves-project/nerves
-
 
 ### Buildroot
 
-[Nerves]が内部で使用する、[クロスコンパイル][クロスコンパイラ]で組み込みLinuxシステムを生成するためのツール。
+[Nerves]が内部で使用する、[クロスコンパイル][クロスコンパイラ]で組み込み Linux システムを生成するためのツール。
 
 [Nerves]がナイスな形で隠蔽してくれているので、通常は[Nerves]ユーザーが直接[Buildroot]を触ることはありません。
 
-
 https://git.busybox.net/buildroot
 
-
-### nerves_system_br　パッケージ
+### nerves_system_br 　パッケージ
 
 組み込み [Erlang]、[Elixir]、[Lisp Flavored Erlang (LFE)][LFE] プロジェクト用の開発プラットフォーム。[Buildroot]を使用して[Nerves]を構築するための共通ロジックを提供します。通常は直接触ることは無いです。
 
@@ -72,7 +68,7 @@ https://github.com/nerves-project/nerves_system_rpi5
 
 ## 環境
 
-- ホストOS: Arch Linux x86_64
+- ホスト OS: Arch Linux x86_64
 - ホストマシン: MacBookAir6,2 1.0
 
 ## やること
@@ -84,9 +80,9 @@ https://github.com/nerves-project/nerves_system_rpi5
 - [Elixir] をインストール
 - [Nerves]をソースからビルドするのに必要なパッケージをインストール
 - [Nerves Systems Builder]をダウンロード
-- [Nerves Systems Builder]のREADMEに従う
+- [Nerves Systems Builder]の README に従う
 
-## asdf Erlang Elixirをインストール
+## asdf Erlang Elixir をインストール
 
 https://qiita.com/mnishiguchi/items/122249b6c27391f03d82
 
@@ -110,12 +106,11 @@ https://nerves-jp.connpass.com/
 
 https://elixir-lang.info/
 
+## Nerves をファームウエアを開発するのに最低限必要なパッケージをインストール
 
-## Nervesをファームウエアを開発するのに最低限必要なパッケージをインストール
-
-[Nerves]ドキュメントに紹介されているのは、[Arch Linux]公式のpacmanパッケージマネージャを使用していません。
+[Nerves]ドキュメントに紹介されているのは、[Arch Linux]公式の pacman パッケージマネージャを使用していません。
 ひょっとしたらドキュメントを執筆当時は公式の[Arch リポジトリ](https://archlinux.org/packages/)に存在しなかったパッケージなのかもしれません。
-2023年12月現在ではpacmanパッケージマネージャでインストールできるのでそれで行きます。
+2023 年 12 月現在では [pacman] パッケージマネージャでインストールできるのでそれで行きます。
 
 ```bash:ホストマシンのターミナル
 sudo pacman -S --needed \
@@ -129,13 +124,13 @@ sudo pacman -S --needed \
 
 https://hexdocs.pm/nerves/installation.html
 
-## Nerves Systems Builderを利用するのに必要なパッケージをインストール
+## Nerves Systems Builder を利用するのに必要なパッケージをインストール
 
-[Nerves Systems Builder]というNervesコアチームが使っているツールが公開されています。
+[Nerves Systems Builder]という Nerves コアチームが使っているツールが公開されています。
 
 https://github.com/nerves-project/nerves_systems
 
-一つ問題は、NervesコアチームがDebian系OSしか使っていないため、他のOSで必要なパッケージの検証はされていません。
+一つ問題は、Nerves コアチームが Debian 系 OS しか使っていないため、他の OS で必要なパッケージの検証はされていません。
 
 [Arch Linux]で使えるパッケージをひとつひとつ探し、以下のパッケージで同じことを[Arch Linux]でもできることがわかりました。
 
@@ -168,16 +163,16 @@ sudo pacman -S --needed \
 
 ```
 
-## Nerves Systems Builderをダウンロード
+## Nerves Systems Builder をダウンロード
 
 ```
 git clone git@github.com:nerves-project/nerves_systems.git
 cd nerves_systems
 ```
 
-## Nerves Systems BuilderのREADMEに従う
+## Nerves Systems Builder の README に従う
 
-あとはNerves Systems BuilderのREADMEにある手順に従うだけで、比較的簡単にファームウエアをソースファイルからビルドできます。
+あとは [Nerves Systems Builder] の README にある手順に従うだけで、比較的簡単にファームウエアをソースファイルからビルドできます。
 
 https://github.com/nerves-project/nerves_systems
 
@@ -189,7 +184,7 @@ https://qiita.com/mnishiguchi/items/206961699345ee8cf528
 
 ## Nerves Livebook
 
-ビルド済み[Nerves Livebook]ファームウェアを使用すると、何も構築せずに実際のハードウェアで Nerves プロジェクトを試すことができます。 数分以内に、Raspberry Pi や Beaglebone で Nerves を実行できるようになります。 Livebook でコードを実行し、ブラウザーで快適に Nerves チュートリアルを進めることができます。
+ビルド済み[Nerves Livebook]ファームウェアを使用すると、何も構築せずに実際のハードウェアで [Nerves] プロジェクトを試すことができます。 数分以内に、[Raspberry Pi][Raspberry Pi 5] や [BeagleBone] で [Nerves] を実行できるようになります。 Livebook でコードを実行し、ブラウザーで快適に Nerves チュートリアルを進めることができます。
 
 有志の方々が [Nerves Livebook] のセットアップ方法ついてのビデオを制作してくださっています。ありがとうございます。
 
@@ -212,7 +207,6 @@ https://autoracex.connpass.com/
 
 https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 
-
 ![toukon-qiita-macbook_20230912_091808.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/fd5c55ec-4fe0-8af6-59bc-bab1ef3d182b.jpeg)
 
 <!-- begin links -->
@@ -233,6 +227,7 @@ https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 [IEx]: https://elixirschool.com/ja/lessons/basics/basics#%E5%AF%BE%E8%A9%B1%E3%83%A2%E3%83%BC%E3%83%89-2
 [Linux]: https://ja.wikipedia.org/wiki/Linux
 [Linuxディストリビューション]: https://ja.wikipedia.org/wiki/Linux%E3%83%87%E3%82%A3%E3%82%B9%E3%83%88%E3%83%AA%E3%83%93%E3%83%A5%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3
+[Livebook]: https://livebook.dev/
 [Mix]: https://hexdocs.pm/mix/Mix.html
 [Nerves Livebook]: https://github.com/nerves-livebook/nerves_livebook
 [Nerves Systems Builder]: https://github.com/nerves-project/nerves_systems
@@ -261,5 +256,7 @@ https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 [クロスコンパイラ]: https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AD%E3%82%B9%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9
 [Buildroot]: https://buildroot.org/
 [LFE]: https://en.wikipedia.org/wiki/LFE_(programming_language)
+[pacman]: https://wiki.archlinux.jp/index.php/Pacman
+[BeagleBone]: https://www.beagleboard.org/boards/beaglebone-black
 
 <!-- end links -->
