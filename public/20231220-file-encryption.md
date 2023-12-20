@@ -4,6 +4,7 @@ tags:
   - gpg
   - GnuPG
   - password
+  - Linux
 private: false
 updated_at: '2023-12-21T03:03:00+09:00'
 id: be589685d8b5cd8154d5
