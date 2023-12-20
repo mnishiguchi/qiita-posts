@@ -1,12 +1,12 @@
 ---
 title: ファイルを氣輕に暗号化できるスクリプトを書く
 tags:
+  - Linux
   - gpg
   - GnuPG
   - password
-  - Linux
 private: false
-updated_at: '2023-12-21T03:03:00+09:00'
+updated_at: '2023-12-21T03:05:40+09:00'
 id: be589685d8b5cd8154d5
 organization_url_name: null
 slide: false
