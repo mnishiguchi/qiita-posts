@@ -71,7 +71,7 @@ mix nerves_key.signer       # Manages NervesKey signing keys
 mix upload                  # Uploads firmware to a Nerves device over SSH
 ```
 
-## Nerves関連ののMixタスクは何処から来たのか
+## Nerves関連のMixタスクは何処から来たのか
 
 これが大変でした。Nervesプロジェクトは関心事ごとにパッケージ化されています。ですので、様々な機能が別々の場所で管理されているのです。
 
