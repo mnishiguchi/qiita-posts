@@ -85,6 +85,10 @@ mix upload                  # Uploads firmware to a Nerves device over SSH
 
 nerves パッケージの [README.md](https://github.com/nerves-project/nerves/blob/main/README.md) に何がどこで管理されているか説明されています。
 
+Nervesコミュニティーで質問したら、[NervesコアチームのJonさん](https://github.com/jjcarstens)が即答してくださいました。
+
+![nerve s-mix-tasks-whereabouts 2024-01-14 at 21.15.45@2x.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/4ae6149e-5187-77f3-9b04-5ada600b347f.png)
+
 ### nerves パッケージ
 https://hexdocs.pm/nerves
 
