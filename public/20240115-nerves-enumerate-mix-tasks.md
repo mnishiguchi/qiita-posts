@@ -26,6 +26,10 @@ https://www2.slideshare.net/takasehideki/elixiriotcoolnerves-236780506
 
 https://nerves-jp.connpass.com/
 
+https://www.kinokuniya.co.jp/f/dsg-08-EK-1648153
+
+https://nerves-project.org/learn/
+
 ## Mixタスク
 
 Mix は、Elixir プロジェクトの作成、コンパイル、テスト、依存関係の管理などのタスクを提供するビルド ツールです。
