@@ -165,3 +165,55 @@ https://autoracex.connpass.com/
 https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 
 ![toukon-qiita-macbook_20230912_091808.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/fd5c55ec-4fe0-8af6-59bc-bab1ef3d182b.jpeg)
+
+<!-- begin links -->
+
+[aarch64]: https://ja.wikipedia.org/wiki/AArch64
+[Application.app_dir/2]: https://hexdocs.pm/elixir/Application.html#app_dir/2
+[Arch Linux]: https://ja.wikipedia.org/wiki/Arch_Linux
+[asdf installation]: https://asdf-vm.com/guide/getting-started.html#_3-install-asdf
+[asdf]: https://asdf-vm.com/
+[bash]: https://ja.wikipedia.org/wiki/Bash
+[Buildroot]: https://buildroot.org/
+[Debian]: https://ja.wikipedia.org/wiki/Debian
+[Elixir]: https://ja.wikipedia.org/wiki/Elixir_(プログラミング言語)
+[Erlang VM]: https://en.wikipedia.org/wiki/BEAM_(Erlang_virtual_machine)
+[Erlang]: https://ja.wikipedia.org/wiki/Erlang
+[Erlang]: https://www.erlang.org/
+[hex]: https://hex.pm/
+[IEx]: https://elixirschool.com/ja/lessons/basics/basics#%E5%AF%BE%E8%A9%B1%E3%83%A2%E3%83%BC%E3%83%89-2
+[Linux]: https://ja.wikipedia.org/wiki/Linux
+[Linuxディストリビューション]: https://ja.wikipedia.org/wiki/Linux%E3%83%87%E3%82%A3%E3%82%B9%E3%83%88%E3%83%AA%E3%83%93%E3%83%A5%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3
+[Livebook]: https://livebook.dev/
+[Mix]: https://hexdocs.pm/mix/Mix.html
+[Nerves Livebook]: https://github.com/nerves-livebook/nerves_livebook
+[Nerves Systems Builder]: https://github.com/nerves-project/nerves_systems
+[Nerves Target]: https://hexdocs.pm/nerves/supported-targets.html
+[nerves_bootstrap]: https://github.com/nerves-project/nerves_bootstrap
+[nerves_system_rp4]: https://github.com/nerves-project/nerves_system_rpi4
+[nerves_system_br]: https://github.com/nerves-project/nerves_system_br
+[nerves_systems]: https://github.com/nerves-project/nerves_systems
+[nerves]: https://github.com/nerves-project/nerves
+[Nerves]: https://github.com/nerves-project/nerves
+[Phoenix]: https://www.phoenixframework.org/
+[Raspberry Pi 4]: https://www.raspberrypi.com/products/raspberry-pi-4-model-b/
+[Raspberry Pi 5]: https://www.raspberrypi.com/products/raspberry-pi-5/
+[rebar]: https://github.com/erlang/rebar3
+[SDカード]: https://ja.wikipedia.org/wiki/SD%E3%83%A1%E3%83%A2%E3%83%AA%E3%83%BC%E3%82%AB%E3%83%BC%E3%83%89
+[SFTP]: https://ja.wikipedia.org/wiki/SSH_File_Transfer_Protocol
+[SquashFS]: https://ja.wikipedia.org/wiki/SquashFS
+[systemd]: https://wiki.archlinux.jp/index.php/Systemd
+[x86_64]: https://ja.wikipedia.org/wiki/X64
+[アーカイブ]: https://ja.wikipedia.org/wiki/アーカイブ_(コンピュータ)
+[インクリメンタルビルド]: https://ja.wikipedia.org/wiki/ビルド_(ソフトウェア)
+[シェル]: https://ja.wikipedia.org/wiki/シェル
+[プロプライエタリソフトウェア]: https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%83%97%E3%83%A9%E3%82%A4%E3%82%A8%E3%82%BF%E3%83%AA%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2
+[仮想機械]: https://ja.wikipedia.org/wiki/仮想機械
+[対象ボード]: https://hexdocs.pm/nerves/targets.html
+[クロスコンパイラ]: https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AD%E3%82%B9%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9
+[Buildroot]: https://buildroot.org/
+[LFE]: https://en.wikipedia.org/wiki/LFE_(programming_language)
+[pacman]: https://wiki.archlinux.jp/index.php/Pacman
+[BeagleBone]: https://www.beagleboard.org/boards/beaglebone-black
+[AUR]: https://aur.archlinux.org/packages
+<!-- end links -->
