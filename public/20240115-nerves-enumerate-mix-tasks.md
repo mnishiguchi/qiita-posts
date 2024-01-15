@@ -139,3 +139,11 @@ mix upload                  # Uploads firmware to a Nerves device over SSH
 `mix nerves.info`について知りました。迷った時にとりあえずこれをランすると何か手がかりが得られそうです。
 
 実は基本的なコマンド以外はほとんど使ったことがありません。何かいいテクニックをお持ちの方は是非教えてください！
+
+本記事は [autoracex #269](https://autoracex.connpass.com/event/307159/) の成果です。ありがとうございます。
+
+https://autoracex.connpass.com/
+
+https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
+
+![toukon-qiita-macbook_20230912_091808.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/fd5c55ec-4fe0-8af6-59bc-bab1ef3d182b.jpeg)
