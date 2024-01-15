@@ -16,6 +16,16 @@ ignorePublish: false
 
 Nerves関連のMixタスクを列挙する方法を考えてみます。
 
+## Nerves（なあぶす）フレームワーク
+
+[Nerves（なあぶす）](https://www.nerves-project.org/)という IoT フレームワークを使うと、[Elixir]の強力な性能を[ラズパイ][Raspberry Pi 5]等の手のひらサイズのコンピュータの上で活用し、堅牢な IoT システムの構築が比較的簡単にできてしまいます。すごいです！
+
+Nerves について詳しくは@takasehideki さんの[「Slideshare：Elixir で IoT！？ナウでヤングで cool な Nerves フレームワーク」](https://www2.slideshare.net/takasehideki/elixiriotcoolnerves-236780506)がわかりやすいです。
+
+https://www2.slideshare.net/takasehideki/elixiriotcoolnerves-236780506
+
+https://nerves-jp.connpass.com/
+
 ## Mixタスク
 
 Mix は、Elixir プロジェクトの作成、コンパイル、テスト、依存関係の管理などのタスクを提供するビルド ツールです。
