@@ -38,7 +38,7 @@ mix help
 mix help | wc -l
 ```
 
-## Nerves関連ののMixタスクだけに絞り込む
+## Nerves関連のMixタスクだけに絞り込む
 
 単純に`grep`したらうまくNerves関連ののMixタスクだけに絞り込めました！
 
