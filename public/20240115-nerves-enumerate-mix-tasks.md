@@ -26,9 +26,13 @@ https://elixirschool.com/ja/lessons/basics/mix
 
 ## Elixirプロジェクト内のMixタスクを列挙
 
-現在の環境で Mix が提供するすべての機能を確認するには、`mix help` を実行します。
+`mix help` を実行しることにより、現在の環境で Mix が提供するすべての機能を確認することができます。
+
+ここでは例として、[nerves_livebook](https://github.com/nerves-livebook/nerves_livebook/blob/main/README.md) プロジェクト配下で試してみます。
 
 ```bash:terminal
+cd path/to/nerves_livebook
+
 mix help
 ```
 
@@ -40,7 +44,7 @@ mix help | wc -l
 
 ## Nerves関連のMixタスクだけに絞り込む
 
-単純に`grep`したらうまくNerves関連ののMixタスクだけに絞り込めました！
+単純に`grep`したらうまくNerves関連のMixタスクだけに絞り込めました！
 
 ```bash:terminal
 mix help | grep 'mix' | grep -iE 'nerves|firmware'
