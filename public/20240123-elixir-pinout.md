@@ -1,14 +1,14 @@
 ---
 title: ElixirでRaspberry PIのピン配置を確認
 tags:
-  - RaspberryPi
   - Linux
+  - RaspberryPi
   - Elixir
   - IoT
   - Nerves
 private: false
-updated_at: ''
-id:
+updated_at: '2024-01-24T03:43:50+09:00'
+id: b08c920f841996d1cdaf
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
