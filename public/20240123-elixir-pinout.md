@@ -7,16 +7,16 @@ tags:
   - IoT
   - Nerves
 private: false
-updated_at: '2024-01-24T03:43:50+09:00'
+updated_at: "2024-01-24T03:43:50+09:00"
 id: b08c920f841996d1cdaf
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
 ---
 
-##  はじめに
+## はじめに
 
-ElixirでRaspberry PIのGPIO PIN配置を確認します。
+Elixir で Raspberry PI のピン配置を確認します。
 
 ## pinout パッケージ
 
@@ -26,9 +26,9 @@ ElixirでRaspberry PIのGPIO PIN配置を確認します。
 
 ## pinout パッケージをインストール
 
-お手元に[Elixir]の使える組み込みデバイスがない方もいらっしゃると思いますので、ここではPC上の[IEx]で[pinout パッケージ][cavocado/pinout]を試してみることにします。
+お手元に[Elixir]の使える組み込みデバイスがない方もいらっしゃると思いますので、ここでは PC 上の[IEx]で[pinout パッケージ][cavocado/pinout]を試してみることにします。
 
-PCのターミナルで[IEx]を起動します。
+PC のターミナルで[IEx]を起動します。
 
 ```bash:PCのターミナル
 iex
@@ -49,9 +49,9 @@ Mix.install([{:pinout, "~> 0.1.3"}])
 Pinout.print()
 ```
 
-おそらくPCのOSはサポート対象外なのでデバイスの検知ができないことと思いますが、[Raspberry Pi Zero W] 上で実行した場合は以下のとおり出力されます。
+おそらく PC の OS はサポート対象外なのでデバイスの検知ができないことと思いますが、[Raspberry Pi Zero W] 上で実行した場合は以下のとおり出力されます。
 
-```elixir:出力例
+```txt:出力例
 ╭------------------------╮
 |  oooooooooooooooooooo  |
 |  1ooooooooooooooooooo  |
@@ -104,7 +104,7 @@ Pinout.known_boards()
 Pinout.print("Raspberry Pi 4B")
 ```
 
-```elixir:出力例
+```txt:出力例
 ╭----------------------------------╮
 |  oooooooooooooooooooo       ╭-----╮
 |  1ooooooooooooooooooo       |     |
@@ -141,11 +141,11 @@ GPIO 0/EEPROM SDA [27] [28] GPIO 1/EEPROM SCL
 
 ## Nerves + Livebook
 
-まだ、実際の組み込みハードウェア（Raspberry Pi 等）を使ったことがない方、組み込みの経験があるけど [Elixir] や [Nerves] を使ったことがない方には[Nerves Livebook]をオススメします。
+まだ、実際の組み込みハードウェア（[Raspberry Pi] 等）を使ったことがない方、組み込みの経験があるけど [Elixir] や [Nerves] を使ったことがない方には[Nerves Livebook]をオススメします。
 
-[Nerves Livebook]を使用すると、何も構築せずに実際のハードウェアで [Nerves] プロジェクトを試すことができます。 数分以内に、Raspberry Pi や Beaglebone で Nerves を実行できるようになります。 [Livebook] でコードを実行し、ブラウザーで快適に [Nerves] チュートリアルを進めることができます。
+[Nerves Livebook]を使用すると、何も構築せずに実際のハードウェアで [Nerves] プロジェクトを試すことができます。 数分以内に、[Raspberry Pi] や [Beaglebone] で [Nerves] を実行できるようになります。 [Livebook] でコードを実行し、ブラウザーで快適に [Nerves] チュートリアルを進めることができます。
 
-有志の方々が Nerves Livebook のセットアップ方法ついてのビデオを制作してくださっています。ありがとうございます。
+有志の方々が [Nerves Livebook] のセットアップ方法ついてのビデオを制作してくださっています。ありがとうございます。
 
 https://youtu.be/-c4VJpRaIl4?si=XV26RifdxSjKog_L
 
@@ -160,7 +160,7 @@ https://youtu.be/-b5TPb_MwQE?si=nL43DmK7RNIQjOu5
 
 [![Run in Livebook](https://livebook.dev/badge/v1/blue.svg)](https://livebook.dev/run?url=https%3A%2F%2Fgithub.com%2Fcavocado%2Fpinout%2Fblob%2Fmain%2Fnotebooks%2Fbasics.livemd)
 
-## インターネットでRaspberry PIのPIN配置確認
+## インターネットで Raspberry PI の PIN 配置確認
 
 [https://pinout.xyz](https://pinout.xyz) も便利です。
 
@@ -170,7 +170,7 @@ https://pinout.xyz
 
 ## 最後に一言
 
-本記事は [闘魂Elixir #65](https://autoracex.connpass.com/event/308573/) の成果です。ありがとうございます。
+本記事は [闘魂 Elixir #65](https://autoracex.connpass.com/event/308573/) の成果です。ありがとうございます。
 
 https://autoracex.connpass.com/
 
@@ -179,6 +179,7 @@ https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 ![toukon-qiita-macbook_20230912_091808.jpg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/fd5c55ec-4fe0-8af6-59bc-bab1ef3d182b.jpeg)
 
 <!-- begin links -->
+
 [Application.app_dir/2]: https://hexdocs.pm/elixir/Application.html#app_dir/2
 [asdf]: https://asdf-vm.com/
 [bash]: https://ja.wikipedia.org/wiki/Bash
@@ -216,4 +217,5 @@ https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 [シェル]: https://ja.wikipedia.org/wiki/シェル
 [ピン配置図]: https://en.wikipedia.org/wiki/Pinout
 [対象ボード]: https://hexdocs.pm/nerves/targets.html
+
 <!-- end links -->
