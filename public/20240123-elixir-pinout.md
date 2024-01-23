@@ -18,7 +18,7 @@ ignorePublish: false
 
 [Elixir] で [Raspberry PI] のピン配置を確認します。
 
-## pinout パッケージ
+## pinout パッケージとは
 
 [pinout パッケージ][cavocado/pinout] は、[Raspberry PI] や[BeagleBone] を含む一般的な組み込みデバイスを検出し、[ピン配置図]を出力します。
 
