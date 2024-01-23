@@ -16,7 +16,7 @@ ignorePublish: false
 
 ## はじめに
 
-Elixir で Raspberry PI のピン配置を確認します。
+[Elixir] で [Raspberry PI] のピン配置を確認します。
 
 ## pinout パッケージ
 
