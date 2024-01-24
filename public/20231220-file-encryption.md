@@ -177,9 +177,9 @@ mkdir -p "$XDG_STATE_HOME"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 mkdir -p "$GNUPGHOME"
 ```
+## ファイルアクセス権
 
-
-通常のファイルアクセス権限だど、[GnuPG]に怒られます。
+通常のファイルアクセス権だど、[GnuPG]に怒られます。
 
 ```
 gpg: WARNING: unsafe permissions on homedir '/home/path/to/user/.gnupg'
@@ -195,7 +195,6 @@ chmod 700 "$GNUPGHOME"/*.d
 ```
 
 https://gist.github.com/oseme-techguy/bae2e309c084d93b75a9b25f49718f85
-
 
 ## さいごに
 
