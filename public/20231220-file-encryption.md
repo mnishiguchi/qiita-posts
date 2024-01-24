@@ -194,7 +194,7 @@ chmod 600 "$GNUPGHOME"/*
 chmod 700 "$GNUPGHOME"/*.d
 ```
 
-https://gist.github.com/oseme-techguy/bae2e309c084d93b75a9b25f49718f85
+https://gist.github.com/oseme-techguy/bae2e309c084d93b75a9b25f49718f85?permalink_comment_id=4198726#gistcomment-4198726
 
 ## さいごに
 
