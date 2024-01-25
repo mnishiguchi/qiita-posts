@@ -1,5 +1,5 @@
 ---
-title: ElixirでRaspberry PIのピン配置を確認
+title: ElixirでRaspberry Piのピン配置を確認
 tags:
   - Linux
   - RaspberryPi
@@ -16,11 +16,11 @@ ignorePublish: false
 
 ## はじめに
 
-[Elixir] で [Raspberry PI] のピン配置を確認します。
+[Elixir] で [Raspberry Pi] のピン配置を確認します。
 
 ## pinout パッケージとは
 
-[pinout パッケージ][cavocado/pinout] は、[Raspberry PI] や[BeagleBone] を含む一般的な組み込みデバイスを検出し、[ピン配置図]を出力します。
+[pinout パッケージ][cavocado/pinout] は、[Raspberry Pi] や[BeagleBone] を含む一般的な組み込みデバイスを検出し、[ピン配置図]を出力します。
 
 [pinout パッケージ][cavocado/pinout] が提供する便利な関数いくつか試してみます。
 
@@ -49,7 +49,7 @@ Mix.install([{:pinout, "~> 0.1.3"}])
 Pinout.print()
 ```
 
-おそらく PC の OS はサポート対象外なのでデバイスの検知ができないことと思いますが、[Raspberry Pi Zero W] 上で実行した場合は以下のとおり出力されます。
+おそらく PC はサポート対象外なのでデバイスの検知ができないことと思いますが、[Raspberry Pi Zero W] 上で実行した場合は以下のとおり出力されます。
 
 ```txt:出力例
 ╭------------------------╮
@@ -160,7 +160,7 @@ https://youtu.be/-b5TPb_MwQE?si=nL43DmK7RNIQjOu5
 
 [![Run in Livebook](https://livebook.dev/badge/v1/blue.svg)](https://livebook.dev/run?url=https%3A%2F%2Fgithub.com%2Fcavocado%2Fpinout%2Fblob%2Fmain%2Fnotebooks%2Fbasics.livemd)
 
-## インターネットで Raspberry PI の PIN 配置確認
+## インターネットで Raspberry Pi の PIN 配置確認
 
 [https://pinout.xyz](https://pinout.xyz) も便利です。
 
