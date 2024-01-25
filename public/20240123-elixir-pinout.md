@@ -7,7 +7,7 @@ tags:
   - IoT
   - Nerves
 private: false
-updated_at: '2024-01-25T09:59:25+09:00'
+updated_at: "2024-01-25T09:59:25+09:00"
 id: b08c920f841996d1cdaf
 organization_url_name: fukuokaex
 slide: false
@@ -160,7 +160,7 @@ https://youtu.be/-b5TPb_MwQE?si=nL43DmK7RNIQjOu5
 
 [![Run in Livebook](https://livebook.dev/badge/v1/blue.svg)](https://livebook.dev/run?url=https%3A%2F%2Fgithub.com%2Fcavocado%2Fpinout%2Fblob%2Fmain%2Fnotebooks%2Fbasics.livemd)
 
-## インターネットで Raspberry Pi の PIN 配置確認
+## インターネットで Raspberry Pi のピン配置確認
 
 [https://pinout.xyz](https://pinout.xyz) も便利です。
 
