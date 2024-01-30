@@ -160,12 +160,14 @@ gigalixir config | jq '.DATABASE_URL'
 # "postgresql://89296796-ad8c-..."
 ```
 
-grepの`-o, --only-matching`を活用してこう言うやり方もできるそうです。
+grepの`-o, --only-matching`オプションを活用してこう言うやり方ができるそうです。
 
 ```bash:ターミナル
 gigalixir config | grep -o '"DATABASE_URL": "[^"]*' | grep -o '[^"]*$'
 # postgresql://89296796-ad8c-...
 ```
+
+https://stackoverflow.com/questions/36073695/how-to-retrieve-single-value-with-grep-from-json
 
 URLの形式が決まっている感じなので、固定のところは正規表現の中で明示してもいいのかもしれません。
 
@@ -175,7 +177,7 @@ gigalixir config |
 # postgresql://89296796-ad8c-...
 ```
 
-こんなことに時間をかけるより切取・貼付をした方が早いですが、勉強になります。
+こんなことに時間をかけるより切取・貼付をした方が早いですが、勉強になります。きっとどこかで役に立つと信じています。
 
 ## 最後に一言
 
