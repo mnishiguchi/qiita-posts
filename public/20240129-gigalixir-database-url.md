@@ -1,13 +1,13 @@
 ---
 title: Elixir Phoenix Gigalixirのデータベースを削除する
 tags:
-  - elixir
-  - phoenix
-  - gigalixir
-  - database
+  - Elixir
+  - Database
+  - Phoenix
+  - Gigalixir
 private: false
-updated_at: ''
-id:
+updated_at: '2024-01-30T13:13:43+09:00'
+id: bbd218b6f136aa08cf48
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
