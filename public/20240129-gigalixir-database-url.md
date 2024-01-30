@@ -6,7 +6,7 @@ tags:
   - Phoenix
   - Gigalixir
 private: false
-updated_at: '2024-01-30T13:17:38+09:00'
+updated_at: '2024-01-30T13:23:42+09:00'
 id: bbd218b6f136aa08cf48
 organization_url_name: fukuokaex
 slide: false
