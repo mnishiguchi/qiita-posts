@@ -28,7 +28,7 @@ ignorePublish: false
 試行錯誤した結果、二つのシンプルなシェル関数ができ、満足しています。
 これらを`.bashrc`で読み込み、いつでもターミナルで使えるようにしています。
 
-###　Elixirライブラリのドキュメントを開くコマンド
+### Elixirライブラリのドキュメントを開くコマンド
 
 ElixirライブラリのドキュメントをWEBブラウザで開くコマンドです。
 
@@ -52,9 +52,11 @@ hexdocs phoenix
 hexdocs nerves
 ```
 
-###　Elixirライブラリを検索するコマンド
+### Elixirライブラリを検索するコマンド
 
-Elixirライブラリ
+[Elixir]ライブラリを検索し、結果をWEBブラウザで開くコマンドです。
+
+引数に検索キーワードを渡します。
 
 ```bash:.bashrc
 hexpm() { open "https://hex.pm/packages?search=${1:-}"; }
