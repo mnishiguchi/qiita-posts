@@ -4,7 +4,7 @@ tags:
   - Bash
   - Elixir
 private: false
-updated_at: '2024-02-03T13:01:07+09:00'
+updated_at: '2024-02-03T13:04:21+09:00'
 id: aa18ea0dcbb66bc1ecd8
 organization_url_name: fukuokaex
 slide: false
@@ -30,9 +30,9 @@ ignorePublish: false
 
 ### Elixirライブラリのドキュメントを開くコマンド
 
-[Elixir]ライブラリのドキュメントをWEBブラウザで開くコマンドです。
+ElixirライブラリのドキュメントをWEBブラウザで開くコマンドです。
 
-何も引数がない場合、[Elixir]のドキュメントを開きます。
+何も引数がない場合、Elixirのドキュメントを開きます。
 引数にライブラリ名（`mix.exs`ファイルに記述する名称）を渡すとそれのドキュメントが開きます。
 
 ```bash:.bashrc
@@ -73,10 +73,10 @@ hexdocs liveview
 
 macOS の `open` コマンドは、ターミナルからファイルやアプリを適切なアプリで開いてくれる便利なコマンドです。
 
-[Linux]にも似たようなものがありますが、コマンド名が異なるので、どちらのOSでも使えるようにするには工夫が必要です。
+Linuxにも似たようなものがありますが、コマンド名が異なるので、どちらのOSでも使えるようにするには工夫が必要です。
 
 これは一例です。 `open` コマンドが存在しない場合に、`open` という名称のエイリアスを定義しています。
-[Linux]の場合には `xdg-open` が存在するという前提で、あえてそのチェックはしていません。`xdg-open` が存在しない環境でお使いの場合は適宜コードを調整してください。
+Linuxの場合には `xdg-open` が存在するという前提で、あえてそのチェックはしていません。`xdg-open` が存在しない環境でお使いの場合は適宜コードを調整してください。
 
 ```bash:ターミナル
 # make sure the open command is available
@@ -89,12 +89,9 @@ fi
 
 ## 最後に一言
 
-今の所うまくイゴいています。便利です！
-実はLinuxで動作確認していません。後日確認します。
+今の所うまくイゴいています。実はLinuxで動作確認していません。後日確認します。
 
 本記事は [piyopiyo.ex #25：もくもく作業タイム](https://piyopiyoex.connpass.com/event/308605/) の成果です。ありがとうございます。
-
-https://piyopiyoex.connpass.com/
 
 https://autoracex.connpass.com/
 
