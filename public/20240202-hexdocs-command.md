@@ -23,16 +23,38 @@ ignorePublish: false
 
 ターミナルでコマンドを打つと、ブラウザが開き、[Elixir]のドキュメントが表示される仕組みを作る。
 
+## 環境
+
+```bash
+$ uname -a
+Darwin MBP-M1 23.2.0 Darwin Kernel Version 23.2.0: Wed Nov 15 21:53:18 PST 2023; root:xnu-10002.61.3~2/RELEASE_ARM64_T6000 arm64
+
+$ elixir --version
+Erlang/OTP 26 [erts-14.2.1] [source] [64-bit] [smp:10:10] [ds:10:10:10] [async-threads:1] [jit]
+
+Elixir 1.16.0 (compiled with Erlang/OTP 26)
+
+$ bash --version
+GNU bash, version 5.2.26(1)-release (aarch64-apple-darwin23.2.0)
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+
+This is free software; you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+```
+
 ## 結論
 
 試行錯誤した結果、二つのシンプルなシェル関数ができ、満足しています。
+
 これらを`.bashrc`で読み込み、いつでもターミナルで使えるようにしています。
 
 ### Elixirライブラリのドキュメントを開くコマンド
 
-ElixirライブラリのドキュメントをWEBブラウザで開くコマンドです。
+[Elixir]ライブラリのドキュメントをWEBブラウザで開くコマンドです。
 
-何も引数がない場合、Elixirのドキュメントを開きます。
+何も引数がない場合、[Elixir]のドキュメントを開きます。
+
 引数にライブラリ名（`mix.exs`ファイルに記述する名称）を渡すとそれのドキュメントが開きます。
 
 ```bash:.bashrc
@@ -51,6 +73,15 @@ hexdocs phoenix
 # Nerves のドキュメントをWEBブラウザで開く
 hexdocs nerves
 ```
+
+[mix hex.docs] Mixタスクをラップしただけですので、それを直接呼んでもいいと思います。
+
+また、[Mix]を使うには[Elixir]がインストールされている必要があります。
+
+https://hexdocs.pm/hex/Mix.Tasks.Hex.Docs.html
+
+[mix hex.docs]: https://hexdocs.pm/hex/Mix.Tasks.Hex.Docs.html
+
 
 ### Elixirライブラリを検索するコマンド
 
@@ -76,7 +107,7 @@ macOS の `open` コマンドは、ターミナルからファイルやアプリ
 Linuxにも似たようなものがありますが、コマンド名が異なるので、どちらのOSでも使えるようにするには工夫が必要です。
 
 これは一例です。 `open` コマンドが存在しない場合に、`open` という名称のエイリアスを定義しています。
-Linuxの場合には `xdg-open` が存在するという前提で、あえてそのチェックはしていません。`xdg-open` が存在しない環境でお使いの場合は適宜コードを調整してください。
+[Linux]の場合には `xdg-open` が存在するという前提で、あえてそのチェックはしていません。`xdg-open` が存在しない環境でお使いの場合は適宜コードを調整してください。
 
 ```bash:ターミナル
 # make sure the open command is available
@@ -89,11 +120,12 @@ fi
 
 ## 最後に一言
 
-今の所うまくイゴいています。実はLinuxで動作確認していません。後日確認します。
+今の所うまくイゴいています。
+実はLinuxで動作確認していません。後日確認します。
 
 本記事は [piyopiyo.ex #25：もくもく作業タイム](https://piyopiyoex.connpass.com/event/308605/) の成果です。ありがとうございます。
 
-https://autoracex.connpass.com/
+https://piyopiyoex.connpass.com/
 
 https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 
