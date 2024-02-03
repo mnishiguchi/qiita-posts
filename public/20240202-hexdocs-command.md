@@ -1,11 +1,11 @@
 ---
 title: いつでもElixirのドキュメントがみれるコマンドを作る
 tags:
-  - Elixir
   - Bash
+  - Elixir
 private: false
-updated_at: ''
-id:
+updated_at: '2024-02-03T12:57:07+09:00'
+id: aa18ea0dcbb66bc1ecd8
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
