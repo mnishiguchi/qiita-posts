@@ -80,9 +80,6 @@ hexdocs nerves
 
 https://hexdocs.pm/hex/Mix.Tasks.Hex.Docs.html
 
-[mix hex.docs]: https://hexdocs.pm/hex/Mix.Tasks.Hex.Docs.html
-
-
 ### Elixirライブラリを検索するコマンド
 
 [Elixir]ライブラリを検索し、結果をWEBブラウザで開くコマンドです。
@@ -104,10 +101,10 @@ hexdocs liveview
 
 macOS の `open` コマンドは、ターミナルからファイルやアプリを適切なアプリで開いてくれる便利なコマンドです。
 
-Linuxにも似たようなものがありますが、コマンド名が異なるので、どちらのOSでも使えるようにするには工夫が必要です。
+[Linux]にも似たようなものがありますが、コマンド名が異なるので、どちらのOSでも使えるようにするには工夫が必要です。
 
 これは一例です。 `open` コマンドが存在しない場合に、`open` という名称のエイリアスを定義しています。
-[Linux]の場合には `xdg-open` が存在するという前提で、あえてそのチェックはしていません。`xdg-open` が存在しない環境でお使いの場合は適宜コードを調整してください。
+[Linux]の場合には [xdg-open] が存在するという前提で、あえてそのチェックはしていません。[xdg-open] が存在しない環境でお使いの場合は適宜コードを調整してください。
 
 ```bash:ターミナル
 # make sure the open command is available
@@ -116,12 +113,14 @@ if ! command -v open &>/dev/null; then
 fi
 ```
 
+https://man.archlinux.org/man/xdg-open.1.en
+
 :tada::tada::tada:
 
 ## 最後に一言
 
 今の所うまくイゴいています。
-実はLinuxで動作確認していません。後日確認します。
+実は[Linux]で動作確認していません。後日確認します。
 
 本記事は [piyopiyo.ex #25：もくもく作業タイム](https://piyopiyoex.connpass.com/event/308605/) の成果です。ありがとうございます。
 
@@ -149,5 +148,7 @@ https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 [nerves]: https://github.com/nerves-project/nerves
 [Nerves]: https://github.com/nerves-project/nerves
 [Phoenix]: https://www.phoenixframework.org/
+[mix hex.docs]: https://hexdocs.pm/hex/Mix.Tasks.Hex.Docs.html
+[xdg-open]: https://man.archlinux.org/man/xdg-open.1.en
 
 <!-- end links -->
