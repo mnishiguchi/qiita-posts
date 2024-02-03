@@ -82,7 +82,7 @@ mix hex.docs online ecto_sql
 
 https://hexdocs.pm/hex/Mix.Tasks.Hex.Docs.html
 
-また、[Mix]を使うには[Elixir]がインストールされている必要があります。
+また、[Mix]を使うには[Elixir]が予めインストールされている必要があります。
 
 ### Elixir ライブラリを検索するコマンド
 
