@@ -94,7 +94,7 @@ fi
 
 本記事は [piyopiyo.ex #25：もくもく作業タイム](https://piyopiyoex.connpass.com/event/308605/) の成果です。ありがとうございます。
 
-https://piyopiyoex.connpass.com/event/308605/presentation/
+https://piyopiyoex.connpass.com/
 
 https://autoracex.connpass.com/
 
