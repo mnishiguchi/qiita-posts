@@ -49,9 +49,9 @@ There is NO WARRANTY, to the extent permitted by law.
 
 これらを`.bashrc`で読み込み、いつでもターミナルで使えるようにしています。
 
-### Elixirライブラリのドキュメントを開くコマンド
+### Elixir ライブラリのドキュメントを開くコマンド
 
-[Elixir]ライブラリのドキュメントをWEBブラウザで開くコマンドです。
+[Elixir]ライブラリのドキュメントを WEB ブラウザで開くコマンドです。
 
 何も引数がない場合、[Elixir]のドキュメントを開きます。
 
@@ -74,7 +74,7 @@ hexdocs phoenix
 hexdocs nerves
 ```
 
-[mix hex.docs] Mixタスクをラップしただけですので、それを直接呼んでもいいと思います。
+[mix hex.docs] Mix タスクをラップしただけですので、それを直接呼んでもいいと思います。
 
 ```bash:ターミナル
 mix hex.docs online ecto_sql
@@ -84,9 +84,9 @@ https://hexdocs.pm/hex/Mix.Tasks.Hex.Docs.html
 
 また、[Mix]を使うには[Elixir]がインストールされている必要があります。
 
-### Elixirライブラリを検索するコマンド
+### Elixir ライブラリを検索するコマンド
 
-[Elixir]ライブラリを検索し、結果をWEBブラウザで開くコマンドです。
+[Elixir]ライブラリを検索し、結果を WEB ブラウザで開くコマンドです。
 
 引数に検索キーワードを渡します。
 
@@ -104,11 +104,11 @@ hexpm liveview
 hexpm nerves_system
 ```
 
-## macOS のopenコマンド
+## macOS の open コマンド
 
 [macOS] の `open` コマンドは、ターミナルからファイル等を適切なアプリで開いてくれる便利なコマンドです。
 
-[Linux]にも似たようなものがありますが、コマンド名が異なるので、どちらのOSでも使えるようにするには工夫が必要です。
+[Linux]にも似たようなものがありますが、コマンド名が異なるので、どちらの OS でも使えるようにするには工夫が必要です。
 
 以下は一例です。 `open` コマンドが存在しない場合に、`open` という名称のエイリアスを定義しています。
 [Linux]の場合には [xdg-open] が存在するという前提で、あえてそのチェックはしていません。[xdg-open] が存在しない環境でお使いの場合は適宜コードを調整してください。
