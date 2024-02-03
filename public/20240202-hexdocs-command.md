@@ -76,9 +76,13 @@ hexdocs nerves
 
 [mix hex.docs] Mixタスクをラップしただけですので、それを直接呼んでもいいと思います。
 
-また、[Mix]を使うには[Elixir]がインストールされている必要があります。
+```bash:ターミナル
+mix hex.docs online ecto_sql
+```
 
 https://hexdocs.pm/hex/Mix.Tasks.Hex.Docs.html
+
+また、[Mix]を使うには[Elixir]がインストールされている必要があります。
 
 ### Elixirライブラリを検索するコマンド
 
@@ -93,13 +97,16 @@ hexpm() { open "https://hex.pm/packages?search=${1:-}"; }
 **使い方**
 
 ```bash:ターミナル
-# "liveview"というキーワードを含むElixirライブラリを検索し、結果をWEBブラウザで開く
-hexdocs liveview
+# "liveview"というキーワードを含むElixirライブラリを検索
+hexpm liveview
+
+# "nerves_system"というキーワードを含むElixirライブラリを検索
+hexpm nerves_system
 ```
 
 ## macOS のopenコマンド
 
-macOS の `open` コマンドは、ターミナルからファイルやアプリを適切なアプリで開いてくれる便利なコマンドです。
+[macOS] の `open` コマンドは、ターミナルからファイル等を適切なアプリで開いてくれる便利なコマンドです。
 
 [Linux]にも似たようなものがありますが、コマンド名が異なるので、どちらのOSでも使えるようにするには工夫が必要です。
 
@@ -150,5 +157,6 @@ https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 [Phoenix]: https://www.phoenixframework.org/
 [mix hex.docs]: https://hexdocs.pm/hex/Mix.Tasks.Hex.Docs.html
 [xdg-open]: https://man.archlinux.org/man/xdg-open.1.en
+[macOS]: https://en.wikipedia.org/wiki/MacOS
 
 <!-- end links -->
