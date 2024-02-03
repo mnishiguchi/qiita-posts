@@ -73,10 +73,10 @@ hexdocs liveview
 
 macOS の `open` コマンドは、ターミナルからファイルやアプリを適切なアプリで開いてくれる便利なコマンドです。
 
-Linuxにも似たようなものがありますが、コマンド名が異なるので、どちらのOSでも使えるようにするには工夫が必要です。
+[Linux]にも似たようなものがありますが、コマンド名が異なるので、どちらのOSでも使えるようにするには工夫が必要です。
 
 これは一例です。 `open` コマンドが存在しない場合に、`open` という名称のエイリアスを定義しています。
-Linuxの場合には `xdg-open` が存在するという前提で、あえてそのチェックはしていません。`xdg-open` が存在しない環境でお使いの場合は適宜コードを調整してください。
+[Linux]の場合には `xdg-open` が存在するという前提で、あえてそのチェックはしていません。`xdg-open` が存在しない環境でお使いの場合は適宜コードを調整してください。
 
 ```bash:ターミナル
 # make sure the open command is available
@@ -93,6 +93,8 @@ fi
 実はLinuxで動作確認していません。後日確認します。
 
 本記事は [piyopiyo.ex #25：もくもく作業タイム](https://piyopiyoex.connpass.com/event/308605/) の成果です。ありがとうございます。
+
+https://piyopiyoex.connpass.com/event/308605/presentation/
 
 https://autoracex.connpass.com/
 
