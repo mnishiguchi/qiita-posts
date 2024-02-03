@@ -106,7 +106,7 @@ macOS の `open` コマンドは、ターミナルからファイルやアプリ
 以下は一例です。 `open` コマンドが存在しない場合に、`open` という名称のエイリアスを定義しています。
 [Linux]の場合には [xdg-open] が存在するという前提で、あえてそのチェックはしていません。[xdg-open] が存在しない環境でお使いの場合は適宜コードを調整してください。
 
-```bash:ターミナル
+```bash:.bashrc
 # make sure the open command is available
 if ! command -v open &>/dev/null; then
   alias open='xdg-open &>/dev/null'
