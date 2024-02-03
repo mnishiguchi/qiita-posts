@@ -4,7 +4,7 @@ tags:
   - Bash
   - Elixir
 private: false
-updated_at: '2024-02-03T13:46:58+09:00'
+updated_at: '2024-02-03T13:49:58+09:00'
 id: aa18ea0dcbb66bc1ecd8
 organization_url_name: fukuokaex
 slide: false
