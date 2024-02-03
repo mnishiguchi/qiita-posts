@@ -4,7 +4,7 @@ tags:
   - Bash
   - Elixir
 private: false
-updated_at: '2024-02-03T13:04:21+09:00'
+updated_at: '2024-02-03T13:01:07+09:00'
 id: aa18ea0dcbb66bc1ecd8
 organization_url_name: fukuokaex
 slide: false
@@ -30,9 +30,9 @@ ignorePublish: false
 
 ### Elixirライブラリのドキュメントを開くコマンド
 
-ElixirライブラリのドキュメントをWEBブラウザで開くコマンドです。
+[Elixir]ライブラリのドキュメントをWEBブラウザで開くコマンドです。
 
-何も引数がない場合、Elixirのドキュメントを開きます。
+何も引数がない場合、[Elixir]のドキュメントを開きます。
 引数にライブラリ名（`mix.exs`ファイルに記述する名称）を渡すとそれのドキュメントが開きます。
 
 ```bash:.bashrc
@@ -89,7 +89,8 @@ fi
 
 ## 最後に一言
 
-今の所うまくイゴいています。実はLinuxで動作確認していません。後日確認します。
+今の所うまくイゴいています。便利です！
+実はLinuxで動作確認していません。後日確認します。
 
 本記事は [piyopiyo.ex #25：もくもく作業タイム](https://piyopiyoex.connpass.com/event/308605/) の成果です。ありがとうございます。
 
