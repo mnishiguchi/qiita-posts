@@ -80,6 +80,8 @@ https://nerves-jp.connpass.com
 - [ネットワーク インターフェイス についてのノートブック](https://livebook.dev/run?url=https%3A%2F%2Fgithub.com%2Fnerves-livebook%2Fnerves_livebook%2Fblob%2Fe33efa88c907204e299431815a13cdfd0fcbd6c0%2Fpriv%2Fsamples%2Fnetworking%2Fvintage_net.livemd)
 - [ピン配置 についてのノートブック](https://livebook.dev/run?url=https%3A%2F%2Fgithub.com%2Fcavocado%2Fpinout%2Fblob%2Fmain%2Fnotebooks%2Fbasics.livemd)
 
+https://qiita.com/search?q=elixir+nerves+livebook
+
 https://qiita.com/torifukukaiou/items/2f7c9f460fde510356e8
 
 https://qiita.com/torifukukaiou/items/dfe1577004f36b8b77d7
