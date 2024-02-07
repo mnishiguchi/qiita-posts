@@ -115,6 +115,9 @@ https://qiita.com/torifukukaiou/items/66e21a5a497ef5dbf4b2
   - ターゲットデバイスに電源を供給のため
   - USB ケーブルには見た目では分かりにくいが、色んな種類がある（充電用、データ転送用など）
   - [Raspberry Pi Zero]、[Beaglebone]、または [Raspberry Pi 4] を使用する場合は、USB ケーブルで電源とネットワークの両方に使用可能
+- LANケーブル（任意）
+  - イーサネットでターゲットに接続するため
+  - Wi-Fiが使えない環境で重宝
 
 ## ホスト PC
 
@@ -187,7 +190,7 @@ Elapsed time: 3.595 s
 
 同一のネットワーク上で複数の Nerves デバイスをご使用の場合は`http://nerves.local`の代わりに、`http://nerves-<シリアル番号の下四桁local`をお試しください。また、ファームウェアを[microSD カード]に焼くときに`NERVES_SERIAL_NUMBER`環境変数に任意のシリアルナンバーを指定することもできます。
 
-https://github.com/nerves-livebook/nerves_livebook?tab=readme-ov-file#firmware-provisioning-options
+https://github.com/nerves-livebook/nerves_livebook#firmware-provisioning-options
 
 :tada::tada::tada:
 
