@@ -1,14 +1,14 @@
 ---
 title: ElixirとNervesでRaspberry Piを氣樂に試す
 tags:
-  - RaspberryPi
   - Linux
+  - RaspberryPi
   - Elixir
   - IoT
   - Nerves
 private: false
-updated_at: ""
-id:
+updated_at: '2024-02-07T13:40:51+09:00'
+id: d2df8cac1f973204b843
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
