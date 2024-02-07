@@ -107,7 +107,6 @@ https://qiita.com/torifukukaiou/items/66e21a5a497ef5dbf4b2
 - [microSD カード]
   - [ファームウェア]を記憶
   - ターゲットデバイスに挿入
-  - 容量：16 GB 以上
   - 壊れることがあるので予備があると良い
 - SD カードリーダー
   - [Nerves] でビルドした[ファームウェア]を焼く（burn）時に使用
@@ -115,6 +114,7 @@ https://qiita.com/torifukukaiou/items/66e21a5a497ef5dbf4b2
 - USB ケーブルもしくは電源供給ケーブル
   - ターゲットデバイスに電源を供給のため
   - USB ケーブルには見た目では分かりにくいが、色んな種類がある（充電用、データ転送用など）
+  - [Raspberry Pi Zero]、[Beaglebone]、または [Raspberry Pi 4] を使用する場合は、USB ケーブルで電源とネットワークの両方に使用可能
 
 ## ホスト PC
 
@@ -173,7 +173,7 @@ Elapsed time: 3.595 s
 [microSD カード]を取り出し、ターゲットデバイスに挿入します。
 そしてデバイスの電源を入れます。
 
-Raspberry Pi Zero、Beaglebone、または Raspberry Pi 4 を使用している場合は、USB ケーブルで電源とネットワークの両方を提供できます。
+[Raspberry Pi Zero]、[Beaglebone]、または [Raspberry Pi 4] を使用している場合は、USB ケーブルで電源とネットワークの両方を提供できます。
 
 ノートブックを保存するためのデータファイルシステムを初期化するため、最初の起動はその後の起動よりも時間がかかることがあります。 特に大きな [microSD カード]で顕著です。
 
@@ -270,5 +270,5 @@ https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 [hex]: https://github.com/hexpm/hex
 [rebar]: https://github.com/erlang/rebar3
 [rebar3]: https://github.com/erlang/rebar3
-
+[Raspberry Pi Zero]: https://www.raspberrypi.com/products/raspberry-pi-zero/
 <!-- end links -->
