@@ -26,7 +26,7 @@ ignorePublish: false
 
 [Elixir]と[Nerves]で[Raspberry Pi]と聞くと一般に世の中に出回っている[Raspberry Pi]関連の情報にはあまり登場しないので、一見怖そうに見えるかもしれません。
 
-しかしながら、[Nerves]は、[オープンソース]の[自由ソフトウェア]プロジェクトであり、Nerves コアチームのメンバーが実際に本番環境で使用しているので、その知見に基づいたおススメの設定や開発環境が漏れなく付いてくるという点で大変コスパが良いと言えます。初見のプログラマーや組み込み技術者でも最低限の設定やコーディングで高度な[組み込みシステム]の構築ができてしまいます。
+しかしながら、[Nerves]は、[オープンソース]の[自由ソフトウェア]プロジェクトであり、Nerves コアチームのメンバーが実際に本番環境で使用しているので、その知見に基づいたおススメの設定や開発環境が漏れなく手に入るという点で大変コスパが良いと言えます。初見のプログラマーや組み込み技術者でも最低限の設定やコーディングで高度な[組み込みシステム]の構築ができてしまいます。
 
 また、[組み込みシステム]の構築だけに特化されているので、そこに集中して取り組めます。
 
@@ -34,7 +34,7 @@ ignorePublish: false
 
 https://hexdocs.pm/nerves/getting-started.html
 
-さらに最近は、[Nerves Livebook](https://github.com/nerves-livebook/nerves_livebook)という予めビルドされたファームウェアが公開されているので、それをダウンロードして[microSD カード]に焼くだけで簡単に氣樂に[Nerves]を樂しめるようになりました。
+さらに最近は、[Nerves Livebook](https://github.com/nerves-livebook/nerves_livebook)という予めビルドされたファームウェアが公開されているので、それをダウンロードして[microSD カード]に焼くだけで簡単に氣樂に[Nerves]を樂しめるようになりました。[Livebook] のノートブック上でコードを実際に実行しながら進められるので、ブラウザーで快適に 楽しく[Nerves] を学べます。
 
 ## Nerves（なあぶす）とは
 
@@ -44,9 +44,9 @@ https://hexdocs.pm/nerves/getting-started.html
 
 | 構成要素          | 説明                                                                                      |
 | ----------------- | ----------------------------------------------------------------------------------------- |
-| 基盤（platform）  | [Erlang 仮想マシン (BEAM)][Erlang VM]を直接起動する、最小限の [Linux]                     |
-| 枠組（framework） | 開発を効率よく行うための便利な関数を備えた [Elixir] モジュール                            |
-| 道具（tooling）   | ビルドの管理、[ファームウェア] の更新、デバイスの構成などを行うためのコマンドラインツール |
+| 基盤  | [Erlang 仮想マシン (BEAM)][Erlang VM]を直接起動する、最小限の [Linux]                     |
+| 枠組 | 開発を効率よく行うための便利な関数を備えた [Elixir] モジュール                            |
+| 道具  | ビルドの管理、[ファームウェア] の更新、デバイスの構成などを行うためのコマンドラインツール |
 
 https://www2.slideshare.net/takasehideki/elixiriotcoolnerves-236780506
 
@@ -54,7 +54,7 @@ Qiita でも検索してみてください。
 
 https://qiita.com/search?q=nerves
 
-本やビデオもあります。
+本や動画もあります。
 
 https://www.kinokuniya.co.jp/f/dsg-08-EK-1648153
 
@@ -76,15 +76,19 @@ https://nerves-jp.connpass.com
 [Nerves Livebook]を使用すると、何も構築せずに実際のハードウェアで [Nerves] プロジェクトを試すことができます。
 [Livebook] のノートブック上でコードを実際に実行しながら進められるので、ブラウザーで快適に 楽しく[Nerves] を学べます。例えば、ブラウザ上でターゲットデバイスの Wi-Fi の設定ができます。
 
-- [WiFi 設定についてのノートブック](https://github.com/nerves-livebook/nerves_livebook/blob/main/priv/samples/networking/configure_wifi.livemd)
-- [ネットワーク インターフェイス についてのノートブック](https://github.com/nerves-livebook/nerves_livebook/blob/main/priv/samples/networking/vintage_net.livemd)
+- [WiFi 設定についてのノートブック](https://livebook.dev/run?url=https%3A%2F%2Fgithub.com%2Fnerves-livebook%2Fnerves_livebook%2Fblob%2Fe33efa88c907204e299431815a13cdfd0fcbd6c0%2Fpriv%2Fsamples%2Fnetworking%2Fconfigure_wifi.livemd)
+- [ネットワーク インターフェイス についてのノートブック](https://livebook.dev/run?url=https%3A%2F%2Fgithub.com%2Fnerves-livebook%2Fnerves_livebook%2Fblob%2Fe33efa88c907204e299431815a13cdfd0fcbd6c0%2Fpriv%2Fsamples%2Fnetworking%2Fvintage_net.livemd)
 - [ピン配置 についてのノートブック](https://livebook.dev/run?url=https%3A%2F%2Fgithub.com%2Fcavocado%2Fpinout%2Fblob%2Fmain%2Fnotebooks%2Fbasics.livemd)
 
 https://qiita.com/torifukukaiou/items/2f7c9f460fde510356e8
 
-https://qiita.com/torifukukaiou/items/66e21a5a497ef5dbf4b2
+https://qiita.com/torifukukaiou/items/dfe1577004f36b8b77d7
+
+https://qiita.com/ohisama@github/items/3abb3fda6397a560085b
 
 https://qiita.com/torifukukaiou/items/66e21a5a497ef5dbf4b2
+
+https://qiita.com/torifukukaiou/items/809bac6d3445403aec5f
 
 ## 用語
 
@@ -154,14 +158,18 @@ https://github.com/nerves-livebook/nerves_livebook/releases
 
 念の為ですが、[fwup]を実行すると[microSD カード]がフォーマットされ、[microSD カード]上のすべてのデータが失われますので注意してください。
 
-環境変数`NERVES_WIFI_SSID`、`NERVES_WIFI_SSID`をセットすることにより、WiFi 認証情報も一緒に [microSD カード]に書き込んでおくことができます。
-
+```bash
+sudo fwup nerves_livebook_rpi4.fw
 ```
+
+環境変数`NERVES_WIFI_SSID`、`NERVES_WIFI_SSID`をセットすることにより、前もってWiFi 認証情報も一緒に [microSD カード]に書き込んでおくことができます。
+
+```bash
 sudo NERVES_WIFI_SSID='access_point' NERVES_WIFI_PASSPHRASE='passphrase' \
     fwup nerves_livebook_rpi4.fw
 ```
 
-```
+```bash:出力の例
 $ sudo NERVES_WIFI_SSID='access_point' NERVES_WIFI_PASSPHRASE='passphrase' fwup nerves_livebook_rpi4.fw
 Use 15.84 GB memory card found at /dev/rdisk2? [y/N] y
 Depending on your OS, you'll likely be asked to authenticate this action. Go ahead and do so.
