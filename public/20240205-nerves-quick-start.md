@@ -114,7 +114,7 @@ https://qiita.com/torifukukaiou/items/809bac6d3445403aec5f
 - SD カードリーダー
   - [ファームウェア]を焼く（burn）時に使用
   - ホスト PC に SD カードスロットがついている場合は不要
-- 電源供給ケーブル（任意）
+- 電源供給ケーブル
   - ターゲットデバイスに電源を供給
   - ない場合は USB ケーブルで代用可能
 - USB ケーブル（任意）
@@ -187,7 +187,7 @@ Elapsed time: 3.595 s
 
 [ターゲットデバイス][Nerves Target]への接続方法は複数考えられます。
 
-- [イーサネット] (Ethernet)
+- LAN ケーブル ([イーサネット])
 - USB ケーブル ([USB_On-The-Go])
 - USB to TTL シリアルケーブル ([UART])
 - Wi-Fi
@@ -221,6 +221,10 @@ https://youtu.be/qoSNsmOp2zU?si=khX9H6z2KCQZQoJa
 [nerves_system_mangopi_mq_pro]: https://github.com/nerves-project/nerves_system_mangopi_mq_pro
 
 https://github.com/nerves-livebook/nerves_livebook?tab=readme-ov-file#firmware-provisioning-options
+
+:::note info
+Wi-Fiでの接続がうまくいかない事態に備え、他の通信方法ができるよう準備しておくと良いです。
+:::
 
 ## ファームウェアを起動
 
