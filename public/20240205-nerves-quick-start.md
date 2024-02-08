@@ -226,13 +226,13 @@ https://github.com/nerves-livebook/nerves_livebook?tab=readme-ov-file#firmware-p
 Wi-Fiでの接続がうまくいかない事態に備え、他の通信方法ができるよう準備しておくと良いです。
 :::
 
+:::note info
+[USB_On-The-Go]に対応しているデバイスをご使用の場合は、USB ケーブルを電源供給とネットワークの両方に利用できます。
+:::
+
 ## ファームウェアを起動
 
 [microSD カード]をターゲットデバイスに挿入します。そしてデバイスの電源を入れます。
-
-:::note info
-[Raspberry Pi Zero]、[Beaglebone]、または [Raspberry Pi 4] を使用している場合は、USB ケーブルで電源とネットワークの両方を提供できます。
-:::
 
 :::note info
 ノートブックを保存するためのデータファイルシステムを初期化するため、最初の起動はその後の起動よりも時間がかかることがあります。 特に大きな [microSD カード]で顕著です。
