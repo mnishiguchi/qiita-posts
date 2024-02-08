@@ -105,25 +105,27 @@ https://qiita.com/torifukukaiou/items/809bac6d3445403aec5f
 
 ## 最小要件
 
-- PC (macOS、Linux、または Windows)
-  - ホスト（host）と呼ばれる
-- Linux を実行できるハードウェア
-  - ターゲット（target）と呼ばれる
+- PC (ホスト)
+  - macOS、Linux、または Windows
+- Linux を実行できるハードウェア (ターゲット)
   - [Nerves コアチームが公式にサポートしているターゲットの一覧](https://hexdocs.pm/nerves/supported-targets.html)
 - [microSD カード]
-  - [ファームウェア]を記憶
-  - ターゲットデバイスに挿入
-  - 壊れることがあるので予備があると良い
+  - ターゲットデバイスに挿入する[ファームウェア]記憶媒体
 - SD カードリーダー
-  - [Nerves] でビルドした[ファームウェア]を焼く（burn）時に使用
+  - [ファームウェア]を焼く（burn）時に使用
   - ホスト PC に SD カードスロットがついている場合は不要
-- USB ケーブルもしくは電源供給ケーブル
-  - ターゲットデバイスに電源を供給のため
-  - USB ケーブルには見た目では分かりにくいが、色んな種類がある（充電用、データ転送用など）
-  - [Raspberry Pi Zero]、[Beaglebone]、または [Raspberry Pi 4] を使用する場合は、USB ケーブルで電源とネットワークの両方に使用可能
+- 電源供給ケーブル（任意）
+  - ターゲットデバイスに電源を供給
+  - ない場合はUSB ケーブルで代用可能
+- USB ケーブル（任意）
+  - ターゲットデバイスに電源を供給
+  - [Raspberry Pi Zero]、[Raspberry Pi 4]、[Beaglebone]を使用する場合は、ネットワーク接続にも使用可能
 - LANケーブル（任意）
-  - イーサネットでターゲットに接続するため
-  - Wi-Fiが使えない環境で重宝
+  - ターゲットデバイスにネットワーク接続
+
+:::note info
+USB ケーブルには見た目では分かりにくいですが、色んな種類（充電用、データ転送用など）があります。うまくいかない場合は、ケーブルを取り替えるだけで解決する場合があります。
+:::
 
 ## ホスト PC
 
@@ -158,21 +160,11 @@ https://github.com/nerves-livebook/nerves_livebook/releases
 
 先ほどダウンロードしたファームウェアイメージの存在するディレクトリに移動し、[fwup] を使用してファームウェアを[microSD カード]に焼きます。
 
-念の為ですが、[fwup]を実行すると[microSD カード]がフォーマットされ、[microSD カード]上のすべてのデータが失われますので注意してください。
-
-```bash
-sudo fwup nerves_livebook_rpi4.fw
-```
-
-環境変数`NERVES_WIFI_SSID`、`NERVES_WIFI_SSID`をセットすることにより、前もってWiFi 認証情報も一緒に [microSD カード]に書き込んでおくことができます。
-
-```bash
-sudo NERVES_WIFI_SSID='access_point' NERVES_WIFI_PASSPHRASE='passphrase' \
-    fwup nerves_livebook_rpi4.fw
+```bash:ホストのターミナル
+fwup nerves_livebook_rpi4.fw
 ```
 
 ```bash:出力の例
-$ sudo NERVES_WIFI_SSID='access_point' NERVES_WIFI_PASSPHRASE='passphrase' fwup nerves_livebook_rpi4.fw
 Use 15.84 GB memory card found at /dev/rdisk2? [y/N] y
 Depending on your OS, you'll likely be asked to authenticate this action. Go ahead and do so.
 
@@ -181,16 +173,29 @@ Success!
 Elapsed time: 3.595 s
 ```
 
+:::note warn
+[fwup]を実行すると[microSD カード]がフォーマットされ、[microSD カード]上のすべてのデータが失われますのでご注意ください。
+:::
+
+:::note info
+環境変数`NERVES_WIFI_SSID`、`NERVES_WIFI_SSID`をセットすることにより、前もってWiFi 認証情報も一緒に [microSD カード]に書き込んでおくことができます。
+:::
+
 ## ファームウェアを起動
 
-[microSD カード]を取り出し、ターゲットデバイスに挿入します。
-そしてデバイスの電源を入れます。
+[microSD カード]を取り出し、ターゲットデバイスに挿入します。そしてデバイスの電源を入れます。
 
+:::note info
 [Raspberry Pi Zero]、[Beaglebone]、または [Raspberry Pi 4] を使用している場合は、USB ケーブルで電源とネットワークの両方を提供できます。
+:::
 
+:::note info
 ノートブックを保存するためのデータファイルシステムを初期化するため、最初の起動はその後の起動よりも時間がかかることがあります。 特に大きな [microSD カード]で顕著です。
+:::
 
+:::note info
 サポートされているほとんどのデバイスには LED が付いています。 Nerves Livebook では、ネットワークが切断されると点滅し、ネットワーク インターフェイス経由で接続できる場合は点灯に変わります。
+:::
 
 ## ブラウザで Nerves Livebook にアクセス
 
