@@ -42,11 +42,11 @@ https://hexdocs.pm/nerves/getting-started.html
 - デスクトップやサーバーシステムではなく、[組み込みシステム]向けに特化
 - 基盤（platform）、枠組（framework）、道具（tooling） の 3 要素で成り立っている
 
-| 構成要素          | 説明                                                                                      |
-| ----------------- | ----------------------------------------------------------------------------------------- |
-| 基盤  | [Erlang 仮想マシン (BEAM)][Erlang VM]を直接起動する、最小限の [Linux]                     |
-| 枠組 | 開発を効率よく行うための便利な関数を備えた [Elixir] モジュール                            |
-| 道具  | ビルドの管理、[ファームウェア] の更新、デバイスの構成などを行うためのコマンドラインツール |
+| 構成要素 | 説明                                                                                      |
+| -------- | ----------------------------------------------------------------------------------------- |
+| 基盤     | [Erlang 仮想マシン (BEAM)][Erlang VM]を直接起動する、最小限の [Linux]                     |
+| 枠組     | 開発を効率よく行うための便利な関数を備えた [Elixir] モジュール                            |
+| 道具     | ビルドの管理、[ファームウェア] の更新、デバイスの構成などを行うためのコマンドラインツール |
 
 https://www2.slideshare.net/takasehideki/elixiriotcoolnerves-236780506
 
@@ -108,7 +108,7 @@ https://qiita.com/torifukukaiou/items/809bac6d3445403aec5f
 - PC (ホスト)
   - macOS、Linux、または Windows
 - Linux を実行できるハードウェア (ターゲット)
-  - [Nerves コアチームが公式にサポートしているターゲットの一覧](https://hexdocs.pm/nerves/supported-targets.html)
+  - [Nerves コアチームが公式にサポートしているターゲットの一覧][Nerves Target]
 - [microSD カード]
   - ターゲットデバイスに挿入する[ファームウェア]記憶媒体
 - SD カードリーダー
@@ -116,12 +116,14 @@ https://qiita.com/torifukukaiou/items/809bac6d3445403aec5f
   - ホスト PC に SD カードスロットがついている場合は不要
 - 電源供給ケーブル（任意）
   - ターゲットデバイスに電源を供給
-  - ない場合はUSB ケーブルで代用可能
+  - ない場合は USB ケーブルで代用可能
 - USB ケーブル（任意）
   - ターゲットデバイスに電源を供給
   - [Raspberry Pi Zero]、[Raspberry Pi 4]、[Beaglebone]を使用する場合は、ネットワーク接続にも使用可能
-- LANケーブル（任意）
+- LAN ケーブル（任意）
   - ターゲットデバイスにネットワーク接続
+- USB to TTL シリアルケーブル（任意）
+  - 直接ターゲットデバイスとシリアル通信するのに使用
 
 :::note info
 USB ケーブルには見た目では分かりにくいですが、色んな種類（充電用、データ転送用など）があります。うまくいかない場合は、ケーブルを取り替えるだけで解決する場合があります。
@@ -178,12 +180,51 @@ Elapsed time: 3.595 s
 :::
 
 :::note info
-環境変数`NERVES_WIFI_SSID`、`NERVES_WIFI_SSID`をセットすることにより、前もってWiFi 認証情報も一緒に [microSD カード]に書き込んでおくことができます。
+環境変数`NERVES_WIFI_SSID`、`NERVES_WIFI_SSID`をセットすることにより、前もって WiFi 認証情報も一緒に [microSD カード]に書き込んでおくことができます。
 :::
+
+## ターゲットデバイスへの接続方法
+
+[ターゲットデバイス][Nerves Target]への接続方法は複数考えられます。
+
+- [イーサネット] (Ethernet)
+- USB ケーブル ([USB_On-The-Go])
+- USB to TTL シリアルケーブル ([UART])
+- Wi-Fi
+
+https://youtu.be/qoSNsmOp2zU?si=khX9H6z2KCQZQoJa
+
+お使いの[ターゲットデバイス][Nerves Target]によりサポートされている接続方法が異なります。
+
+|                           | Nerves System                                  | USB OTG | UART | Ethernet | Wi-Fi | notes                              |
+| ------------------------- | ---------------------------------------------- | ------- | ---- | -------- | ----- | ---------------------------------- |
+| [Raspberry Pi Zero]       | [rpi0][nerves_system_rpi0]                     | ✓       | ✓    | x        | x     |                                    |
+| [Raspberry Pi Zero W]     | [rpi0][nerves_system_rpi0]                     | ✓       | ✓    | x        | ✓     |                                    |
+| [Raspberry Pi Zero 2 W]   | [rpi3a][nerves_system_rpi3a]                   | ?       | ✓    | x        | ✓     |                                    |
+| [Raspberry Pi 3 Model B]  | [rpi3][nerves_system_rpi3]                     | x       | ✓    | ✓        | ✓     |                                    |
+| [Raspberry Pi 4 Model B]  | [rpi4][nerves_system_rpi4]                     | ✓       | ✓    | ✓        | ✓     |                                    |
+| [BeagleBone-based boards] | [bbb][nerves_system_bbb]                       | ✓       | ✓    | ✓        | ✓     | 機種により USB WiFi ドングルが必要 |
+| [MangoPi MQ Pro]          | [mangopi_mq_pro][nerves_system_mangopi_mq_pro] | ✓       | ✓    | x        | ✓     |                                    |
+
+[Raspberry Pi Zero]: https://www.raspberrypi.com/products/raspberry-pi-zero/
+[Raspberry Pi Zero W]: https://www.raspberrypi.com/products/raspberry-pi-zero-w/
+[Raspberry Pi Zero 2 W]: https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/
+[Raspberry Pi 3 Model B]: https://www.raspberrypi.com/products/raspberry-pi-3-model-b/
+[Raspberry Pi 4 Model B]: https://www.raspberrypi.com/products/raspberry-pi-4-model-b/
+[BeagleBone-based boards]: https://www.beagleboard.org/boards
+[MangoPi MQ Pro]: https://mangopi.org/mangopi_mqpro
+[nerves_system_rpi0]: https://github.com/nerves-project/nerves_system_rpi0
+[nerves_system_rpi3]: https://github.com/nerves-project/nerves_system_rpi3
+[nerves_system_rpi3a]: https://github.com/nerves-project/nerves_system_rpi3a
+[nerves_system_rpi4]: https://github.com/nerves-project/nerves_system_rpi4
+[nerves_system_bbb]: https://github.com/nerves-project/nerves_system_bbb
+[nerves_system_mangopi_mq_pro]: https://github.com/nerves-project/nerves_system_mangopi_mq_pro
+
+https://github.com/nerves-livebook/nerves_livebook?tab=readme-ov-file#firmware-provisioning-options
 
 ## ファームウェアを起動
 
-[microSD カード]を取り出し、ターゲットデバイスに挿入します。そしてデバイスの電源を入れます。
+[microSD カード]をターゲットデバイスに挿入します。そしてデバイスの電源を入れます。
 
 :::note info
 [Raspberry Pi Zero]、[Beaglebone]、または [Raspberry Pi 4] を使用している場合は、USB ケーブルで電源とネットワークの両方を提供できます。
@@ -211,7 +252,7 @@ https://github.com/nerves-livebook/nerves_livebook#firmware-provisioning-options
 
 ## さいごに一言
 
-本記事は [闘魂Elixir #67](https://autoracex.connpass.com/event/309615/) の成果です。ありがとうございます。
+本記事は [闘魂 Elixir #67](https://autoracex.connpass.com/event/309615/) の成果です。ありがとうございます。
 
 https://autoracex.connpass.com/
 
@@ -289,4 +330,9 @@ https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 [rebar]: https://github.com/erlang/rebar3
 [rebar3]: https://github.com/erlang/rebar3
 [Raspberry Pi Zero]: https://www.raspberrypi.com/products/raspberry-pi-zero/
+[USB_On-The-Go]: https://ja.wikipedia.org/wiki/USB_On-The-Go
+[Ethernet]: https://ja.wikipedia.org/wiki/Ethernet
+[イーサネット]: https://ja.wikipedia.org/wiki/Ethernet
+[UART]: https://ja.wikipedia.org/wiki/UART
+
 <!-- end links -->
