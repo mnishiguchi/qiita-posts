@@ -7,13 +7,12 @@ tags:
   - IoT
   - Nerves
 private: false
-updated_at: '2024-02-09T03:34:42+09:00'
+updated_at: '2024-02-09T05:45:16+09:00'
 id: d2df8cac1f973204b843
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
 ---
-
 ## はじめに
 
 [Elixir]と[Nerves]で[Raspberry Pi]を氣樂にやってみましょう！
@@ -106,27 +105,29 @@ https://qiita.com/torifukukaiou/items/809bac6d3445403aec5f
 ## 最小要件
 
 - PC (ホスト)
-  - macOS、Linux、または Windows
-- Linux を実行できるハードウェア (ターゲット)
+  - macOS、[Linux]、または Windows
+- [Linux] を実行できるハードウェア (ターゲット)
   - [Nerves コアチームが公式にサポートしているターゲットの一覧][Nerves Target]
 - [microSD カード]
   - ターゲットデバイスに挿入する[ファームウェア]記憶媒体
-- SD カードリーダー
-  - [ファームウェア]を焼く（burn）時に使用
+- [SD カードリーダー]
+  - [ファームウェア]を[microSD カード]に焼く（burn）時に使用
   - ホスト PC に SD カードスロットがついている場合は不要
 - 電源供給ケーブル
   - ターゲットデバイスに電源を供給
-  - ない場合は USB ケーブルで代用可能
-- USB ケーブル（任意）
+  - ない場合は [USB ケーブル]で代用可能
+- [USB ケーブル]（任意）
   - ターゲットデバイスに電源を供給
   - [Raspberry Pi Zero]、[Raspberry Pi 4]、[Beaglebone]を使用する場合は、ネットワーク接続にも使用可能
-- LAN ケーブル（任意）
+- [LAN ケーブル]（任意）
   - ターゲットデバイスにネットワーク接続
-- USB to TTL シリアルケーブル（任意）
+- [USB to TTL シリアルケーブル]（任意）
   - 直接ターゲットデバイスとシリアル通信するのに使用
 
 :::note info
-USB ケーブルには見た目では分かりにくいですが、色んな種類（充電用、データ転送用など）があります。うまくいかない場合は、ケーブルを取り替えるだけで解決する場合があります。
+[USB ケーブル]には見た目では分かりにくいですが、色んな種類（充電用、データ転送用など）があります。うまくいかない場合は、ケーブルを取り替えるだけで解決する場合があります。
+
+コネクタの形状も多数存在します。お使いのデバイスのコネクタに合うものを入手してください。
 :::
 
 ## ホスト PC
@@ -180,16 +181,16 @@ Elapsed time: 3.595 s
 :::
 
 :::note info
-環境変数`NERVES_WIFI_SSID`、`NERVES_WIFI_SSID`をセットすることにより、前もって WiFi 認証情報も一緒に [microSD カード]に書き込んでおくことができます。
+[環境変数`NERVES_WIFI_SSID`、`NERVES_WIFI_SSID`](https://github.com/nerves-livebook/nerves_livebook?tab=readme-ov-file#firmware-provisioning-options)をセットすることにより、前もって WiFi 認証情報も一緒に [microSD カード]に書き込んでおくことができます。
 :::
 
 ## ターゲットデバイスへの接続方法
 
 [ターゲットデバイス][Nerves Target]への接続方法は複数考えられます。
 
-- LAN ケーブル ([イーサネット])
-- USB ケーブル ([USB_On-The-Go])
-- USB to TTL シリアルケーブル ([UART])
+- [LAN ケーブル] ([イーサネット])
+- [USB ケーブル] ([USB_On-The-Go])
+- [USB to TTL シリアルケーブル] ([UART])
 - Wi-Fi
 
 https://youtu.be/qoSNsmOp2zU?si=khX9H6z2KCQZQoJa
@@ -220,10 +221,8 @@ https://youtu.be/qoSNsmOp2zU?si=khX9H6z2KCQZQoJa
 [nerves_system_bbb]: https://github.com/nerves-project/nerves_system_bbb
 [nerves_system_mangopi_mq_pro]: https://github.com/nerves-project/nerves_system_mangopi_mq_pro
 
-https://github.com/nerves-livebook/nerves_livebook?tab=readme-ov-file#firmware-provisioning-options
-
 :::note info
-Wi-Fiでの接続がうまくいかない事態に備え、他の通信方法ができるよう準備しておくと良いです。
+Wi-Fi での接続がうまくいかない事態に備え、他の通信方法ができるよう準備しておくと良いです。
 :::
 
 :::note info
@@ -248,9 +247,21 @@ Wi-Fiでの接続がうまくいかない事態に備え、他の通信方法が
 
 ![](https://github.com/nerves-livebook/nerves_livebook/blob/main/assets/livebook.jpg?raw=true)
 
-同一のネットワーク上で複数の Nerves デバイスをご使用の場合は`http://nerves.local`の代わりに、`http://nerves-<シリアル番号の下四桁local`をお試しください。また、ファームウェアを[microSD カード]に焼くときに`NERVES_SERIAL_NUMBER`環境変数に任意のシリアルナンバーを指定することもできます。
+同一のネットワーク上で複数の Nerves デバイスをご使用の場合は`http://nerves.local`の代わりに、`http://nerves-<シリアル番号の下四桁local`をお試しください。シリアル番号は、以下コマンドで入手できます。
 
-https://github.com/nerves-livebook/nerves_livebook#firmware-provisioning-options
+```bash:NervesのIEx
+cmd("boardid")
+```
+
+```bash:NervesのIEx
+Nerves.Runtime.KV.get("nerves_serial_number")
+```
+
+:::note info
+ファームウェアを[microSD カード]に焼くときに[環境変数`NERVES_SERIAL_NUMBER`](https://github.com/nerves-livebook/nerves_livebook?tab=readme-ov-file#firmware-provisioning-options)に任意のシリアルナンバーを指定することもできます。
+:::
+
+後は、[Nerves Livebook]を樂しむだけです。
 
 :tada::tada::tada:
 
@@ -338,5 +349,10 @@ https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 [Ethernet]: https://ja.wikipedia.org/wiki/Ethernet
 [イーサネット]: https://ja.wikipedia.org/wiki/Ethernet
 [UART]: https://ja.wikipedia.org/wiki/UART
+[USB]: https://ja.wikipedia.org/wiki/%E3%83%A6%E3%83%8B%E3%83%90%E3%83%BC%E3%82%B5%E3%83%AB%E3%83%BB%E3%82%B7%E3%83%AA%E3%82%A2%E3%83%AB%E3%83%BB%E3%83%90%E3%82%B9
+[USB ケーブル]: https://search.brave.com/images?q=USB+cable+for+Raspberry+Pi&source=web
+[LAN ケーブル]: https://search.brave.com/images?q=LAN%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB&source=web
+[USB to TTL シリアルケーブル]: https://search.brave.com/images?q=USB%20to%20TTL%20%E3%82%B7%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB
+[SD カードリーダー]: https://search.brave.com/images?q=SD+%E3%82%AB%E3%83%BC%E3%83%89%E3%83%AA%E3%83%BC%E3%83%80%E3%83%BC
 
 <!-- end links -->
