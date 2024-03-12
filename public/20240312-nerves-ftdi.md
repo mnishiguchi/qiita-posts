@@ -119,6 +119,10 @@ picocom /dev/tty.usb* -b 115200
 
 何も表示されない場合は、Enter を数回押してみてください。それでもだめなら RX と TX を入れ替えてみてください。
 
+`screen` コマンドの使い方は下記の記事に書かれています。
+
+https://learn.adafruit.com/adafruits-raspberry-pi-lesson-5-using-a-console-cable/test-and-configure
+
 ## さいごに一言
 
 よく考えたら過去にも似たようなメモをまとめてました。
