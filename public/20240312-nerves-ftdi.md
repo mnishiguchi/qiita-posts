@@ -199,6 +199,6 @@ https://qiita.com/torifukukaiou/items/1edb3e961acf002478fd
 [対象ボード]: https://hexdocs.pm/nerves/targets.html
 [無線 LAN]: https://ja.wikipedia.org/wiki/%E7%84%A1%E7%B7%9ALAN
 [組み込みシステム]: https://ja.wikipedia.org/wiki/%E7%B5%84%E3%81%BF%E8%BE%BC%E3%81%BF%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0
-[シリアルコンソール](https://wiki.archlinux.jp/index.php/%E3%82%B7%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%B3%E3%83%B3%E3%82%BD%E3%83%BC%E3%83%AB)
+[シリアルコンソール]: https://wiki.archlinux.jp/index.php/%E3%82%B7%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%B3%E3%83%B3%E3%82%BD%E3%83%BC%E3%83%AB
 
 <!-- end links -->
