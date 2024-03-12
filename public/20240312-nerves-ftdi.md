@@ -31,6 +31,10 @@ https://ja.wikipedia.org/wiki/シリアル通信
 
 https://qiita.com/dz_/items/277eba8cb760b81a2688
 
+https://slides.com/jasonmj/workflows-for-elixir-nerves#/6/0/0
+
+https://www.youtube.com/watch?v=qoSNsmOp2zU
+
 ## FTDI ケーブルとは
 
 - FTDI チップを内蔵した USB シリアル変換ケーブル
