@@ -7,7 +7,7 @@ tags:
   - IoT
   - Nerves
 private: false
-updated_at: '2024-03-12T19:27:08+09:00'
+updated_at: "2024-03-12T19:27:08+09:00"
 id: dc5a88e8d16a4a878248
 organization_url_name: fukuokaex
 slide: false
@@ -96,6 +96,10 @@ Raspberry Pi のピン 6、8、10 が便利です。
 | GND                  | GND                 | 6                     |
 
 [![](https://user-images.githubusercontent.com/7563926/181919087-03649fb1-b7c5-4601-bbb4-994fb07ea39e.png)](https://pinout.xyz/pinout/uart)
+
+[Elixir]で Raspberry Pi のピン配置を確認することもできます。
+
+https://qiita.com/mnishiguchi/items/b08c920f841996d1cdaf
 
 ## シリアル接続 CLI クライアントをインストール
 
