@@ -7,7 +7,7 @@ tags:
   - IoT
   - Nerves
 private: false
-updated_at: '2024-03-13T09:09:37+09:00'
+updated_at: "2024-03-13T09:09:37+09:00"
 id: dc5a88e8d16a4a878248
 organization_url_name: fukuokaex
 slide: false
@@ -21,6 +21,10 @@ ignorePublish: false
 対象デバイスと直接シリアル通信するので、メンテナンスや[ファームウェア]に異常がある場合のデバッグに有用です。ブート時のオペレーティングシステム（OS）のログも見れます。
 
 また、[Wi-Fi][無線 LAN] や [Ethernet] が使えない環境でも通信できるので便利です。
+
+## Elixir と Nerves で Raspberry Pi を氣樂に試す
+
+https://qiita.com/mnishiguchi/items/d2df8cac1f973204b843
 
 ## 電子工作におけるシリアル通信
 
