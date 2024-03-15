@@ -106,6 +106,23 @@ https://github.com/phoenixframework/phoenix/blob/ab3351a0f262b2870c3b59ebc04de41
 
 :tada::tada::tada:
 
+## 使い方
+
+これで[DaisyUI]のclassを使えるようになりました！
+
+```html
+<.input
+  field={@form[:name]}
+  placeholder="Name"
+  autocomplete="off"
+  class="input input-bordered input-secondary mr-2"
+/>
+```
+
+あとはお好みで調整してください。
+
+https://daisyui.com/components/input/
+
 ## 最後に一言
 
 本記事は [闘魂 Elixir #72](https://autoracex.connpass.com/event/312394/) の成果です。ありがとうございます。
