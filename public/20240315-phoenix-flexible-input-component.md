@@ -7,7 +7,7 @@ tags:
   - LiveView
   - daisyui
 private: false
-updated_at: '2024-03-15T09:24:04+09:00'
+updated_at: '2024-03-15T09:31:18+09:00'
 id: 7058962d35ed655e9111
 organization_url_name: fukuokaex
 slide: false
