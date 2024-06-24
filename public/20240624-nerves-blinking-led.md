@@ -1,12 +1,12 @@
 ---
-title: 'Elixir/Nerves: GenServerでブレットボード上のLEDを点滅させる'
+title: "Elixir/Nerves: GenServerでブレットボード上のLEDを点滅させる"
 tags:
   - RaspberryPi
   - Elixir
   - IoT
   - Nerves
 private: false
-updated_at: '2024-06-24T18:29:43+09:00'
+updated_at: "2024-06-24T18:29:43+09:00"
 id: ad5199c6dc19e5fc4769
 organization_url_name: null
 slide: false
@@ -126,7 +126,7 @@ defmodule BlinkServer do
 
   @impl true
   def init(opts) do
-    led_pin = Access.fetch!(led_pin)
+    led_pin = Access.fetch!(opts, :led_pin)
 
     initial_state = %{
       gpio_ref: nil,
@@ -139,7 +139,7 @@ defmodule BlinkServer do
 
   @impl true
   def handle_continue(:init_gpio, state) do
-    case LedBlink.open(led_pin) do
+    case LedBlink.open(state.led_pin) do
       {:ok, gpio_ref} ->
         new_state = %{state | gpio_ref: gpio_ref}
 
@@ -154,9 +154,9 @@ defmodule BlinkServer do
 
   @impl true
   def handle_info(:toggle_led_state, state) do
-    {:ok, new_led} = LedBlink.toggle(state.gpio_ref, state.led_state)
+    {:ok, new_led_state} = LedBlink.toggle(state.gpio_ref, state.led_state)
 
-    new_state = %{state | led: new_led}
+    new_state = %{state | led_state: new_led_state}
     Logger.debug("toggled LED: #{new_state.led_state}")
 
     Process.send_after(self(), :toggle_led_state, @run_interval_ms)
@@ -174,17 +174,21 @@ defmodule BlinkServer do
 end
 ```
 
+## 論より Run
+
 `BlinkServer` の使用方法は次のとおりです。
 
 `BlinkServer` を起動するときに、LED の繋がっている GPIO ピンを指定します。
 
-```elixir
-BlinkServer.start_link(led_pin: "GPIO17")
-```
-
 実行中の `BlinkServer` ワーカーを停止することもできます。
 
 ```elixir
+Logger.configure(level: :debug)
+
+BlinkServer.start_link(led_pin: "GPIO17")
+
+Process.sleep(10_000)
+
 BlinkServer.stop()
 ```
 
