@@ -1,12 +1,12 @@
 ---
-title: 'Elixir/Nerves: GenServerでブレットボード上のLEDを点滅させる'
+title: "Elixir/Nerves: GenServerでブレットボード上のLEDを点滅させる"
 tags:
   - RaspberryPi
   - Elixir
   - IoT
   - Nerves
 private: false
-updated_at: '2024-06-24T18:19:56+09:00'
+updated_at: "2024-06-24T18:19:56+09:00"
 id: ad5199c6dc19e5fc4769
 organization_url_name: null
 slide: false
@@ -52,13 +52,15 @@ https://youtu.be/-c4VJpRaIl4?si=XV26RifdxSjKog_L
 
 https://youtu.be/-b5TPb_MwQE?si=nL43DmK7RNIQjOu5
 
-## Blink using Circuits GPIO
+## circuits_gpio を使って LED を操作
+
+[circuits_gpio] は、[Elixir] コードで [GPIO] を制御できるようにするものです。
 
 [Nerves Livebook] には、[circuits_gpio] パッケージを使用して [GPIO] を出力として制御し、LED を点滅させる方法についての良いチュートリアル ノートブックがあります。作業に取り掛かる前に、最低限必要な電気部品と、それらの配線方法を示しています。
 
 https://github.com/nerves-livebook/nerves_livebook/blob/main/priv/samples/basics/blink.livemd
 
-## Wrapping our LED blinking logic in GenServer
+## LED 点滅ロジックを GenServer でラップ
 
 点滅を永遠に繰り返したいが、デバイスを再起動せずにある段階で停止したい場合、LED の点滅を管理する [GenServer] を用意すると便利です。
 
@@ -187,10 +189,6 @@ BlinkServer.stop()
 ```
 
 今回の `BlinkServer` の実装はシングルトンの [GenServer] です。つまり、複数の `BlinkServer` ワーカーを起動することはできません。そのため、たとえば使用する [GPIO] ピンを変更する場合は、ワーカーを停止し、異なるオプションで新しいワーカーを起動する必要があります。
-
-## circuits_gpio package
-
-[circuits_gpio] は、[Elixir] コードで [GPIO] を制御できるようにするものです。
 
 ## Wrapping up
 
