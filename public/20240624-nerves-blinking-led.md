@@ -1,12 +1,12 @@
 ---
-title: 'Elixir/Nerves: GenServerでブレットボード上のLEDを点滅させる'
+title: "Elixir/Nerves: GenServerでブレットボード上のLEDを点滅させる"
 tags:
   - RaspberryPi
   - Elixir
   - IoT
   - Nerves
 private: false
-updated_at: '2024-06-24T18:25:16+09:00'
+updated_at: "2024-06-24T18:25:16+09:00"
 id: ad5199c6dc19e5fc4769
 organization_url_name: null
 slide: false
@@ -28,7 +28,7 @@ ignorePublish: false
 
 やり方は色々考えられますが、今日は [GenServer] を使用した簡単な実装に挑戦してみたいと思います。
 
-本記事は、先週末に参加したイベントでの成果です。[Nerves] 愛好家と東京の秋葉原で買い物や L チカを楽しみました。とても楽しかったです。主催者の[myasu]さん と [nako_sleep_9h]さんに心から感謝します!
+本記事は、先週末に参加したイベントでの成果です。[Nerves] 愛好家と東京の秋葉原で買い物を楽しみ、[Nerves]を使った IoT デバイス開発について学びました。主催者の[myasu]さん と [nako_sleep_9h]さんに心から感謝します!
 
 https://piyopiyoex.connpass.com/event/317734
 
@@ -98,7 +98,7 @@ end
 
 ```elixir
 defmodule BlinkServer do
-  use [GenServer], restart: :temporary
+  use GenServer, restart: :temporary
 
   require Logger
 
@@ -115,11 +115,11 @@ defmodule BlinkServer do
 
   """
   def start_link(opts) do
-    [GenServer].start_link(__MODULE__, opts, name: __MODULE__)
+    GenServer.start_link(__MODULE__, opts, name: __MODULE__)
   end
 
   def stop() do
-    [GenServer].stop(__MODULE__)
+    GenServer.stop(__MODULE__)
   end
 
   ## Callbacks
