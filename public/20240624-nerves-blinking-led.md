@@ -1,12 +1,12 @@
 ---
-title: "Elixir/Nerves: GenServerでブレットボード上のLEDを点滅させる"
+title: 'Elixir/Nerves: GenServerでブレットボード上のLEDを点滅させる'
 tags:
   - RaspberryPi
   - Elixir
   - IoT
   - Nerves
 private: false
-updated_at: "2024-06-24T18:19:56+09:00"
+updated_at: '2024-06-24T18:25:16+09:00'
 id: ad5199c6dc19e5fc4769
 organization_url_name: null
 slide: false
