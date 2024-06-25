@@ -1,12 +1,12 @@
 ---
-title: 'Elixir/Nerves: GenServerでLivebook上の記号を点滅させる'
+title: "Elixir/Nerves: GenServerでLivebook上の記号を点滅させる"
 tags:
   - Elixir
   - Unicode
   - Nerves
   - Livebook
 private: false
-updated_at: '2024-06-25T17:55:19+09:00'
+updated_at: "2024-06-25T17:55:19+09:00"
 id: 89d50244f7ca783f686c
 organization_url_name: null
 slide: false
@@ -34,9 +34,11 @@ ignorePublish: false
 
 https://qiita.com/mnishiguchi/items/ad5199c6dc19e5fc4769
 
-早速、読者の@zacky1972 さんからお便りをいただきました。有難うございます。
+早速、読者の@zacky1972 さんから[お便り](https://qiita.com/mnishiguchi/items/ad5199c6dc19e5fc4769#comment-d299d12e174efd15650d)をいただきました。有難うございます。
 
-https://qiita.com/mnishiguchi/items/ad5199c6dc19e5fc4769#comment-d299d12e174efd15650d
+> 記事ありがとうございます！
+>
+> 本記事の拡張として，複数の LED それぞれを，異なる周期で点滅できると，たとえばリズム> マシンみたいなものを作ることができそうで楽しそうです．
 
 いただいたアイデアから着想を得て、先日書いたコードをちょこっと拡張してみました。
 
@@ -113,7 +115,7 @@ end
 
 ## GenServer
 
-```
+```elixir
 defmodule BlinkServer do
   use GenServer, restart: :temporary
 
@@ -231,7 +233,7 @@ end
 
 ## 論より Run
 
-```
+```elixir
 Logger.configure(level: :debug)
 
 led_pins = ["GPIO15", "GPIO16", "GPIO17", "GPIO18"]
