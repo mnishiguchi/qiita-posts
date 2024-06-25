@@ -1,13 +1,13 @@
 ---
-title: "Elixir/Nerves: GenServerでLivebook上の記号を点滅させる"
+title: 'Elixir/Nerves: GenServerでLivebook上の記号を点滅させる'
 tags:
-  - Livebook
   - Elixir
-  - Nerves
   - Unicode
+  - Nerves
+  - Livebook
 private: false
-updated_at: ""
-id: ""
+updated_at: '2024-06-25T17:55:19+09:00'
+id: 89d50244f7ca783f686c
 organization_url_name: null
 slide: false
 ignorePublish: false
