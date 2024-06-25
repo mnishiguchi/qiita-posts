@@ -46,7 +46,7 @@ https://qiita.com/mnishiguchi/items/ad5199c6dc19e5fc4769
 
 - 永久に点滅させるロジックを備えた [GenServer] を書く
 - [GenServer] のワーカープロセスを任意の名前で登録できるようにする
-- [ブレッドボード]上の LED の代わりに、[Livebook] 上で [Unicode] の記号を使って点滅アニメーションを描画する
+- [ブレッドボード]上の LED の代わりに、[Livebook] 上で ga の記号を使って点滅アニメーションを描画する
 
 ![fake-blinky-on-livebook 2024-06-25 at 16.37.08.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/895ca1fd-cad8-5a33-79bb-093a889f5373.gif)
 
