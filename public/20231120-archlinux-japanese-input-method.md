@@ -7,9 +7,9 @@ tags:
   - キーボード設定
   - fcitx-mozc
 private: false
-updated_at: '2023-11-21T10:20:19+09:00'
+updated_at: '2024-07-24T18:15:08+09:00'
 id: 2a1a485a72ff6289b32f
-organization_url_name: null
+organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
 ---

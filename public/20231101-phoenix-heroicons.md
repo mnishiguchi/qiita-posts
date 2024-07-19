@@ -7,9 +7,9 @@ tags:
   - tailwindcss
   - heroicons
 private: false
-updated_at: '2023-11-06T01:28:34+09:00'
+updated_at: '2024-07-24T18:15:08+09:00'
 id: 870906623a5e1c5d793c
-organization_url_name: null
+organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
 ---
