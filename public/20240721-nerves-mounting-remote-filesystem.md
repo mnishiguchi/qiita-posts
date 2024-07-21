@@ -8,7 +8,7 @@ tags:
 private: false
 updated_at: '2024-07-21T17:17:30+09:00'
 id: 0f224f3fb402811df7c1
-organization_url_name: null
+organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
 ---
@@ -64,7 +64,7 @@ https://qiita.com/search?q=nerves_livebook
 
 書き込み可能なパーティションは常に `/root` ですが、書き込み可能なパーティションを簡単に識別できるようにする目的で、シンボリックリンク`/data`が追加されることになった経緯があるようです。
 
-```bash
+```bash:Nerves
 iex(livebook@nerves-9bd5.local)6> ls "/"
 bin       boot      data      dev       etc
 lib       lib64     media     mnt       opt
@@ -72,7 +72,7 @@ proc      root      run       sbin      srv
 sys       tmp       usr       var
 ```
 
-```bash
+```bash:Nerves
 iex(livebook@nerves-9bd5.local)7> cmd "ls -l /root"
 -rw-r--r--    1 root     root         19008 Apr  1 01:29 last_shutdown.txt
 drwx------    2 root     root          3488 Apr  1 00:55 vintage_net
@@ -82,7 +82,7 @@ drwx------    3 root     root          3488 Apr  1 00:53 nerves_ssh
 0
 ```
 
-```bash
+```bash:Nerves
 iex(livebook@nerves-9bd5.local)8> cmd "ls -l /data"
 lrwxrwxrwx    1 root     root             4 Oct 21  2020 /data -> root
 0
@@ -232,7 +232,7 @@ $ echo "元氣ですかーーーーッ！！！" > /tmp/nerves-sshfs/hello.txt
 
 Nerves 側で`/root`の中身を再度確認すると新しく作ったファイルが入っています！
 
-```bash
+```bash:Nerves
 iex(livebook@nerves-9bd5.local)2> cmd "ls /root"
 hello.txt #<--- これ
 last_shutdown.txt
