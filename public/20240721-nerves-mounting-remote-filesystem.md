@@ -1,13 +1,13 @@
 ---
 title: NervesデバイスのストレージをホストのPCにマウント
 tags:
-  - SSHFS
-  - Nerves
-  - Elixir
   - Linux
+  - Elixir
+  - sshfs
+  - Nerves
 private: false
-updated_at: ""
-id: null
+updated_at: '2024-07-21T17:17:30+09:00'
+id: 0f224f3fb402811df7c1
 organization_url_name: null
 slide: false
 ignorePublish: false
