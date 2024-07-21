@@ -257,3 +257,5 @@ $ fusermount -u /tmp/nerves-sshfs
 mnishiguchi@thinkpad:~
 $ ls /tmp/nerves-sshfs/
 ```
+
+:tada::tada::tada:
