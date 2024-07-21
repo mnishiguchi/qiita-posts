@@ -6,7 +6,7 @@ tags:
   - sshfs
   - Nerves
 private: false
-updated_at: '2024-07-21T17:29:20+09:00'
+updated_at: '2024-07-21T17:33:06+09:00'
 id: 0f224f3fb402811df7c1
 organization_url_name: fukuokaex
 slide: false
