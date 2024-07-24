@@ -6,7 +6,7 @@ tags:
   - Nerves
   - Livebook
 private: false
-updated_at: '2024-06-25T18:21:15+09:00'
+updated_at: '2024-07-24T18:15:08+09:00'
 id: 89d50244f7ca783f686c
 organization_url_name: fukuokaex
 slide: false
