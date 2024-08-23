@@ -7,13 +7,14 @@ tags:
   - AdventCalendar2023
   - 闘魂
 private: false
-updated_at: '2023-09-03T06:12:00+09:00'
+updated_at: '2024-08-24T20:30:06+09:00'
 id: bc89a10b4a5e80ff0513
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
 ---
-Elixirで進捗状況を表示しながらダウンロードする方法について検討します。
+
+Elixir で進捗状況を表示しながらダウンロードする方法について検討します。
 
 [![Run in Livebook](https://livebook.dev/badge/v1/blue.svg)](https://livebook.dev/run?url=https%3A%2F%2Fgithub.com%2Fmnishiguchi%2Flivebooks%2Fblob%2Fmain%2Fnotebooks%2Fdownloader.livemd)
 
@@ -23,19 +24,37 @@ Elixirで進捗状況を表示しながらダウンロードする方法につ�
 
 ![](https://user-images.githubusercontent.com/7563926/239774301-3552fbb4-c575-4d67-b491-9dd7d3c44812.png)
 
-## Bumblebeeのコード
+## Bumblebee のコード
 
 プライベートの [Bumblebee.Utils.HTTP](https://github.com/elixir-nx/bumblebee/blob/776e57c6b6d06c0fed47afa26d8144c7c2541149/lib/bumblebee/utils/http.ex#L26) モジュールにダウンロード関連のコードがありました。Erlang の [httpc](https://www.erlang.org/doc/man/httpc.html) モジュールと [ProgressBar](https://github.com/henrik/progress_bar) パッケージを使って実装されています。
 
-ちなみに [httpc](https://www.erlang.org/doc/man/httpc.html) の使い方はElixir Forum にまとめられています。
+ちなみに [httpc](https://www.erlang.org/doc/man/httpc.html) の使い方は Elixir Forum にまとめられています。
 
 https://elixirforum.com/t/httpc-cheatsheet/50337
 
-同じように [httpc](https://www.erlang.org/doc/man/httpc.html) モジュールを使って実装しても良いのですが、個人的に日頃よく利用する [Req](https://github.com/wojtekmach/req) を使って１から実装してみようと思います。
+同じように [httpc](https://www.erlang.org/doc/man/httpc.html) モジュールを使って実装しても良いのですが、個人的に日頃よく利用する [Req](https://github.com/wojtekmach/req) を使って１から自分で実装してみようと思います。
 
-まずは、 [Req](https://github.com/wojtekmach/req) をつかって簡単なGETリクエストする方法から始めます。ここではElixir のロゴの画像データをダウンロードの対象とします。
+## 準備
 
-```elixir
+IEx を開きます。
+
+```bash:ターミナル
+iex
+```
+
+今回のデモで使用するパッケージを以下のとおりインストールします。
+
+```elixir: IEx
+Mix.install([
+  {:req, "~> 0.5.0"}, 
+  {:progress_bar, "~> 3.0.0"}, 
+  {:bumblebee, "~> 0.5.0"}
+])
+```
+
+ここでは Elixir のロゴ画像のデータをダウンロードの対象とします。
+
+```elixir:IEx
 source_url = "https://elixir-lang.org/images/logo/logo.png"
 ```
 
@@ -48,8 +67,6 @@ source_url = "https://elixir-lang.org/images/logo/logo.png"
 ![](https://camo.githubusercontent.com/372f059fb3339018c3597222f7514041259c0dc879e16dbd1079d6059147ef37/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f662e636c2e6c792f6974656d732f324e336e3434305330643253326e3337316a30472f70726f67726573735f6261722e676966)
 
 ```elixir:IEx
-Mix.install([{:progress_bar, "~> 3.0"}])
-
 {current, max} = {8, 10}
 ProgressBar.render(current, max)
 ```
@@ -70,22 +87,22 @@ ProgressBar.render(current, max)
 end)
 ```
 
-## Reqをつかって進捗表示なしにダウンロード
+## Req をつかって進捗表示なしにダウンロード
 
-まずは、 [Req](https://github.com/wojtekmach/req) をつかって進捗表示なしにダウンロードしてみます。　
+まずは、 [Req](https://github.com/wojtekmach/req) をつかって進捗表示なしにダウンロードしてみます。
 
-```elixir
-# データとしてダウンロード
+```elixir:IEx
+# バイナリデータとしてダウンロード
 <<_::binary>> = Req.get!(source_url).body
 ```
 
-ローカルファイルとして保存したい場合は `:output` オプションで保存先を指定します。
+データをローカルファイルに保存したい場合は `:into` オプションに保存先のファイルストリームを指定します。
 
-```elixir
+```elixir:IEx
 destination_path = Path.join(System.tmp_dir!(), "elixir_logo.png")
 
 # ダウンロードしてファイルに保存
-Req.get!(source_url, output: destination_path)
+Req.get!(source_url, into: File.stream!(destination_path))
 
 # ちゃんと読み込めるか検証
 File.read!(destination_path)
@@ -97,46 +114,39 @@ File.read!(destination_path)
 
 Req は 3 つの主要部分で構成されています。
 
-- Req - 高階層のAPI
-- Req.Request - 低階層のAPIとリクエスト構造体
+- Req - 高階層の API
+- Req.Request - 低階層の API とリクエスト構造体
 - Req.Steps - ひとつひとつの処理
 
 カスタマイズは比較的容易にできそうです。
 
 ## Req.Steps.run_finch/1
 
-[Req.Steps.run_finch/1](https://hexdocs.pm/req/Req.Steps.html#run_finch/1) に手を加えることにより、リクエストのロジックを変更できることがわかりました。ドキュメントにわかりにくい部分がありますが、サンプルコードを読んでみて高階層のAPIに  `:finch_request` オプションに関数を注入して [Req.Steps.run_finch/1](https://hexdocs.pm/req/Req.Steps.html#run_finch/1) ステップを入れ替えることができるようです。
+[Req.Steps.run_finch/1](https://hexdocs.pm/req/Req.Steps.html#run_finch/1) に手を加えることにより、リクエストのロジックを変更できることがわかりました。ドキュメントにわかりにくい部分がありますが、サンプルコードを読んでみて高階層の API に `:finch_request` オプションに関数を注入して [Req.Steps.run_finch/1](https://hexdocs.pm/req/Req.Steps.html#run_finch/1) ステップを入れ替えることができるようです。
 
-[Finch](https://github.com/sneako/finch) とは 初期設定の [Req](https://github.com/wojtekmach/req) が依存するHTTPクライアントだそうです。さらに [Finch](https://github.com/sneako/finch) は [Mint](https://github.com/elixir-mint/mint) と [NimblePool](https://github.com/dashbitco/nimble_pool) を使って性能を意識して実装されているそうです。
+[Finch](https://github.com/sneako/finch) とは 初期設定の [Req](https://github.com/wojtekmach/req) が依存する HTTP クライアントだそうです。さらに [Finch](https://github.com/sneako/finch) は [Mint](https://github.com/elixir-mint/mint)  と  [NimblePool](https://github.com/dashbitco/nimble_pool) を使って性能を意識して実装されているそうです。
 
-余談ですが、Elixirの関数に「闘魂」を注入する方法については以下の@torifukukaiouさんの記事がおすすめです。
+余談ですが、Elixir の関数に「闘魂」を注入する方法については以下の@torifukukaiou さんの記事がおすすめです。
 
 https://qiita.com/torifukukaiou/items/c414310cde9b7099df55
 
-## Reqをつかって進捗表示付きダウンロードしてみる
+## Req をつかって進捗表示付きダウンロードしてみる
 
 このような形になりました。ポイントをいくつかあげます。
 
 - [Req.get/2](https://hexdocs.pm/req/Req.html#get/2) に `:finch_request` オプションとしてリクエストを処理するカスタムロジック（関数）を注入します。
 - [Finch.stream/5](https://hexdocs.pm/finch/Finch.html#stream/5) でリクエストの多重化が可能です。ストリームという概念に疎いので 「[WEB+DB PRESS Vol.１２３](https://gihyo.jp/magazine/wdpress/archive/2021/vol123)」 を読み返しました。「イーチ、ニィー、サン、ぁッ ダー！！！」
-- ストリームからは3パターンのメッセージが返ってくるようです。
-    - `{:status, status}` - the status of the http response
-    - `{:headers, headers}` - the headers of the http response
-    - `{:data, data}` - a streaming section of the http body
+- ストリームからは 3 パターンのメッセージが返ってくるようです。
+  - `{:status, status}` - the status of the http response
+  - `{:headers, headers}` - the headers of the http response
+  - `{:data, data}` - a streaming section of the http body
 - 進捗表示に必要な情報はふたつ。
-    - データ全体のバイト数
-    - 受信完了したバイト数
+  - データ全体のバイト数
+  - 受信完了したバイト数
 - 進捗状況は記憶しておく必要があるので、[Req.Response](https://hexdocs.pm/req/Req.Response.html#t:t/0) の `:private` フィールドに格納し、データを受信するたびに更新します。
 
-```elixir
+```elixir:IEx
 defmodule MNishiguchi.Utils.HTTP do
-  def download(source_url, req_options \\ []) do
-    case Req.get(source_url, [finch_request: &finch_request/4] ++ req_options) do
-      {:ok, response} -> {:ok, response.body}
-      {:error, exception} -> {:error, exception}
-    end
-  end
-
   def download!(source_url, req_options \\ []) do
     Req.get!(source_url, [finch_request: &finch_request/4] ++ req_options).body
   end
@@ -144,27 +154,24 @@ defmodule MNishiguchi.Utils.HTTP do
   defp finch_request(req_request, finch_request, finch_name, finch_options) do
     acc = Req.Response.new()
 
-    case Finch.stream(finch_request, finch_name, acc, &handle_message/2, finch_options) do
+    case Finch.stream(finch_request, finch_name, acc, &handle_finch_stream/2, finch_options) do
       {:ok, response} -> {req_request, response}
       {:error, exception} -> {req_request, exception}
     end
   end
 
-  defp handle_message({:status, status}, response), do: %{response | status: status}
+  defp handle_finch_stream({:status, status}, response), do: %{response | status: status}
 
-  defp handle_message({:headers, headers}, response) do
-    total_size =
-      Enum.find_value(headers, fn
-        {"content-length", v} -> String.to_integer(v)
-        {_k, _v} -> nil
-      end)
+  defp handle_finch_stream({:headers, headers}, response) do
+    req_headers = headers |> Enum.map(fn {k, v} -> {k, List.wrap(v)} end) |> Map.new()
+    total_size = req_headers |> Map.fetch!("content-length") |> List.first() |> String.to_integer
 
     response
-    |> Map.put(:headers, headers)
+    |> Map.put(:headers, req_headers)
     |> Map.put(:private, %{total_size: total_size, downloaded_size: 0})
   end
 
-  defp handle_message({:data, data}, response) do
+  defp handle_finch_stream({:data, data}, response) do
     new_downloaded_size = response.private.downloaded_size + byte_size(data)
     ProgressBar.render(new_downloaded_size, response.private.total_size, suffix: :bytes)
 
@@ -177,8 +184,8 @@ end
 
 以上のコードを IEx でランしてみます。
 
-```elixir
-iex(5)> MNishiguchi.Utils.HTTP.download!(source_url)
+```elixir:IEx
+MNishiguchi.Utils.HTTP.download!(source_url)
 |===                                                                               |   4% (1.36/34.95 KB)
 |=======                                                                           |   8% (2.73/34.95 KB)
 |==========                                                                        |  12% (4.10/34.95 KB)
@@ -214,17 +221,19 @@ Livebook でやるともっといい感じに進捗状況が更新されるは�
 
 Bumblebee を使っているのであれば、`Bumblebee.Utils.HTTP.download/2` で同じようなことができます。ドキュメントには載ってませんが利用可能です。
 
-```elixir
+```elixir:IEx
 Bumblebee.Utils.HTTP.download(source_url, destination_path)
 ```
 
 ## Nerves Livebook
 
-せっかくいい感じのコードが書けたので Nerves Livebook に寄贈いたしました。
+せっかくいい感じのコードが書けたので Nerves Livebook に寄贈いたしました。よかったら遊んでみてください。
 
 https://github.com/livebook-dev/nerves_livebook/blob/9515bd61b4da6b30c6165b33f9a0ae56880ddc44/priv/samples/tflite.livemd
 
-## Elixirコミュニティ
+[![Run in Livebook](https://livebook.dev/badge/v1/blue.svg)](https://livebook.dev/run/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fnerves-livebook%2Fnerves_livebook%2Fa0474cccb63352d2cd2fa7e4322b51570315ae61%2Fpriv%2Fsamples%2Ftflite.livemd)
+
+## Elixir コミュニティ
 
 本記事は以下のモクモク會での成果です。みなさんから刺激と元氣をいただき、ありがとうございました。
 
