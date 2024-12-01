@@ -1,13 +1,13 @@
 ---
-title: Elixir Nerves で構築した Raspberry Pi で FTDIケーブルを使ってみる
+title: 'Nerves × Raspberry Pi: FTDIケーブルを使ったデバッグ方法'
 tags:
-  - Linux
   - RaspberryPi
   - Elixir
   - IoT
+  - USB-TTLシリアル変換
   - Nerves
 private: false
-updated_at: '2024-03-13T09:26:01+09:00'
+updated_at: '2024-12-07T13:13:47+09:00'
 id: dc5a88e8d16a4a878248
 organization_url_name: fukuokaex
 slide: false
