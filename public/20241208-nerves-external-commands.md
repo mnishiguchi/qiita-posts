@@ -5,7 +5,7 @@ tags:
   - IoT
   - Nerves
 private: false
-updated_at: '2024-12-08T19:55:17+09:00'
+updated_at: '2024-12-08T20:31:32+09:00'
 id: 2ce8385203de5434e06d
 organization_url_name: fukuokaex
 slide: false
@@ -111,16 +111,9 @@ File.cp_r!("/source_dir", "/target_dir")
 
 プロセス制御が必要な場面で活用します。SIGKILL 遅延やプロセス名の設定をカスタマイズできるため、高度な要件を持つアプリケーションに向いています。
 
-#### 実例: 高度なプロセス制御
+`Nerves.Port` を使用する場合は、`priv/port` バイナリがファームウェアに含まれている必要があります。しかしながら、このバイナリはデフォルトでは含まれておらず、NervesのIExで実行しようとしてもうまく行きません。
 
-```elixir
-Nerves.Port.cmd("ls", ["-la"], delay_to_sigkill: 5, arg0: "list_files")
-```
-
-このコードは以下を実現します:
-
-- **`delay_to_sigkill`**: SIGKILL を送信する前に 5 秒の待機を設定。
-- **`arg0`**: 外部プロセスにカスタムプロセス名 "list_files" を設定。
+実は具体的のどういうときにこれが使われるのかよくわかっていません。詳しい方がいらしたらぜひ教えてください！
 
 :::note info
 `Nerves.Port` は、内部で [MuonTrap](https://github.com/fhunleth/muontrap) から移植されたコードを一部使用しています。MuonTrap は、Nerves 環境におけるプロセス管理を強化するためのツールで、プロセス制御の柔軟性を高めるための設計がなされています。  
@@ -143,7 +136,7 @@ Nerves.Port.cmd("ls", ["-la"], delay_to_sigkill: 5, arg0: "list_files")
 <!--- begin-reusable-links --->
 
 [nerves-runtime-cmd3]: https://hexdocs.pm/nerves_runtime/Nerves.Runtime.html#cmd/3
-[nerves-port-docs]: https://hexdocs.pm/nerves_runtime/Nerves.Runtime.html#module-ports
+[nerves-port-docs]: https://hexdocs.pm/nerves/Nerves.Port.html
 [system-cmd3]: https://hexdocs.pm/elixir/System.html#cmd/3
 [file-docs]: https://hexdocs.pm/elixir/File.html
 [nerves-runtime-docs]: https://hexdocs.pm/nerves_runtime/
