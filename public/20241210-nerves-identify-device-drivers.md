@@ -7,7 +7,7 @@ tags:
   - Nerves
   - USBカメラ
 private: false
-updated_at: '2024-12-10T21:16:59+09:00'
+updated_at: '2024-12-11T18:25:48+09:00'
 id: 0d26a09ecd3e3f02f411
 organization_url_name: fukuokaex
 slide: false
@@ -79,12 +79,15 @@ dmesg | tail
 
 取得した Vendor ID と Product ID を使用して、適切なドライバを調べます。検索エンジンを利用して、以下のようにキーワードを工夫しながら調べてみてください。
 
-- デバイス名と「Linux ドライバ」を組み合わせて検索します。
-- Vendor ID と Product ID に加えて「UVC」や「カーネルモジュール」といったキーワードを加えて検索します。
+- デバイス名と「Linux ドライバ」を組み合わせて検索
+- Vendor ID と Product ID に加えて「UVC」や「カーネルモジュール」といったキーワードを加えて検索
 
 :::note
-USB カメラに関しては、大抵の場合 **UVC (USB Video Class)** 規格に準拠しており、`uvcvideo` ドライバを使用します。デバイスが UVC 準拠であるかを確認するには、[UVC Linux Device Drivers](https://www.ideasonboard.org/uvc/) を参考にしてください。
+USB カメラに関しては、大抵の場合 **UVC (USB Video Class)** 規格に準拠しており、`uvcvideo` ドライバを使用します。
+[UVC 準拠デバイス一覧](https://www.ideasonboard.org/uvc/) というものがありますが、すべてのデバイスが掲載されているわけではないようです。実際、多くの現代の USB ウェブカメラは、リストに記載されていなくても UVC 準拠であると言われています。
 :::
+
+https://qiita.com/mnishiguchi/items/ebef421efbd8d0d54fd3
 
 ### 4. ドライバのロード確認
 
