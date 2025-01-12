@@ -6,10 +6,10 @@ tags:
   - IoT
   - Nerves
 private: false
-updated_at: '2024-12-10T13:28:23+09:00'
+updated_at: '2025-01-24T09:09:30+09:00'
 id: d87563e9f8063e9f1165
 organization_url_name: fukuokaex
-slide: false
+slide: true
 ignorePublish: false
 ---
 ## はじめに
@@ -19,85 +19,88 @@ ignorePublish: false
 
 https://qiita.com/mnishiguchi/items/fcb12612e34c9eb85106
 
+---
+
 ## Nerves System 互換表 とは？
 
 各 Nerves System の対応バージョン（Elixir, OTP, Linux, etc.）を一覧で確認できる互換表です。
 
 https://hexdocs.pm/nerves/systems.html#compatibility
 
-## nerves_system_compatibility.exs スクリプト とは？
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/63b0bef0-a20c-318a-fe65-07ad87298bb0.png)
+
+---
+
+## nerves_system_compatibility.exs スクリプト とは
 
 このスクリプトの主な役割は、Nerves 公式リポジトリからシステム情報を収集し、各リリースの詳細情報（バージョン情報、依存関係など）を解析して、互換表 に必要なデータを出力形式に整形することです。このスクリプトをもちいることで、互換表 の更新が効率的に行えます
 
 https://github.com/nerves-project/nerves/blob/v1.11.2/scripts/nerves_system_compatibility.exs
 
-## データの取得元
+---
 
-以下に、[nerves_system_compatibility.exs] スクリプトが各データを収集する際の具体的な参照元を示します。
+## どうやってデータを取得しているか
 
-### **Elixir/OTP バージョン**
+[nerves_system_compatibility.exs] スクリプトがどのようにして各データを収集しているのか見てみます。
 
-#### **収集方法**
+---
 
-各 Nerves System のリポジトリでバージョンごとに `mix.exs` をチェックアウトし、`:nerves` のバージョンを解析して Elixir/OTP の互換性を確認します。
+### Nerves バージョン
 
-[get_nerves_version_for_target/2](https://github.com/nerves-project/nerves/blob/v1.11.2/scripts/nerves_system_compatibility.exs#L300) 関数を使用して、以下のように `mix.exs` からバージョン情報を取得します：
+#### 取得元
 
-```elixir
-def get_nerves_version_for_target(target, version) do
-  cd = "#{@download_dir}/nerves_system_#{target}"
-  cmd = "cd #{cd} && git checkout v#{version} > /dev/null 2>&1 && grep :nerves, mix.exs"
-  ...
-end
-```
+- 各 Nerves System リポジトリの `mix.exs` ファイル
+- 例: https://github.com/nerves-project/nerves_system_rpi5/blob/4feeb66840149189a96dcd3123a329b8122b02b5/mix.exs#L70
 
-### **Linux カーネルバージョン**
+#### 収集方法
 
-#### **収集方法**
+- [get_nerves_version_for_target/2](https://github.com/nerves-project/nerves/blob/v1.11.2/scripts/nerves_system_compatibility.exs#L300) 関数を参照
 
-[nerves_system_br] のバージョンを特定し、それに基づいてリポジトリ内の設定ファイル `nerves_defconfig` から Linux カーネルバージョンを取得します。
+---
 
-[get_linux_version_for_target/2](https://github.com/nerves-project/nerves/blob/v1.11.2/scripts/nerves_system_compatibility.exs#L435) 関数を用いてバージョン情報を取得します。
+### Linux カーネルバージョン
 
-```elixir
-def get_linux_version_for_target(target, version) do
-  cd = "#{@download_dir}/nerves_system_#{target}"
-  cmd = "cd #{cd} && git checkout v#{version} > /dev/null 2>&1 && cat nerves_defconfig"
-  ...
-end
-```
+#### 取得元
 
-### **Buildroot バージョン**
+- 各 Nerves System リポジトリの `nerves_defconfig` ファイル
+- 例: https://github.com/nerves-project/nerves_system_rpi5/blob/4feeb66840149189a96dcd3123a329b8122b02b5/nerves_defconfig#L34
 
-#### **収集方法**
+#### 収集方法
 
-[nerves_system_br] のリポジトリから `create-build.sh` スクリプトや設定ファイルを解析して Buildroot バージョンを特定します。
+- [get_linux_version_for_target/2](https://github.com/nerves-project/nerves/blob/v1.11.2/scripts/nerves_system_compatibility.exs#L435) 関数を参照
 
-[get_buildroot_version/1](https://github.com/nerves-project/nerves/blob/v1.11.2/scripts/nerves_system_compatibility.exs#L319) 関数が以下のように機能します。
+---
 
-```elixir
-def get_buildroot_version(nerves_system_br_version) do
-  cd = "#{@download_dir}/nerves_system_br"
-  cmd = "cd #{cd} && git checkout v#{nerves_system_br_version} > /dev/null 2>&1 && grep NERVES_BR_VERSION create-build.sh"
-  ...
-end
-```
+### Buildroot バージョン
 
-### **OTP バージョン**
+#### 取得元
 
-#### **収集方法**
+- [nerves_system_br]リポジトリの `create-build.sh` スクリプト
+- 例: https://github.com/nerves-project/nerves_system_br/blob/4c0bc21c221d459d9fa6d33832d6a1d9b6a3f211/create-build.sh#L16
 
-`.tool-versions` ファイル、Dockerfile、またはパッチファイルから OTP バージョンを解析します。特定の [nerves_system_br] バージョンに応じて異なる解析手法が適用されます。
+#### 収集方法
 
-以下は[get_otp_version_from_nerves_system_br_tool_versions/1](https://github.com/nerves-project/nerves/blob/v1.11.2/scripts/nerves_system_compatibility.exs#L357) 関数で`.tool-versions` ファイルから OTP バージョンを取得する例です。
+- [get_buildroot_version/1](https://github.com/nerves-project/nerves/blob/v1.11.2/scripts/nerves_system_compatibility.exs#L319) 関数を参照
 
-```elixir
-def get_otp_version_from_nerves_system_br_tool_versions(nerves_system_br_version) do
-  cd = "#{@download_dir}/nerves_system_br"
-  cmd = "cd #{cd} && git checkout v#{nerves_system_br_version} > /dev/null 2>&1 && cat .tool-versions"
-  ...
-end
-```
+---
+
+### OTP バージョン
+
+#### 取得元
+
+- [nerves_system_br]リポジトリの`.tool-versions` ファイル
+  - 例: https://github.com/nerves-project/nerves_system_br/blob/4c0bc21c221d459d9fa6d33832d6a1d9b6a3f211/.tool-versions#L1
+
+[nerves_system_br] は開発時期よって若干プロジェクトの構成が変わっているので、バージョンによって取得元を切り替えています。
+
+- Dockerfile
+- パッチファイル
+
+#### 収集方法
+
+- [get_otp_version_from_nerves_system_br_tool_versions/1](https://github.com/nerves-project/nerves/blob/v1.11.2/scripts/nerves_system_compatibility.exs#L357) 関数を参照
+
+---
 
 ## おわりに
 
