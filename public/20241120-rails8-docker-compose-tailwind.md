@@ -6,7 +6,7 @@ tags:
   - tailwindcss
   - Rails8
 private: false
-updated_at: '2024-11-20T20:44:20+09:00'
+updated_at: '2025-02-12T17:55:40+09:00'
 id: d8d9d092fa4e786a37ba
 organization_url_name: haw
 slide: false
@@ -115,16 +115,13 @@ mv Dockerfile Dockerfile.prod
 次に、`Dockerfile.dev` という名前で新しい Dockerfile を作成します。以下の内容を含む開発用 Dockerfile を作成します。
 
 ```Dockerfile
-cat <<'EOF' > Dockerfile.dev
 ARG RUBY_VERSION=3.3.5
 FROM docker.io/library/ruby:$RUBY_VERSION-slim
 
 # 必要なパッケージをインストール
 RUN apt-get update -qq && apt-get install -y \
   build-essential \
-  libpq-dev \
-  nodejs \
-  vim
+  libpq-dev
 
 # アプリケーションディレクトリを作成
 RUN mkdir /myapp
@@ -137,7 +134,6 @@ RUN bundle install
 
 # アプリケーションの全ファイルをコンテナ内にコピー
 ADD . /myapp
-EOF
 ```
 
 :::note info
