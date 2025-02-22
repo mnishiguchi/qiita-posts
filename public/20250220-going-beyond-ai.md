@@ -4,6 +4,7 @@ tags:
   - パターンマッチ
   - AI
   - 闘魂
+  - Elixir
 private: false
 updated_at: '2025-02-23T08:26:33+09:00'
 id: d67ef4e363e472411b70
@@ -28,7 +29,7 @@ ignorePublish: false
 
 ## パターンマッチと想像力
 
-私は以前から [Elixir言語のパターンマッチング](https://www.google.com/search?q=Elixirパターンマッチ) に魅力を感じていました。
+私は以前から [Elixir言語のパターンマッチ](https://www.google.com/search?q=Elixirパターンマッチ) に魅力を感じていました。
 パターンマッチングは、プログラムの中で 適切な条件に合うパターンを見つける 技術です。
 シンプルで直感的なコードを書けるようになる一方で、日常生活にも通じる概念 だと感じています。
 
