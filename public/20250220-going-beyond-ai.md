@@ -6,7 +6,7 @@ tags:
   - AI
   - 闘魂
 private: false
-updated_at: '2025-02-23T08:28:56+09:00'
+updated_at: '2025-02-23T08:54:35+09:00'
 id: d67ef4e363e472411b70
 organization_url_name: fukuokaex
 slide: false
