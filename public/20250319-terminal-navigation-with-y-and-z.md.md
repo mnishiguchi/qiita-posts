@@ -7,9 +7,9 @@ tags:
   - zoxide
   - yazi
 private: false
-updated_at: '2025-03-19T19:46:47+09:00'
+updated_at: '2025-03-19T19:49:57+09:00'
 id: c11e8e1464e926a04894
-organization_url_name: fukuokaex
+organization_url_name: haw
 slide: false
 ignorePublish: false
 ---
