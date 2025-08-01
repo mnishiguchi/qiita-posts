@@ -7,7 +7,7 @@ tags:
   - ESP32
   - AtomVM
 private: false
-updated_at: '2025-08-01T09:40:19+09:00'
+updated_at: '2025-08-01T09:47:25+09:00'
 id: 69b3c3ddea99fd46705e
 organization_url_name: null
 slide: false
