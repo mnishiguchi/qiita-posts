@@ -7,9 +7,9 @@ tags:
   - ESP32
   - AtomVM
 private: false
-updated_at: '2025-08-01T09:40:19+09:00'
+updated_at: '2025-08-01T16:21:47+09:00'
 id: 69b3c3ddea99fd46705e
-organization_url_name: null
+organization_url_name: haw
 slide: false
 ignorePublish: false
 ---
@@ -92,7 +92,7 @@ https://qiita.com/mnishiguchi/items/f709d6c211cf41078f2f
 
 ![atomvm-blinky_0835~3.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/29ca8e53-c0b9-4186-99ef-bc10bb701a02.gif)
 
-![atomvm-blinky 2025-07-31 12-08](https://gist.github.com/user-attachments/assets/4f83087e-ffed-4e83-9c1b-264c74a7179f)
+![atomvm-blinky 2025-08-01 12-04.gif](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/82804/3804612f-fdd6-482b-b45a-956fc11b374d.gif)
 
 ---
 
@@ -100,7 +100,7 @@ https://qiita.com/mnishiguchi/items/f709d6c211cf41078f2f
 
 Elixirは、幅広いIoTデバイスで活用できます。
 
-- 最小構成・省電力・リアルタイムが必要なら[AtomVM]
+- 低コスト・省電力・リアルタイムが必要なら[AtomVM]
 - OTA更新やLinuxの機能が必要なら[Nerves]
 
 みんなそれぞれいいですね！
