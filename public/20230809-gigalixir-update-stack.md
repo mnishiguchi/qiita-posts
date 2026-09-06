@@ -7,7 +7,7 @@ tags:
   - Gigalixir
   - 闘魂
 private: false
-updated_at: '2023-08-17T11:12:41+09:00'
+updated_at: '2026-07-16T20:26:03+09:00'
 id: 3b7dc3d377eeb010a70c
 organization_url_name: fukuokaex
 slide: false

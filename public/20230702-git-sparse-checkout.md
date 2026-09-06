@@ -7,7 +7,7 @@ tags:
   - Pelemay
   - 闘魂
 private: false
-updated_at: '2023-07-02T07:43:56+09:00'
+updated_at: '2026-07-16T20:26:03+09:00'
 id: 750ac1cd62abff7c38f5
 organization_url_name: fukuokaex
 slide: false
