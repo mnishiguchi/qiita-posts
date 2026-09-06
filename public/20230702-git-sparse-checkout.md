@@ -7,11 +7,13 @@ tags:
   - Pelemay
   - 闘魂
 private: false
-updated_at: '2026-07-16T20:26:03+09:00'
+updated_at: '2026-09-06T14:25:48+09:00'
 id: 750ac1cd62abff7c38f5
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: 5d4f04cf2ba0cdbc8821
+agreed_posting_campaign_term: true
 ---
 [git sparse-checkout] という技を[とある「誰得」Qiita 記事](https://qiita.com/torifukukaiou/items/cebf4729fb4368a68d8a)からまなびました。ありがとうございます。早速使ってみようと思います。
 

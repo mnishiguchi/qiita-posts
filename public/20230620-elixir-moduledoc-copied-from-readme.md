@@ -5,11 +5,13 @@ tags:
   - ドキュメント
   - Nerves
 private: false
-updated_at: '2026-07-16T20:26:03+09:00'
+updated_at: '2026-09-06T14:25:47+09:00'
 id: 0a9a11db704356e8ef35
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: 5d4f04cf2ba0cdbc8821
+agreed_posting_campaign_term: true
 ---
 [Elixir] プロジェクトを [Hex] パッケージとしてリリースする際には、ドキュメントを書かきますが、パッケージのうたい文句を書く部分が複数あり同じ内容を何箇所かに複写することもあると思います。
 

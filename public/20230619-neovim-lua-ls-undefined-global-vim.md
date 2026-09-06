@@ -6,11 +6,13 @@ tags:
   - neovim
   - LanguageServerProtocol
 private: false
-updated_at: '2026-07-16T20:26:03+09:00'
+updated_at: '2026-09-06T14:25:48+09:00'
 id: 03863db76e1ed1431c50
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: 5d4f04cf2ba0cdbc8821
+agreed_posting_campaign_term: true
 ---
 先日、[Neovim] のプラグインの設定をアップデートしている時にひとつ問題に出会しました。[Lua 言語サーバー][Lua language server] が出してくれる診断結果メッセージは、通常はうっかりミスを防ぐのに便利なのですが、なかには許容できる警告もあります。その一つが、「undefined global vim」という警告です。この警告を出ないようにする具体的な方法がなかなかネット検索では見つからず苦労しました。需要があるのかどうか知りませんが、忘れないうちにメモします。
 
