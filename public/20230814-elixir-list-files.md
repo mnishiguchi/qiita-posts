@@ -11,6 +11,8 @@ id: 968755b2ef712a42888d
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [Elixir]でディレクトリ内のファイルを列挙する方法について調べました。

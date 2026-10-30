@@ -12,6 +12,8 @@ id: 34cb9787894024187625
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 ## はじめに

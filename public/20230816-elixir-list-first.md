@@ -12,6 +12,8 @@ id: baabb4ec0636db9f27a6
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [Elixir]でListの最初の要素を取得する方法についていくつか考えてみました。一見初歩中の初歩のように見えますが、実は複数のやり方があり、その使い分けがエンジニアとしての腕の見せどころにもなりえます。

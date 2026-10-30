@@ -12,6 +12,8 @@ id: e7c96c6caae15f16fbbf
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 [English version](https://dev.to/mnishiguchi/bringing-open-jtalk-to-elixirnerves-make-your-pi-speak-japanese-ml3)
 

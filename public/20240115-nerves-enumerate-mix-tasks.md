@@ -12,6 +12,8 @@ id: fc3d287d8c6dcd3f5ddb
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 Nerves関連のMixタスクを列挙する方法を考えてみます。

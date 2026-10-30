@@ -11,6 +11,8 @@ id: d8d9d092fa4e786a37ba
 organization_url_name: haw
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 [daisyUI]: https://daisyui.com
 [Tailwind CSS]: https://tailwindcss.com

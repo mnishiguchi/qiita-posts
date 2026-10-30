@@ -7,11 +7,13 @@ tags:
   - Gigalixir
   - 闘魂
 private: false
-updated_at: '2026-07-16T20:26:03+09:00'
+updated_at: '2026-09-06T14:25:48+09:00'
 id: 3b7dc3d377eeb010a70c
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: e9f582bec72278130942
+agreed_posting_campaign_term: true
 ---
 
 かなり前に[Gigalixir]にデプロイした[Phoenix]アプリが長い間ほったらかしになっていたので、久しぶりにメンテナンスをしました。

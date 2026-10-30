@@ -11,6 +11,8 @@ id: 833a6e14511f084438d1
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 本記事は[「Elixir Advent Calendar 2020」](https://qiita.com/advent-calendar/2020/elixir)の14日目です。
 

@@ -11,6 +11,8 @@ id: bbd218b6f136aa08cf48
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 何ヶ月か前にあるちょっとした[Phoenix]アプリのコードを更新した時にうっかり本番データベースの状態を考慮せずに

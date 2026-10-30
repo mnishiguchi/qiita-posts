@@ -11,6 +11,8 @@ id: de4741551637d61867e1
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [Xfce]デスクトップ環境がシンプルで動作が早いので気に入っており、特に大きなカスタマイズをせずに使っています。

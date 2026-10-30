@@ -11,6 +11,8 @@ id: e5b61ec702d21165b079
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [Arch Linux] に [Docker] をインストールします。

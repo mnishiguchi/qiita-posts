@@ -12,6 +12,8 @@ id: aa198ced2a516b67341d
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 [Git] のコミットメッセージの書き方には特に制約もなく、自由に好きなように書けます。しかしながら、伝えたいことが中々うまくまとまらなかったり、適当な[コミット]ばかりしているとのちに履歴が読みにくくなったりします。ある程度の規約を設けると仕事が捗るかもしれません。
 

@@ -12,6 +12,8 @@ id: ea5b5d13a6b2c1bcfaf5
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 Linux マシンの US キーボードの CapsLock を Ctrl に変更する方法を調べました。いろんなやり方があるようです。

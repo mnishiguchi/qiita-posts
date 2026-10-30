@@ -12,6 +12,8 @@ id: 68fb2869110bc823e595
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 [asdf]は複数のプログラムの複数のバージョンを管理できて便利です。必要な時にひとつひとつインストールするのは別に苦にならないと思いますが、まっさらな[パーソナルコンピュータ]（PC）や[仮想機械]（VM）の設定を行う時には必要なプログラムを一氣にまとめてインストールしたくなります。
 

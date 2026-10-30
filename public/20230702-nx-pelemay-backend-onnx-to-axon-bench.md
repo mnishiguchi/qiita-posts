@@ -12,6 +12,8 @@ id: 96bccd30d211e9f88bc3
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 組み込みソフトウェアの有識者や有志の集う高知組み込み会 #6 (2023/06/07 18:00〜) にリモートで参加させていただきました。今回は「[FPGA]と[半導体]」という興味深い話が聞けました。日本語環境でこういった最先端技術の教育を受けられることは大変ありがたいです。ありがとうございます。

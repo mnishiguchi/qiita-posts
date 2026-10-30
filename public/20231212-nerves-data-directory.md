@@ -12,6 +12,8 @@ id: 39847da8df3873fec8c9
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 ## 読み込み専用ファイルシステム[SquashFS]

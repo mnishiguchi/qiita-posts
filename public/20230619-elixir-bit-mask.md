@@ -12,6 +12,8 @@ id: 1e0a1dd8de64dbb95d62
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 C言語の勉強をしていたら、ビット演算が出てきました。[Elixir]でもやってみようと思います。
 

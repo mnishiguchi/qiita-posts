@@ -12,6 +12,8 @@ id: 122249b6c27391f03d82
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [Arch Linux] のマシンにプログラミング言語 [Elixir] をインストールします。

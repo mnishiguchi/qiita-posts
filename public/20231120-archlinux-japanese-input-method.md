@@ -12,6 +12,8 @@ id: 2a1a485a72ff6289b32f
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [ArchLinux] のマシンで日本語入力できるようにします。

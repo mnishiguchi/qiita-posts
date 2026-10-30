@@ -12,6 +12,8 @@ id: 7058962d35ed655e9111
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [Phoenix] 1.7 で 導入された　`CoreComponent` モジュールに [input 関数コンポーネント]があります。[mix phx.new] で[Phoenix] アプリを生成してすぐに使え、いい感じに[input 要素]がスタイリングされて便利です。

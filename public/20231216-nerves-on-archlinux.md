@@ -12,6 +12,8 @@ id: 87b1d42f87d9931d6df5
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [Arch Linux]で[Nerves]のファームウエアを公式ソースコードからビルドしてみようと思います。

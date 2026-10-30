@@ -12,6 +12,8 @@ id: 206961699345ee8cf528
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [Nerves コアチームが公式サポートする Nerves システム](https://github.com/nerves-project/nerves#hardware)をビルドする時は、通常は[取扱説明書](https://hexdocs.pm/nerves/getting-started.html#creating-a-new-nerves-app)の通りの手順でを利用することが多いと思います。自分のNervesプロジェクトの依存性リストにターゲットデバイスに対応するパッケージを追加するだけで自動的に必要なツールやプログラム、設定等をダウンロードしてくれます。

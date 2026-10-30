@@ -11,6 +11,8 @@ id: 90c36bd7ad4601f6b8c8
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [Elixir]の[File]関連の関数の多くは[Path.t]型の値を引数にとります。しかしながら、サンプルコード見ると全て`"mix.exs"`のようになんの変哲もない普通の文字列でパスが表現されています。[Path.t]型とは一体何なのか気になります。

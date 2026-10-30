@@ -10,6 +10,8 @@ id: 18ff80c0cb8269ff6dd8
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 今まで[tmux]の見た目は、ほぼデフォルトのままでやってきました。そろそろ **自分らしさ** を出していこうと思います。

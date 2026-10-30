@@ -12,6 +12,8 @@ id: 5a969a821d9ad32b940b
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [Elixir]言語を用いてブログ記事の[マークダウン][wiki Markdown]からfront matter（YAML形式のメタ情報ブロック）の部分だけ取り出します。

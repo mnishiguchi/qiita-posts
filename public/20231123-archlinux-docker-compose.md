@@ -12,6 +12,8 @@ id: 62744d09ce9a8a2d109c
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [Arch Linux] に [Docker Compose] をインストールします。

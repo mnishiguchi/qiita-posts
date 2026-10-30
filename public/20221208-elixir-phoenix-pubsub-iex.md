@@ -12,6 +12,8 @@ id: 73fc5c088d0f933bcf05
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 [Phoenix]アプリで[phoenix_pubsub]を用いて[メッセージを出版・購読するパターン][出版-購読型モデル]がよく見られます。
 

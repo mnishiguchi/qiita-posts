@@ -11,6 +11,8 @@ id: 89d50244f7ca783f686c
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [Kino]: https://hexdocs.pm/kino/Kino.html

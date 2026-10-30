@@ -12,6 +12,8 @@ id: 425a7e55f05a7ab6359b
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 [mix phx.new] の代わりに使える [phx-docker-compose-new] というスクリプトを書いてみました。
 

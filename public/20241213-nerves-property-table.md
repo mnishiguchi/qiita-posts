@@ -9,6 +9,8 @@ id: 98d3b0c7f06584333059
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [Nerves](https://www.nerves-project.org/) を使った開発を進めると、状態管理やイベント通知を効率的に行いたいと感じる場面が多々あります。そこで便利なのが [`PropertyTable`](https://github.com/nerves-project/property_table) です。

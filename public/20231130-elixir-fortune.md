@@ -11,6 +11,8 @@ id: b3364f01d18698a2dec8
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [Unix系]オペレーティングシステム(OS)には[fortune]というプログラムがあります。引用句データベースからランダムに取り出して表示するだけのシンプルなプログラムです。

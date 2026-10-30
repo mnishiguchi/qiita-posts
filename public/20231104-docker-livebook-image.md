@@ -12,6 +12,8 @@ id: 93fca196918f911b3c2d
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [Elixir]製のノートブックツール [Livebook] の最新版 [Docker] イメージはどこで入手できるのでしょうか。

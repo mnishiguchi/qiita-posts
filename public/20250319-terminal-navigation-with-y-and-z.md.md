@@ -12,6 +12,8 @@ id: c11e8e1464e926a04894
 organization_url_name: haw
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [zoxide]: https://github.com/ajeetdsouza/zoxide

@@ -11,6 +11,8 @@ id: e5815670297796aba784
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 [Nervesチーム][Nerves] がどのように開発を進めているのか、どのように [Hex] パッケージをリリースしているのかを知るために、リポジトリをざーっと観察してみました。あくまで個人のメモです。[Nervesチーム][Nerves] の見解ではありません。
 

@@ -12,6 +12,8 @@ id: 870906623a5e1c5d793c
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [Phoenix] (関数型プログラミング言語 [Elixir] で書かれた Web 開発フレームワーク) で [heroicons] を使ってみます。

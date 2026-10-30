@@ -10,6 +10,8 @@ id: 210453c5778769df369a
 organization_url_name: fukuokaex
 slide: false
 ignorePublish: false
+posting_campaign_uuid: null
+agreed_posting_campaign_term: false
 ---
 
 [tmux]でウインドウ（窓）を複数のペイン（窓ガラス）に分割している時に、初期設定のままだとどれがアクティブなのかわかりにくいです。
